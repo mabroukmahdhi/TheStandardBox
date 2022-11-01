@@ -11,7 +11,7 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class InvalidEntityReferenceException : Xeption
     {
-        public InvalidEntityReferenceException(string modelName, Exception innerException)
-            : base(message: $"Invalid {modelName} reference error occurred.", innerException) { }
+        public InvalidEntityReferenceException(string entityName, Exception innerException)
+            : base(message: $"Invalid {entityName} reference error occurred.", innerException) { }
     }
 }

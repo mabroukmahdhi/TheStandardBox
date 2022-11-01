@@ -10,8 +10,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class EntityDependencyValidationException : Xeption
     {
-        public EntityDependencyValidationException(string modelName, Xeption innerException)
-            : base(message: $"{modelName} dependency validation occurred, please try again.", innerException)
+        public EntityDependencyValidationException(string entityName, Xeption innerException)
+            : base(message: $"{entityName} dependency validation occurred, please try again.", innerException)
         { }
     }
 }

@@ -10,8 +10,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class InvalidEntityException : Xeption
     {
-        public InvalidEntityException(string modelName)
-            : base(message: $"Invalid {modelName}. Please correct the errors and try again.")
+        public InvalidEntityException(string entityName)
+            : base(message: $"Invalid {entityName}. Please correct the errors and try again.")
         { }
     }
 }

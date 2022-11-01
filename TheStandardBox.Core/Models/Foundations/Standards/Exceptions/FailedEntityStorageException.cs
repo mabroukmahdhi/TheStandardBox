@@ -11,8 +11,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class FailedEntityStorageException : Xeption
     {
-        public FailedEntityStorageException(string modelName, Exception innerException)
-            : base(message: $"Failed {modelName} storage error occurred, contact support.", innerException)
+        public FailedEntityStorageException(string entityName, Exception innerException)
+            : base(message: $"Failed {entityName} storage error occurred, contact support.", innerException)
         { }
     }
 }

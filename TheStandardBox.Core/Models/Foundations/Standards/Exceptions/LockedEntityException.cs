@@ -11,8 +11,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class LockedEntityException : Xeption
     {
-        public LockedEntityException(string modelName, Exception innerException)
-            : base(message: $"Locked {modelName} record exception, please try again later", innerException)
+        public LockedEntityException(string entityName, Exception innerException)
+            : base(message: $"Locked {entityName} record exception, please try again later", innerException)
         {
         }
     }

@@ -11,8 +11,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class FailedEntityServiceException : Xeption
     {
-        public FailedEntityServiceException(string modelName, Exception innerException)
-            : base(message: $"Failed {modelName} service occurred, please contact support", innerException)
+        public FailedEntityServiceException(string entityName, Exception innerException)
+            : base(message: $"Failed {entityName} service occurred, please contact support", innerException)
         { }
     }
 }

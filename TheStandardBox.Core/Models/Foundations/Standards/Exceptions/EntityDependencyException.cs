@@ -10,8 +10,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class EntityDependencyException : Xeption
     {
-        public EntityDependencyException(string modelName, Xeption innerException) :
-            base(message: $"{modelName} dependency error occurred, contact support.", innerException)
+        public EntityDependencyException(string entityName, Xeption innerException) :
+            base(message: $"{entityName} dependency error occurred, contact support.", innerException)
         { }
     }
 }

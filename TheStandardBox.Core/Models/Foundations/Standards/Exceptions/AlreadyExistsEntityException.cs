@@ -11,8 +11,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class AlreadyExistsEntityException : Xeption
     {
-        public AlreadyExistsEntityException(string modelName, Exception innerException)
-            : base(message: $"{modelName} with the same Id already exists.", innerException)
+        public AlreadyExistsEntityException(string entityName, Exception innerException)
+            : base(message: $"{entityName} with the same Id already exists.", innerException)
         { }
     }
 }

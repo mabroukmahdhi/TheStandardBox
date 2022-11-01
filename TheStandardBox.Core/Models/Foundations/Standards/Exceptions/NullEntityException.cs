@@ -10,8 +10,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class NullEntityException : Xeption
     {
-        public NullEntityException(string modelName)
-            : base(message: $"{modelName} is null.")
+        public NullEntityException(string entityName)
+            : base(message: $"{entityName} is null.")
         { }
     }
 }

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheStandardBox.Core", "TheS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3FA9A0E1-DC09-4F54-AD55-7DFA9C7E3078}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheStandardBox.Data", "TheStandardBox.Data\TheStandardBox.Data.csproj", "{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheStandardBox.Data", "TheStandardBox.Data\TheStandardBox.Data.csproj", "{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheStandardBox.Data.Tests.Unit", "TheStandardBox.Data.Tests.Unit\TheStandardBox.Data.Tests.Unit.csproj", "{51BD5420-04D2-41CB-AC0F-B914FDAF0315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +25,17 @@ Global
 		{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0} = {3FA9A0E1-DC09-4F54-AD55-7DFA9C7E3078}
+		{51BD5420-04D2-41CB-AC0F-B914FDAF0315} = {3FA9A0E1-DC09-4F54-AD55-7DFA9C7E3078}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1E92B11-688C-44BB-931D-219A5A42A6D6}

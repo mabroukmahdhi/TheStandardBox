@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Title>TheStandard Box Core Library</Title>
+    <Authors>Mabrouk Mahdhi</Authors>
+    <Description>A .NET Library for essential code according to The Standard</Description>
+    <Copyright>Copyright (c) 2022 Mabrouk Mahdhi</Copyright>
+    <PackageProjectUrl>https://github.com/mabroukmahdhi/TheStandardBox</PackageProjectUrl>
+    <PackageIcon>ic_box.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/mabroukmahdhi/TheStandardBox</RepositoryUrl>
+    <PackageTags>TheStandard .NET</PackageTags>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\ic_box.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xeption" Version="2.5.0" />
+  </ItemGroup>
+
+</Project>

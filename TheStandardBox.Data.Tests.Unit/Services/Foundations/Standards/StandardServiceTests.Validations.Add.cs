@@ -150,7 +150,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
         }
 
         [Theory]
-        [MemberData(nameof(MinutesBeforeOrAfter))]
+        [MemberData(nameof(GetMinutesBeforeOrAfter))]
         public virtual async Task ShouldThrowValidationExceptionOnAddIfCreatedDateIsNotRecentAndLogItAsync(
             int minutesBeforeOrAfter)
         {

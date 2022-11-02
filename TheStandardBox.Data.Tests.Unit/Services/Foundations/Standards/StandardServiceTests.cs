@@ -56,10 +56,14 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
         protected virtual string GetRandomMessage() =>
             new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
-        protected virtual TheoryData MinutesBeforeOrAfter()
+
+        public static TheoryData GetMinutesBeforeOrAfter()
         {
-            int randomNumber = GetRandomNumber();
-            int randomNegativeNumber = GetRandomNegativeNumber();
+            int randomNumber = 
+                new IntRange(min: 2, max: 10).GetValue();
+
+            int randomNegativeNumber = 
+                -1 * new IntRange(min: 2, max: 10).GetValue();
 
             return new TheoryData<int>
             {

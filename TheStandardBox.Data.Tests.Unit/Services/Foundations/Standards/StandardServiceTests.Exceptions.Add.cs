@@ -117,7 +117,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
         }
 
         [Fact]
-        public async void ShouldThrowValidationExceptionOnAddIfReferenceErrorOccursAndLogItAsync()
+        public virtual async void ShouldThrowValidationExceptionOnAddIfReferenceErrorOccursAndLogItAsync()
         {
             // given
             TEntity someEntity = CreateRandomEntity();

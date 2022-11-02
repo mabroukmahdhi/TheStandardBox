@@ -56,12 +56,12 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             return entity;
         }
 
-        public IQueryable<TEntity> SelectAllEntities() => this.Set<TEntity>();
+        public virtual IQueryable<TEntity> SelectAllEntities() => this.Set<TEntity>();
 
-        public async ValueTask<TEntity> SelectEntityByIdAsync(params object[] entityIds) =>
+        public virtual async ValueTask<TEntity> SelectEntityByIdAsync(params object[] entityIds) =>
             await this.FindAsync<TEntity>(entityIds);
 
-        public async ValueTask<TEntity> UpdateEntityAsync(TEntity entity)
+        public virtual async ValueTask<TEntity> UpdateEntityAsync(TEntity entity)
         {
             this.Entry(entity).State = EntityState.Modified;
             await this.SaveChangesAsync();
@@ -69,7 +69,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             return entity;
         }
 
-        public async ValueTask<TEntity> DeleteEntityAsync(TEntity entity)
+        public virtual async ValueTask<TEntity> DeleteEntityAsync(TEntity entity)
         {
             this.Entry(entity).State = EntityState.Deleted;
             await this.SaveChangesAsync();

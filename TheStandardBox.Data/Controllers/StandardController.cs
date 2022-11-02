@@ -18,7 +18,7 @@ namespace TheStandardBox.Data.Controllers
     public class StandardController<TEntity> : RESTFulController
         where TEntity : class, IStandardEntity
     {
-        private readonly IStandardService<TEntity> standardService;
+        protected readonly IStandardService<TEntity> standardService;
 
         public StandardController(IStandardService<TEntity> standardService) =>
             this.standardService = standardService;

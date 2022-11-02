@@ -13,7 +13,7 @@ using TheStandardBox.Core.Models.Foundations.Standards;
 
 namespace TheStandardBox.Data.Brokers.StandardStorages
 {
-    public class StandardStorageBroker : EFxceptionsContext
+    public class StandardStorageBroker : EFxceptionsContext, IStandardStorageBroker
     {
         protected readonly IConfiguration configuration;
         protected virtual string DefaultConnectionName => "DefaultConnection";
@@ -33,22 +33,8 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
-        protected override void OnModelCreating(ModelBuilder entityBuilder)
-        {
-            base.OnModelCreating(entityBuilder);
-        }
-
-        public override void Dispose()
-        { }
-    }
-
-    public class StandardStorageBroker<TEntity> : StandardStorageBroker, IStandardStorageBroker<TEntity>
-        where TEntity : class, IStandardEntity
-    {
-        public StandardStorageBroker(IConfiguration configuration)
-             : base(configuration) { }
-
-        public async ValueTask<TEntity> InsertEntityAsync(TEntity entity)
+        public async ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
+             where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Added;
             await this.SaveChangesAsync();
@@ -56,12 +42,17 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             return entity;
         }
 
-        public virtual IQueryable<TEntity> SelectAllEntities() => this.Set<TEntity>();
+        public virtual IQueryable<TEntity> SelectAllEntities<TEntity>()
+             where TEntity : class, IStandardEntity => this.Set<TEntity>();
 
-        public virtual async ValueTask<TEntity> SelectEntityByIdAsync(params object[] entityIds) =>
-            await this.FindAsync<TEntity>(entityIds);
+        public virtual async ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(
+            params object[] entityIds) where TEntity : class, IStandardEntity
+        {
+            return await this.FindAsync<TEntity>(entityIds);
+        }
 
-        public virtual async ValueTask<TEntity> UpdateEntityAsync(TEntity entity)
+        public virtual async ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
+            where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Modified;
             await this.SaveChangesAsync();
@@ -69,12 +60,16 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             return entity;
         }
 
-        public virtual async ValueTask<TEntity> DeleteEntityAsync(TEntity entity)
+        public virtual async ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
+            where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Deleted;
             await this.SaveChangesAsync();
 
             return entity;
         }
+
+        public override void Dispose()
+        { }
     }
 }

@@ -17,10 +17,10 @@ namespace TheStandardBox.Data.Services.Standards
 {
     public partial class StandardService<TEntity>
     {
-        private delegate ValueTask<TEntity> ReturningEntityFunction();
-        private delegate IQueryable<TEntity> ReturningEntitiesFunction();
+        protected delegate ValueTask<TEntity> ReturningEntityFunction();
+        protected delegate IQueryable<TEntity> ReturningEntitiesFunction();
 
-        private async ValueTask<TEntity> TryCatch(ReturningEntityFunction returningEntityFunction)
+        protected virtual async ValueTask<TEntity> TryCatch(ReturningEntityFunction returningEntityFunction)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace TheStandardBox.Data.Services.Standards
             }
         }
 
-        private IQueryable<TEntity> TryCatch(ReturningEntitiesFunction returningEntitiesFunction)
+        protected virtual IQueryable<TEntity> TryCatch(ReturningEntitiesFunction returningEntitiesFunction)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace TheStandardBox.Data.Services.Standards
             }
         }
 
-        private EntityValidationException CreateAndLogValidationException(Xeption exception)
+        protected virtual EntityValidationException CreateAndLogValidationException(Xeption exception)
         {
             var entityValidationException =
                 new EntityValidationException(this.entityName, exception);
@@ -112,7 +112,7 @@ namespace TheStandardBox.Data.Services.Standards
             return entityValidationException;
         }
 
-        private EntityDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
+        protected virtual EntityDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
         {
             var entityDependencyException = new EntityDependencyException(this.entityName, exception);
             this.loggingBroker.LogCritical(entityDependencyException);
@@ -120,7 +120,7 @@ namespace TheStandardBox.Data.Services.Standards
             return entityDependencyException;
         }
 
-        private EntityDependencyValidationException CreateAndLogDependencyValidationException(Xeption exception)
+        protected virtual EntityDependencyValidationException CreateAndLogDependencyValidationException(Xeption exception)
         {
             var entityDependencyValidationException =
                 new EntityDependencyValidationException(this.entityName, exception);
@@ -130,7 +130,7 @@ namespace TheStandardBox.Data.Services.Standards
             return entityDependencyValidationException;
         }
 
-        private EntityDependencyException CreateAndLogDependencyException(
+        protected virtual EntityDependencyException CreateAndLogDependencyException(
             Xeption exception)
         {
             var entityDependencyException = new EntityDependencyException(this.entityName, exception);
@@ -139,7 +139,7 @@ namespace TheStandardBox.Data.Services.Standards
             return entityDependencyException;
         }
 
-        private EntityServiceException CreateAndLogServiceException(
+        protected virtual EntityServiceException CreateAndLogServiceException(
             Xeption exception)
         {
             var entityServiceException = new EntityServiceException(this.entityName, exception);

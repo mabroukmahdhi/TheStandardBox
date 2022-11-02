@@ -15,7 +15,7 @@ namespace TheStandardBox.Data.Services.Standards
 {
     public partial class StandardService<TEntity>
     {
-        private IEnumerable<(dynamic Rule, string Parameter)> SharedValidations(TEntity entity)
+        protected virtual IEnumerable<(dynamic Rule, string Parameter)> SharedValidations(TEntity entity)
         {
             List<(dynamic Rule, string Parameter)> sharedValidations =
                 new List<(dynamic Rule, string Parameter)>{
@@ -27,7 +27,7 @@ namespace TheStandardBox.Data.Services.Standards
             return sharedValidations;
         }
 
-        private IEnumerable<(dynamic Rule, string Parameter)> ValidateByAttribute(TEntity entity, Type attributeType)
+        protected virtual IEnumerable<(dynamic Rule, string Parameter)> ValidateByAttribute(TEntity entity, Type attributeType)
         {
             List<(dynamic Rule, string Parameter)> validations = new();
 
@@ -48,7 +48,7 @@ namespace TheStandardBox.Data.Services.Standards
             return validations;
         }
 
-        private void ValidateEntityOnAdd(TEntity entity)
+        protected virtual void ValidateEntityOnAdd(TEntity entity)
         {
             ValidateEntityIsNotNull(entity);
 
@@ -67,7 +67,7 @@ namespace TheStandardBox.Data.Services.Standards
             Validate(validations?.ToArray());
         }
 
-        private void ValidateEntityOnModify(TEntity entity)
+        protected virtual void ValidateEntityOnModify(TEntity entity)
         {
             ValidateEntityIsNotNull(entity);
 
@@ -86,10 +86,10 @@ namespace TheStandardBox.Data.Services.Standards
             Validate(validations?.ToArray());
         }
 
-        public void ValidateEntityId(Guid entityId) =>
+        protected virtual void ValidateEntityId(Guid entityId) =>
             Validate((Rule: IsInvalid(entityId), Parameter: nameof(IStandardEntity.Id)));
 
-        private void ValidateStorageEntity(TEntity maybeEntity, Guid entityId)
+        protected virtual void ValidateStorageEntity(TEntity maybeEntity, Guid entityId)
         {
             if (maybeEntity is null)
             {
@@ -97,7 +97,7 @@ namespace TheStandardBox.Data.Services.Standards
             }
         }
 
-        private void ValidateEntityIsNotNull(TEntity entity)
+        protected virtual void ValidateEntityIsNotNull(TEntity entity)
         {
             if (entity is null)
             {
@@ -105,7 +105,7 @@ namespace TheStandardBox.Data.Services.Standards
             }
         }
 
-        private void ValidateAgainstStorageEntityOnModify(TEntity inputEntity, TEntity storageEntity)
+        protected virtual void ValidateAgainstStorageEntityOnModify(TEntity inputEntity, TEntity storageEntity)
         {
             Validate(
                 (Rule: IsNotSame(
@@ -121,31 +121,31 @@ namespace TheStandardBox.Data.Services.Standards
                 Parameter: nameof(IStandardEntity.UpdatedDate)));
         }
 
-        private static dynamic IsInvalid(Guid id) => new
+        protected virtual dynamic IsInvalid(Guid id) => new
         {
             Condition = id == Guid.Empty,
             Message = "Id is required"
         };
 
-        private static dynamic IsInvalid(string text) => new
+        protected virtual dynamic IsInvalid(string text) => new
         {
             Condition = String.IsNullOrWhiteSpace(text),
             Message = "Text is required"
         };
 
-        private static dynamic IsInvalid(DateTimeOffset date) => new
+        protected virtual dynamic IsInvalid(DateTimeOffset date) => new
         {
             Condition = date == default,
             Message = "Date is required"
         };
 
-        private static dynamic IsInvalid(object obj) => new
+        protected virtual dynamic IsInvalid(object obj) => new
         {
             Condition = obj == default,
             Message = "Field is required"
         };
 
-        private static dynamic IsSame(
+        protected virtual dynamic IsSame(
             DateTimeOffset firstDate,
             DateTimeOffset secondDate,
             string secondDateName) => new
@@ -154,7 +154,7 @@ namespace TheStandardBox.Data.Services.Standards
                 Message = $"Date is the same as {secondDateName}"
             };
 
-        private static dynamic IsNotSame(
+        protected virtual dynamic IsNotSame(
             DateTimeOffset firstDate,
             DateTimeOffset secondDate,
             string secondDateName) => new
@@ -163,7 +163,7 @@ namespace TheStandardBox.Data.Services.Standards
                 Message = $"Date is not the same as {secondDateName}"
             };
 
-        private static dynamic IsNotSame(
+        protected virtual dynamic IsNotSame(
             Guid firstId,
             Guid secondId,
             string secondIdName) => new
@@ -172,13 +172,13 @@ namespace TheStandardBox.Data.Services.Standards
                 Message = $"Id is not the same as {secondIdName}"
             };
 
-        private dynamic IsNotRecent(DateTimeOffset date) => new
+        protected virtual dynamic IsNotRecent(DateTimeOffset date) => new
         {
             Condition = IsDateNotRecent(date),
             Message = "Date is not recent"
         };
 
-        private bool IsDateNotRecent(DateTimeOffset date)
+        protected virtual bool IsDateNotRecent(DateTimeOffset date)
         {
             DateTimeOffset currentDateTime = this.dateTimeBroker.GetCurrentDateTimeOffset();
             TimeSpan timeDifference = currentDateTime.Subtract(date);
@@ -186,7 +186,7 @@ namespace TheStandardBox.Data.Services.Standards
             return timeDifference.TotalSeconds is > 60 or < 0;
         }
 
-        private static void Validate(
+        protected virtual void Validate(
             IEnumerable<(dynamic Rule, string Parameter)> sharedValidations,
             params (dynamic Rule, string Parameter)[] validations)
         {
@@ -197,7 +197,7 @@ namespace TheStandardBox.Data.Services.Standards
             Validate(allValidations.ToArray());
         }
 
-        private void Validate(params (dynamic Rule, string Parameter)[] validations)
+        protected virtual void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
             var invalidEntityException = new InvalidEntityException(this.entityName);
 

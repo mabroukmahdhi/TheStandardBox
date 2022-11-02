@@ -27,11 +27,11 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
     public abstract partial class StandardServiceTests<TEntity>
         where TEntity : class, IStandardEntity
     {
-        private readonly Mock<IStandardStorageBroker<TEntity>> standardStorageBrokerMock;
-        private readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
-        private readonly Mock<ILoggingBroker> loggingBrokerMock;
-        private readonly string entityName;
-        private readonly IStandardService<TEntity> smartService;
+        protected readonly Mock<IStandardStorageBroker<TEntity>> standardStorageBrokerMock;
+        protected readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
+        protected readonly Mock<ILoggingBroker> loggingBrokerMock;
+        protected readonly string entityName;
+        protected readonly IStandardService<TEntity> smartService;
 
         public StandardServiceTests()
         {
@@ -50,13 +50,13 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             entityName = entityBroker.GetEntityName<TEntity>();
         }
 
-        private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+        protected virtual Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
 
-        private static string GetRandomMessage() =>
+        protected virtual string GetRandomMessage() =>
             new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
-        public static TheoryData MinutesBeforeOrAfter()
+        protected virtual TheoryData MinutesBeforeOrAfter()
         {
             int randomNumber = GetRandomNumber();
             int randomNegativeNumber = GetRandomNegativeNumber();
@@ -68,19 +68,19 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             };
         }
 
-        private static SqlException GetSqlException() =>
+        protected virtual SqlException GetSqlException() =>
             (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
-        private static int GetRandomNumber() =>
+        protected virtual int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
 
-        private static int GetRandomNegativeNumber() =>
+        protected virtual int GetRandomNegativeNumber() =>
             -1 * new IntRange(min: 2, max: 10).GetValue();
 
-        private static DateTimeOffset GetRandomDateTimeOffset() =>
+        protected virtual DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
-        private TEntity CreateRandomModifyEntity(DateTimeOffset dateTimeOffset)
+        protected virtual TEntity CreateRandomModifyEntity(DateTimeOffset dateTimeOffset)
         {
             int randomDaysInPast = GetRandomNegativeNumber();
             TEntity randomEntity = CreateRandomEntity(dateTimeOffset);
@@ -91,17 +91,17 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             return randomEntity;
         }
 
-        private IQueryable<TEntity> CreateRandomEntities()
+        protected virtual IQueryable<TEntity> CreateRandomEntities()
         {
             return CreateEntityFiller(dateTimeOffset: GetRandomDateTimeOffset())
                 .Create(count: GetRandomNumber())
                     .AsQueryable();
         }
 
-        private TEntity CreateRandomEntity() =>
+        protected virtual TEntity CreateRandomEntity() =>
             CreateEntityFiller(dateTimeOffset: GetRandomDateTimeOffset()).Create();
 
-        private TEntity CreateRandomEntity(DateTimeOffset dateTimeOffset) =>
+        protected virtual TEntity CreateRandomEntity(DateTimeOffset dateTimeOffset) =>
             CreateEntityFiller(dateTimeOffset).Create();
 
         protected virtual Filler<TEntity> CreateEntityFiller(DateTimeOffset dateTimeOffset)

@@ -19,10 +19,10 @@ namespace TheStandardBox.Data.Services.Standards
     public partial class StandardService<TEntity> : IStandardService<TEntity>
         where TEntity : class, IStandardEntity
     {
-        private readonly IStandardStorageBroker<TEntity> standardStorageBroker;
-        private readonly IDateTimeBroker dateTimeBroker;
-        private readonly ILoggingBroker loggingBroker;
-        private readonly string entityName;
+        protected readonly IStandardStorageBroker<TEntity> standardStorageBroker;
+        protected readonly IDateTimeBroker dateTimeBroker;
+        protected readonly ILoggingBroker loggingBroker;
+        protected readonly string entityName;
 
         public StandardService(
             IStandardStorageBroker<TEntity> standardStorageBroker,

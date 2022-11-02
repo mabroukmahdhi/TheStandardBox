@@ -14,7 +14,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
     public abstract partial class StandardServiceTests<TEntity>
     {
         [Fact]
-        public void ShouldReturnEntities()
+        public virtual void ShouldReturnEntities()
         {
             // given
             IQueryable<TEntity> randomEntities = CreateRandomEntities();

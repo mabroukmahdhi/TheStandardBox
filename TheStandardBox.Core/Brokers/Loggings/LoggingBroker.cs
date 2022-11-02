@@ -11,7 +11,7 @@ namespace TheStandardBox.Core.Brokers.Loggings
 {
     public class LoggingBroker : ILoggingBroker
     {
-        private readonly ILogger<LoggingBroker> logger;
+        protected readonly ILogger<LoggingBroker> logger;
 
         public LoggingBroker(ILogger<LoggingBroker> logger) =>
             this.logger = logger;

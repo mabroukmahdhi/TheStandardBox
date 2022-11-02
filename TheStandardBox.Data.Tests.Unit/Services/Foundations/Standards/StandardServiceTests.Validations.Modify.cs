@@ -29,7 +29,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(nullEntity);
+                this.standardService.ModifyEntityAsync(nullEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -73,7 +73,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(invalidEntity);
+                this.standardService.ModifyEntityAsync(invalidEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -123,7 +123,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(invalidEntity);
+                this.standardService.ModifyEntityAsync(invalidEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -143,7 +143,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                         Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(invalidEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
@@ -167,7 +167,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityValidationException(entityName, notFoundEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(nonExistEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(nonExistEntity.Id))
                 .ReturnsAsync(nullEntity);
 
             this.dateTimeBrokerMock.Setup(broker =>
@@ -176,7 +176,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when 
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(nonExistEntity);
+                this.standardService.ModifyEntityAsync(nonExistEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -187,7 +187,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityValidationException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(nonExistEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(nonExistEntity.Id),
                     Times.Once);
 
             this.dateTimeBrokerMock.Verify(broker =>
@@ -226,7 +226,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityValidationException(entityName, invalidEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(invalidEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id))
                 .ReturnsAsync(storageEntity);
 
             this.dateTimeBrokerMock.Setup(broker =>
@@ -235,7 +235,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(invalidEntity);
+                this.standardService.ModifyEntityAsync(invalidEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -246,7 +246,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityValidationException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(invalidEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id),
                     Times.Once);
 
             this.dateTimeBrokerMock.Verify(broker =>
@@ -282,7 +282,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityValidationException(entityName, invalidEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(invalidEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id))
                 .ReturnsAsync(storageEntity);
 
             this.dateTimeBrokerMock.Setup(broker =>
@@ -291,7 +291,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(invalidEntity);
+                this.standardService.ModifyEntityAsync(invalidEntity);
 
             // then
             await Assert.ThrowsAsync<EntityValidationException>(
@@ -307,7 +307,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                         Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(invalidEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id),
                     Times.Once);
 
             this.standardStorageBrokerMock.VerifyNoOtherCalls();

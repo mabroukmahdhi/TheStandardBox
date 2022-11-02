@@ -30,7 +30,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(nullEntity);
+                this.standardService.AddEntityAsync(nullEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(() =>
@@ -66,7 +66,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(invalidEntity);
+                this.standardService.AddEntityAsync(invalidEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(() =>
@@ -121,7 +121,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(invalidEntity);
+                this.standardService.AddEntityAsync(invalidEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(() =>
@@ -179,7 +179,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(invalidEntity);
+                this.standardService.AddEntityAsync(invalidEntity);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(() =>

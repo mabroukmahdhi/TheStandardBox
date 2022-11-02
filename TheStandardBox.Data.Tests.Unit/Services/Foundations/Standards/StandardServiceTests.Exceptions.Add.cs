@@ -37,7 +37,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(someEntity);
+                this.standardService.AddEntityAsync(someEntity);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -88,7 +88,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(alreadyExistsEntity);
+                this.standardService.AddEntityAsync(alreadyExistsEntity);
 
             // then
             EntityDependencyValidationException actualEntityDependencyValidationException =
@@ -139,7 +139,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(someEntity);
+                this.standardService.AddEntityAsync(someEntity);
 
             // then
             EntityDependencyValidationException actualEntityDependencyValidationException =
@@ -188,7 +188,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(someEntity);
+                this.standardService.AddEntityAsync(someEntity);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -235,7 +235,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.AddEntityAsync(someEntity);
+                this.standardService.AddEntityAsync(someEntity);
 
             EntityServiceException actualEntityServiceException =
                 await Assert.ThrowsAsync<EntityServiceException>(

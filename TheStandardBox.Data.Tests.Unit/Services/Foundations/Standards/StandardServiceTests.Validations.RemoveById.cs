@@ -34,7 +34,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> removeEntityByIdTask =
-                this.smartService.RemoveEntityByIdAsync(invalidEntityId);
+                this.standardService.RemoveEntityByIdAsync(invalidEntityId);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(

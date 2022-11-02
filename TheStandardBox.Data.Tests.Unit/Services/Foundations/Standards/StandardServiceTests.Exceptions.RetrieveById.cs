@@ -30,12 +30,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityDependencyException(entityName, failedEntityStorageException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()))
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()))
                     .ThrowsAsync(sqlException);
 
             // when
             ValueTask<TEntity> retrieveEntityByIdTask =
-                this.smartService.RetrieveEntityByIdAsync(someId);
+                this.standardService.RetrieveEntityByIdAsync(someId);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -46,7 +46,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityDependencyException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -73,12 +73,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityServiceException(entityName, failedEntityServiceException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()))
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()))
                     .ThrowsAsync(serviceException);
 
             // when
             ValueTask<TEntity> retrieveEntityByIdTask =
-                this.smartService.RetrieveEntityByIdAsync(someId);
+                this.standardService.RetrieveEntityByIdAsync(someId);
 
             EntityServiceException actualEntityServiceException =
                 await Assert.ThrowsAsync<EntityServiceException>(
@@ -89,7 +89,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityServiceException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>

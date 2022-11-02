@@ -33,7 +33,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     .Returns(randomDateTimeOffset);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(modelId))
+                broker.SelectEntityByIdAsync<TEntity>(modelId))
                     .ReturnsAsync(storageEntity);
 
             this.standardStorageBrokerMock.Setup(broker =>
@@ -42,7 +42,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             TEntity actualEntity =
-                await this.smartService.ModifyEntityAsync(inputEntity);
+                await this.standardService.ModifyEntityAsync(inputEntity);
 
             // then
             actualEntity.Should().BeEquivalentTo(expectedEntity);
@@ -52,7 +52,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(inputEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id),
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>

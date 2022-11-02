@@ -22,18 +22,18 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             IQueryable<TEntity> expectedEntities = storageEntities;
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectAllEntities())
+                broker.SelectAllEntities<TEntity>())
                     .Returns(storageEntities);
 
             // when
             IQueryable<TEntity> actualEntities =
-                this.smartService.RetrieveAllEntities();
+                this.standardService.RetrieveAllEntities();
 
             // then
             actualEntities.Should().BeEquivalentTo(expectedEntities);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectAllEntities(),
+                broker.SelectAllEntities<TEntity>(),
                     Times.Once);
 
             this.standardStorageBrokerMock.VerifyNoOtherCalls();

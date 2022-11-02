@@ -28,12 +28,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityDependencyException(entityName, failedStorageException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectAllEntities())
+                broker.SelectAllEntities<TEntity>())
                     .Throws(sqlException);
 
             // when
             Action retrieveAllEntitiesAction = () =>
-                this.smartService.RetrieveAllEntities();
+                this.standardService.RetrieveAllEntities();
 
             EntityDependencyException actualEntityDependencyException =
                 Assert.Throws<EntityDependencyException>(retrieveAllEntitiesAction);
@@ -43,7 +43,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityDependencyException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectAllEntities(),
+                broker.SelectAllEntities<TEntity>(),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -70,12 +70,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityServiceException(entityName, failedEntityServiceException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectAllEntities())
+                broker.SelectAllEntities<TEntity>())
                     .Throws(serviceException);
 
             // when
             Action retrieveAllEntitiesAction = () =>
-                this.smartService.RetrieveAllEntities();
+                this.standardService.RetrieveAllEntities();
 
             EntityServiceException actualEntityServiceException =
                 Assert.Throws<EntityServiceException>(retrieveAllEntitiesAction);
@@ -85,7 +85,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityServiceException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectAllEntities(),
+                broker.SelectAllEntities<TEntity>(),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>

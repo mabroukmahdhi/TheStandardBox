@@ -31,12 +31,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityDependencyException(entityName, failedEntityStorageException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(randomEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id))
                     .Throws(sqlException);
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.smartService.RemoveEntityByIdAsync(randomEntity.Id);
+                this.standardService.RemoveEntityByIdAsync(randomEntity.Id);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -47,7 +47,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityDependencyException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(randomEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -84,12 +84,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityDependencyValidationException(entityName, lockedEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()))
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()))
                     .ThrowsAsync(databaseUpdateConcurrencyException);
 
             // when
             ValueTask<TEntity> removeEntityByIdTask =
-                this.smartService.RemoveEntityByIdAsync(someEntityId);
+                this.standardService.RemoveEntityByIdAsync(someEntityId);
 
             EntityDependencyValidationException actualEntityDependencyValidationException =
                 await Assert.ThrowsAsync<EntityDependencyValidationException>(
@@ -100,7 +100,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityDependencyValidationException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -131,12 +131,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityDependencyException(entityName, failedEntityStorageException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()))
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()))
                     .ThrowsAsync(sqlException);
 
             // when
             ValueTask<TEntity> deleteEntityTask =
-                this.smartService.RemoveEntityByIdAsync(someEntityId);
+                this.standardService.RemoveEntityByIdAsync(someEntityId);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -147,7 +147,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityDependencyException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -174,12 +174,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityServiceException(entityName, failedEntityServiceException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()))
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()))
                     .ThrowsAsync(serviceException);
 
             // when
             ValueTask<TEntity> removeEntityByIdTask =
-                this.smartService.RemoveEntityByIdAsync(someEntityId);
+                this.standardService.RemoveEntityByIdAsync(someEntityId);
 
             EntityServiceException actualEntityServiceException =
                 await Assert.ThrowsAsync<EntityServiceException>(
@@ -190,7 +190,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityServiceException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                         Times.Once());
 
             this.loggingBrokerMock.Verify(broker =>

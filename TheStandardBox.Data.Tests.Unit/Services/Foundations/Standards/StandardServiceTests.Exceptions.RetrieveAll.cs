@@ -32,11 +32,11 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     .Throws(sqlException);
 
             // when
-            Action retrieveAllEntitysAction = () =>
+            Action retrieveAllEntitiesAction = () =>
                 this.smartService.RetrieveAllEntities();
 
             EntityDependencyException actualEntityDependencyException =
-                Assert.Throws<EntityDependencyException>(retrieveAllEntitysAction);
+                Assert.Throws<EntityDependencyException>(retrieveAllEntitiesAction);
 
             // then
             actualEntityDependencyException.Should()
@@ -74,11 +74,11 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     .Throws(serviceException);
 
             // when
-            Action retrieveAllEntitysAction = () =>
+            Action retrieveAllEntitiesAction = () =>
                 this.smartService.RetrieveAllEntities();
 
             EntityServiceException actualEntityServiceException =
-                Assert.Throws<EntityServiceException>(retrieveAllEntitysAction);
+                Assert.Throws<EntityServiceException>(retrieveAllEntitiesAction);
 
             // then
             actualEntityServiceException.Should()

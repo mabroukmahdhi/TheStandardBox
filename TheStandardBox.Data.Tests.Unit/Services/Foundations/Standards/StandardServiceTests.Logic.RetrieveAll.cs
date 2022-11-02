@@ -14,23 +14,23 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
     public abstract partial class StandardServiceTests<TEntity>
     {
         [Fact]
-        public void ShouldReturnEntitys()
+        public void ShouldReturnEntities()
         {
             // given
-            IQueryable<TEntity> randomEntitys = CreateRandomEntitys();
-            IQueryable<TEntity> storageEntitys = randomEntitys;
-            IQueryable<TEntity> expectedEntitys = storageEntitys;
+            IQueryable<TEntity> randomEntities = CreateRandomEntities();
+            IQueryable<TEntity> storageEntities = randomEntities;
+            IQueryable<TEntity> expectedEntities = storageEntities;
 
             this.standardStorageBrokerMock.Setup(broker =>
                 broker.SelectAllEntities())
-                    .Returns(storageEntitys);
+                    .Returns(storageEntities);
 
             // when
-            IQueryable<TEntity> actualEntitys =
+            IQueryable<TEntity> actualEntities =
                 this.smartService.RetrieveAllEntities();
 
             // then
-            actualEntitys.Should().BeEquivalentTo(expectedEntitys);
+            actualEntities.Should().BeEquivalentTo(expectedEntities);
 
             this.standardStorageBrokerMock.Verify(broker =>
                 broker.SelectAllEntities(),

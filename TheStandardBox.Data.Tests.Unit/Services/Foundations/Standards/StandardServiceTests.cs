@@ -91,7 +91,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             return randomEntity;
         }
 
-        private IQueryable<TEntity> CreateRandomEntitys()
+        private IQueryable<TEntity> CreateRandomEntities()
         {
             return CreateEntityFiller(dateTimeOffset: GetRandomDateTimeOffset())
                 .Create(count: GetRandomNumber())

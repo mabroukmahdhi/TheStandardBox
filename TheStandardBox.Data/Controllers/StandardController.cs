@@ -58,14 +58,14 @@ namespace TheStandardBox.Data.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult<IQueryable<TEntity>> GetAllEntitys()
+        public virtual ActionResult<IQueryable<TEntity>> GetAllEntities()
         {
             try
             {
-                IQueryable<TEntity> retrievedEntitys =
+                IQueryable<TEntity> retrievedEntities =
                     this.standardService.RetrieveAllEntities();
 
-                return Ok(retrievedEntitys);
+                return Ok(retrievedEntities);
             }
             catch (EntityDependencyException modelDependencyException)
             {

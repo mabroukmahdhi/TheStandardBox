@@ -18,7 +18,7 @@ namespace TheStandardBox.Data.Services.Standards
     public partial class StandardService<TEntity>
     {
         private delegate ValueTask<TEntity> ReturningEntityFunction();
-        private delegate IQueryable<TEntity> ReturningEntitysFunction();
+        private delegate IQueryable<TEntity> ReturningEntitiesFunction();
 
         private async ValueTask<TEntity> TryCatch(ReturningEntityFunction returningEntityFunction)
         {
@@ -81,11 +81,11 @@ namespace TheStandardBox.Data.Services.Standards
             }
         }
 
-        private IQueryable<TEntity> TryCatch(ReturningEntitysFunction returningEntitysFunction)
+        private IQueryable<TEntity> TryCatch(ReturningEntitiesFunction returningEntitiesFunction)
         {
             try
             {
-                return returningEntitysFunction();
+                return returningEntitiesFunction();
             }
             catch (SqlException sqlException)
             {

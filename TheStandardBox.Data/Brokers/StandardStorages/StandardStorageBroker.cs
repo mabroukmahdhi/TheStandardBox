@@ -17,6 +17,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
     {
         protected readonly IConfiguration configuration;
         protected virtual string DefaultConnectionName => "DefaultConnection";
+        protected virtual bool UsesNoTrackingBehavior => true;
 
         public StandardStorageBroker(IConfiguration configuration)
         {
@@ -30,7 +31,11 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
                 this.configuration.GetConnectionString(name: DefaultConnectionName);
 
             optionsBuilder.UseSqlServer(connectionString);
-            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+            if (UsesNoTrackingBehavior)
+            {
+                optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            }
         }
 
         public async ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)

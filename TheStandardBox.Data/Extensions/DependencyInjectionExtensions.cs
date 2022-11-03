@@ -15,16 +15,25 @@ namespace TheStandardBox.Data.Extensions
 {
     public static class DependencyInjectionExtensions
     {
-        public static void AddTheStandardBoxData(this IServiceCollection services)
+        public static IServiceCollection AddTheStandardBoxData(this IServiceCollection services)
+        {
+            return services.AddTheStandardBoxData<StandardStorageBroker>();
+        }
+
+        public static IServiceCollection AddTheStandardBoxData<TDbContext>(this IServiceCollection services)
+            where TDbContext : StandardStorageBroker
         {
             services.AddTheStandardBoxCore();
+            services.AddDbContext<TDbContext>();
             services.AddScoped<IStandardStorageBroker, StandardStorageBroker>();
-        } 
+            return services;
+        }
 
-        public static void AddStandardFoundationService<TEntity>(this IServiceCollection services)
+        public static IServiceCollection AddStandardFoundationService<TEntity>(this IServiceCollection services)
                     where TEntity : class, IStandardEntity
         {
             services.AddScoped<IStandardService<TEntity>, StandardService<TEntity>>();
+            return services;
         }
     }
 }

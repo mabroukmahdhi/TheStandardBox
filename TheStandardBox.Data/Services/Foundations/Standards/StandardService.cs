@@ -37,53 +37,53 @@ namespace TheStandardBox.Data.Services.Standards
             this.entityName = entityBroker.GetEntityName<TEntity>();
         }
 
-        public ValueTask<TEntity> AddEntityAsync(TEntity model) =>
+        public virtual ValueTask<TEntity> AddEntityAsync(TEntity entity) =>
             TryCatch(async () =>
             {
-                ValidateEntityOnAdd(model);
+                ValidateEntityOnAdd(entity);
 
-                return await this.standardStorageBroker.InsertEntityAsync(model);
+                return await this.standardStorageBroker.InsertEntityAsync(entity);
             });
 
-        public IQueryable<TEntity> RetrieveAllEntities() =>
+        public virtual IQueryable<TEntity> RetrieveAllEntities() =>
             TryCatch(() => this.standardStorageBroker.SelectAllEntities<TEntity>());
 
-        public ValueTask<TEntity> RetrieveEntityByIdAsync(Guid modelId) =>
+        public virtual ValueTask<TEntity> RetrieveEntityByIdAsync(Guid entityId) =>
             TryCatch(async () =>
             {
-                ValidateEntityId(modelId);
+                ValidateEntityId(entityId);
 
                 TEntity maybeTEntity = await this.standardStorageBroker
-                    .SelectEntityByIdAsync<TEntity>(modelId);
+                    .SelectEntityByIdAsync<TEntity>(entityId);
 
-                ValidateStorageEntity(maybeTEntity, modelId);
+                ValidateStorageEntity(maybeTEntity, entityId);
 
                 return maybeTEntity;
             });
 
-        public ValueTask<TEntity> ModifyEntityAsync(TEntity model) =>
+        public virtual ValueTask<TEntity> ModifyEntityAsync(TEntity entity) =>
             TryCatch(async () =>
             {
-                ValidateEntityOnModify(model);
+                ValidateEntityOnModify(entity);
 
                 TEntity maybeTEntity =
-                    await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(model.Id);
+                    await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(entity.Id);
 
-                ValidateStorageEntity(maybeTEntity, model.Id);
-                ValidateAgainstStorageEntityOnModify(inputEntity: model, storageEntity: maybeTEntity);
+                ValidateStorageEntity(maybeTEntity, entity.Id);
+                ValidateAgainstStorageEntityOnModify(inputEntity: entity, storageEntity: maybeTEntity);
 
-                return await this.standardStorageBroker.UpdateEntityAsync(model);
+                return await this.standardStorageBroker.UpdateEntityAsync(entity);
             });
 
-        public ValueTask<TEntity> RemoveEntityByIdAsync(Guid modelId) =>
+        public virtual ValueTask<TEntity> RemoveEntityByIdAsync(Guid entityId) =>
             TryCatch(async () =>
             {
-                ValidateEntityId(modelId);
+                ValidateEntityId(entityId);
 
                 TEntity maybeTEntity = await this.standardStorageBroker
-                    .SelectEntityByIdAsync<TEntity>(modelId);
+                    .SelectEntityByIdAsync<TEntity>(entityId);
 
-                ValidateStorageEntity(maybeTEntity, modelId);
+                ValidateStorageEntity(maybeTEntity, entityId);
 
                 return await this.standardStorageBroker.DeleteEntityAsync(maybeTEntity);
             });

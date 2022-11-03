@@ -24,32 +24,32 @@ namespace TheStandardBox.Data.Controllers
             this.standardService = standardService;
 
         [HttpPost]
-        public virtual async ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity model)
+        public virtual async ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity entity)
         {
             try
             {
                 TEntity addedEntity =
-                    await this.standardService.AddEntityAsync(model);
+                    await this.standardService.AddEntityAsync(entity);
 
                 return Created(addedEntity);
             }
-            catch (EntityValidationException modelValidationException)
+            catch (EntityValidationException entityValidationException)
             {
-                return BadRequest(modelValidationException.InnerException);
+                return BadRequest(entityValidationException.InnerException);
             }
-            catch (EntityDependencyValidationException modelValidationException)
-                when (modelValidationException.InnerException is InvalidEntityReferenceException)
+            catch (EntityDependencyValidationException entityValidationException)
+                when (entityValidationException.InnerException is InvalidEntityReferenceException)
             {
-                return FailedDependency(modelValidationException.InnerException);
+                return FailedDependency(entityValidationException.InnerException);
             }
-            catch (EntityDependencyValidationException modelDependencyValidationException)
-               when (modelDependencyValidationException.InnerException is AlreadyExistsEntityException)
+            catch (EntityDependencyValidationException entityDependencyValidationException)
+               when (entityDependencyValidationException.InnerException is AlreadyExistsEntityException)
             {
-                return Conflict(modelDependencyValidationException.InnerException);
+                return Conflict(entityDependencyValidationException.InnerException);
             }
-            catch (EntityDependencyException modelDependencyException)
+            catch (EntityDependencyException entityDependencyException)
             {
-                return InternalServerError(modelDependencyException);
+                return InternalServerError(entityDependencyException);
             }
             catch (EntityServiceException standardServiceException)
             {
@@ -67,9 +67,9 @@ namespace TheStandardBox.Data.Controllers
 
                 return Ok(retrievedEntities);
             }
-            catch (EntityDependencyException modelDependencyException)
+            catch (EntityDependencyException entityDependencyException)
             {
-                return InternalServerError(modelDependencyException);
+                return InternalServerError(entityDependencyException);
             }
             catch (EntityServiceException standardServiceException)
             {
@@ -82,22 +82,22 @@ namespace TheStandardBox.Data.Controllers
         {
             try
             {
-                TEntity model = await this.standardService.RetrieveEntityByIdAsync(itemId);
+                TEntity entity = await this.standardService.RetrieveEntityByIdAsync(itemId);
 
-                return Ok(model);
+                return Ok(entity);
             }
-            catch (EntityValidationException modelValidationException)
-                when (modelValidationException.InnerException is NotFoundEntityException)
+            catch (EntityValidationException entityValidationException)
+                when (entityValidationException.InnerException is NotFoundEntityException)
             {
-                return NotFound(modelValidationException.InnerException);
+                return NotFound(entityValidationException.InnerException);
             }
-            catch (EntityValidationException modelValidationException)
+            catch (EntityValidationException entityValidationException)
             {
-                return BadRequest(modelValidationException.InnerException);
+                return BadRequest(entityValidationException.InnerException);
             }
-            catch (EntityDependencyException modelDependencyException)
+            catch (EntityDependencyException entityDependencyException)
             {
-                return InternalServerError(modelDependencyException);
+                return InternalServerError(entityDependencyException);
             }
             catch (EntityServiceException standardServiceException)
             {
@@ -106,37 +106,37 @@ namespace TheStandardBox.Data.Controllers
         }
 
         [HttpPut]
-        public virtual async ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity model)
+        public virtual async ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity entity)
         {
             try
             {
                 TEntity modifiedEntity =
-                    await this.standardService.ModifyEntityAsync(model);
+                    await this.standardService.ModifyEntityAsync(entity);
 
                 return Ok(modifiedEntity);
             }
-            catch (EntityValidationException modelValidationException)
-                when (modelValidationException.InnerException is NotFoundEntityException)
+            catch (EntityValidationException entityValidationException)
+                when (entityValidationException.InnerException is NotFoundEntityException)
             {
-                return NotFound(modelValidationException.InnerException);
+                return NotFound(entityValidationException.InnerException);
             }
-            catch (EntityValidationException modelValidationException)
+            catch (EntityValidationException entityValidationException)
             {
-                return BadRequest(modelValidationException.InnerException);
+                return BadRequest(entityValidationException.InnerException);
             }
-            catch (EntityDependencyValidationException modelValidationException)
-                when (modelValidationException.InnerException is InvalidEntityReferenceException)
+            catch (EntityDependencyValidationException entityValidationException)
+                when (entityValidationException.InnerException is InvalidEntityReferenceException)
             {
-                return FailedDependency(modelValidationException.InnerException);
+                return FailedDependency(entityValidationException.InnerException);
             }
-            catch (EntityDependencyValidationException modelDependencyValidationException)
-               when (modelDependencyValidationException.InnerException is AlreadyExistsEntityException)
+            catch (EntityDependencyValidationException entityDependencyValidationException)
+               when (entityDependencyValidationException.InnerException is AlreadyExistsEntityException)
             {
-                return Conflict(modelDependencyValidationException.InnerException);
+                return Conflict(entityDependencyValidationException.InnerException);
             }
-            catch (EntityDependencyException modelDependencyException)
+            catch (EntityDependencyException entityDependencyException)
             {
-                return InternalServerError(modelDependencyException);
+                return InternalServerError(entityDependencyException);
             }
             catch (EntityServiceException standardServiceException)
             {
@@ -154,27 +154,27 @@ namespace TheStandardBox.Data.Controllers
 
                 return Ok(deletedEntity);
             }
-            catch (EntityValidationException modelValidationException)
-                when (modelValidationException.InnerException is NotFoundEntityException)
+            catch (EntityValidationException entityValidationException)
+                when (entityValidationException.InnerException is NotFoundEntityException)
             {
-                return NotFound(modelValidationException.InnerException);
+                return NotFound(entityValidationException.InnerException);
             }
-            catch (EntityValidationException modelValidationException)
+            catch (EntityValidationException entityValidationException)
             {
-                return BadRequest(modelValidationException.InnerException);
+                return BadRequest(entityValidationException.InnerException);
             }
-            catch (EntityDependencyValidationException modelDependencyValidationException)
-                when (modelDependencyValidationException.InnerException is LockedEntityException)
+            catch (EntityDependencyValidationException entityDependencyValidationException)
+                when (entityDependencyValidationException.InnerException is LockedEntityException)
             {
-                return Locked(modelDependencyValidationException.InnerException);
+                return Locked(entityDependencyValidationException.InnerException);
             }
-            catch (EntityDependencyValidationException modelDependencyValidationException)
+            catch (EntityDependencyValidationException entityDependencyValidationException)
             {
-                return BadRequest(modelDependencyValidationException);
+                return BadRequest(entityDependencyValidationException);
             }
-            catch (EntityDependencyException modelDependencyException)
+            catch (EntityDependencyException entityDependencyException)
             {
-                return InternalServerError(modelDependencyException);
+                return InternalServerError(entityDependencyException);
             }
             catch (EntityServiceException standardServiceException)
             {

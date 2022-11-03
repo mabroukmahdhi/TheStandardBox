@@ -10,13 +10,21 @@ using TheStandardBox.Core.Models.Foundations.Standards;
 
 namespace TheStandardBox.Data.Brokers.StandardStorages
 {
-    public interface IStandardStorageBroker<TEntity>
-        where TEntity : IStandardEntity
+    public interface IStandardStorageBroker
     {
-        ValueTask<TEntity> InsertEntityAsync(TEntity entity);
-        IQueryable<TEntity> SelectAllEntities();
-        ValueTask<TEntity> SelectEntityByIdAsync(params object[] entityIds);
-        ValueTask<TEntity> UpdateEntityAsync(TEntity entity);
-        ValueTask<TEntity> DeleteEntityAsync(TEntity entity);
+        ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
+            where TEntity : class, IStandardEntity;
+
+        IQueryable<TEntity> SelectAllEntities<TEntity>()
+            where TEntity : class, IStandardEntity;
+
+        ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(params object[] entityIds)
+            where TEntity : class, IStandardEntity;
+
+        ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
+            where TEntity : class, IStandardEntity;
+        
+        ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
+            where TEntity : class, IStandardEntity;
     }
 }

@@ -18,13 +18,8 @@ namespace TheStandardBox.Data.Extensions
         public static void AddTheStandardBoxData(this IServiceCollection services)
         {
             services.AddTheStandardBoxCore();
-        }
-
-        public static void AddStandardStorage<TEntity>(this IServiceCollection services)
-                    where TEntity : class, IStandardEntity
-        {
-            services.AddScoped<IStandardStorageBroker<TEntity>, StandardStorageBroker<TEntity>>();
-        }
+            services.AddScoped<IStandardStorageBroker, StandardStorageBroker>();
+        } 
 
         public static void AddStandardFoundationService<TEntity>(this IServiceCollection services)
                     where TEntity : class, IStandardEntity

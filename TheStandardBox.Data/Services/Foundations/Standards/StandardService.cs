@@ -19,13 +19,13 @@ namespace TheStandardBox.Data.Services.Standards
     public partial class StandardService<TEntity> : IStandardService<TEntity>
         where TEntity : class, IStandardEntity
     {
-        protected readonly IStandardStorageBroker<TEntity> standardStorageBroker;
+        protected readonly IStandardStorageBroker standardStorageBroker;
         protected readonly IDateTimeBroker dateTimeBroker;
         protected readonly ILoggingBroker loggingBroker;
         protected readonly string entityName;
 
         public StandardService(
-            IStandardStorageBroker<TEntity> standardStorageBroker,
+            IStandardStorageBroker standardStorageBroker,
             IDateTimeBroker dateTimeBroker,
             ILoggingBroker loggingBroker,
             IEntityBroker entityBroker)
@@ -46,7 +46,7 @@ namespace TheStandardBox.Data.Services.Standards
             });
 
         public IQueryable<TEntity> RetrieveAllEntities() =>
-            TryCatch(() => this.standardStorageBroker.SelectAllEntities());
+            TryCatch(() => this.standardStorageBroker.SelectAllEntities<TEntity>());
 
         public ValueTask<TEntity> RetrieveEntityByIdAsync(Guid modelId) =>
             TryCatch(async () =>
@@ -54,7 +54,7 @@ namespace TheStandardBox.Data.Services.Standards
                 ValidateEntityId(modelId);
 
                 TEntity maybeTEntity = await this.standardStorageBroker
-                    .SelectEntityByIdAsync(modelId);
+                    .SelectEntityByIdAsync<TEntity>(modelId);
 
                 ValidateStorageEntity(maybeTEntity, modelId);
 
@@ -67,7 +67,7 @@ namespace TheStandardBox.Data.Services.Standards
                 ValidateEntityOnModify(model);
 
                 TEntity maybeTEntity =
-                    await this.standardStorageBroker.SelectEntityByIdAsync(model.Id);
+                    await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(model.Id);
 
                 ValidateStorageEntity(maybeTEntity, model.Id);
                 ValidateAgainstStorageEntityOnModify(inputEntity: model, storageEntity: maybeTEntity);
@@ -81,7 +81,7 @@ namespace TheStandardBox.Data.Services.Standards
                 ValidateEntityId(modelId);
 
                 TEntity maybeTEntity = await this.standardStorageBroker
-                    .SelectEntityByIdAsync(modelId);
+                    .SelectEntityByIdAsync<TEntity>(modelId);
 
                 ValidateStorageEntity(maybeTEntity, modelId);
 

@@ -36,7 +36,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     .ReturnsAsync(storageEntity);
 
             // when
-            TEntity actualEntity = await this.smartService
+            TEntity actualEntity = await this.standardService
                 .AddEntityAsync(inputEntity);
 
             // then

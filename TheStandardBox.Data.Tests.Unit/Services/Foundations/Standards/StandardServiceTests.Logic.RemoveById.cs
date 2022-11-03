@@ -28,7 +28,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             TEntity expectedEntity = deletedEntity.DeepClone();
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(inputEntityId))
+                broker.SelectEntityByIdAsync<TEntity>(inputEntityId))
                     .ReturnsAsync(storageEntity);
 
             this.standardStorageBrokerMock.Setup(broker =>
@@ -36,14 +36,14 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     .ReturnsAsync(deletedEntity);
 
             // when
-            TEntity actualEntity = await this.smartService
+            TEntity actualEntity = await this.standardService
                 .RemoveEntityByIdAsync(inputEntityId);
 
             // then
             actualEntity.Should().BeEquivalentTo(expectedEntity);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(inputEntityId),
+                broker.SelectEntityByIdAsync<TEntity>(inputEntityId),
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>

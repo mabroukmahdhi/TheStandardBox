@@ -27,21 +27,21 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
     public abstract partial class StandardServiceTests<TEntity>
         where TEntity : class, IStandardEntity
     {
-        protected readonly Mock<IStandardStorageBroker<TEntity>> standardStorageBrokerMock;
+        protected readonly Mock<IStandardStorageBroker> standardStorageBrokerMock;
         protected readonly Mock<IDateTimeBroker> dateTimeBrokerMock;
         protected readonly Mock<ILoggingBroker> loggingBrokerMock;
         protected readonly string entityName;
-        protected readonly IStandardService<TEntity> smartService;
+        protected readonly IStandardService<TEntity> standardService;
 
         public StandardServiceTests()
         {
-            this.standardStorageBrokerMock = new Mock<IStandardStorageBroker<TEntity>>();
+            this.standardStorageBrokerMock = new Mock<IStandardStorageBroker>();
             this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
             var entityBroker = new EntityBroker();
 
-            this.smartService = new StandardService<TEntity>(
+            this.standardService = new StandardService<TEntity>(
                 standardStorageBroker: this.standardStorageBrokerMock.Object,
                 dateTimeBroker: this.dateTimeBrokerMock.Object,
                 loggingBroker: this.loggingBrokerMock.Object,

@@ -37,7 +37,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(randomEntity);
+                this.standardService.ModifyEntityAsync(randomEntity);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -52,7 +52,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(randomEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -92,7 +92,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(someEntity);
+                this.standardService.ModifyEntityAsync(someEntity);
 
             EntityDependencyValidationException actualEntityDependencyValidationException =
                 await Assert.ThrowsAsync<EntityDependencyValidationException>(
@@ -107,7 +107,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(someEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(someEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -142,7 +142,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(randomEntity);
+                this.standardService.ModifyEntityAsync(randomEntity);
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -157,7 +157,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(randomEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -193,7 +193,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(randomEntity);
+                this.standardService.ModifyEntityAsync(randomEntity);
 
             EntityDependencyValidationException actualEntityDependencyValidationException =
                 await Assert.ThrowsAsync<EntityDependencyValidationException>(
@@ -208,7 +208,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(randomEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -244,7 +244,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> modifyEntityTask =
-                this.smartService.ModifyEntityAsync(randomEntity);
+                this.standardService.ModifyEntityAsync(randomEntity);
 
             EntityServiceException actualEntityServiceException =
                 await Assert.ThrowsAsync<EntityServiceException>(
@@ -259,7 +259,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(randomEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>

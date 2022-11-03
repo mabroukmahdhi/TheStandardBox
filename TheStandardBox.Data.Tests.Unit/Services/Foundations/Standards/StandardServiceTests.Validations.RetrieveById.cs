@@ -34,7 +34,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
             // when
             ValueTask<TEntity> retrieveEntityByIdTask =
-                this.smartService.RetrieveEntityByIdAsync(invalidEntityId);
+                this.standardService.RetrieveEntityByIdAsync(invalidEntityId);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -50,7 +50,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                         Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                     Times.Never);
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
@@ -72,12 +72,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityValidationException(this.entityName, notFoundEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()))
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()))
                     .ReturnsAsync(noEntity);
 
             //when
             ValueTask<TEntity> retrieveEntityByIdTask =
-                this.smartService.RetrieveEntityByIdAsync(someEntityId);
+                this.standardService.RetrieveEntityByIdAsync(someEntityId);
 
             EntityValidationException actualEntityValidationException =
                 await Assert.ThrowsAsync<EntityValidationException>(
@@ -87,7 +87,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             actualEntityValidationException.Should().BeEquivalentTo(expectedEntityValidationException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync(It.IsAny<Guid>()),
+                broker.SelectEntityByIdAsync<TEntity>(It.IsAny<Guid>()),
                     Times.Once());
 
             this.loggingBrokerMock.Verify(broker =>

@@ -14,7 +14,7 @@ namespace TheStandardBox.Core.Brokers.Entities
         string GetEntityName(Type type);
         string GetEntityName<TModel>();
 
-        string GetRelativeApiUrl<TModel>()
+        string GetRelativeApiUrl<TModel>(string prefix = "api")
            where TModel : IStandardEntity;
     }
 }

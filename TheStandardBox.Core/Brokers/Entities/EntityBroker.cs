@@ -15,10 +15,13 @@ namespace TheStandardBox.Core.Brokers.Entities
 
         public virtual string GetEntityName<TModel>() => typeof(TModel).Name;
 
-        public virtual string GetRelativeApiUrl<TModel>()
+        public virtual string GetRelativeApiUrl<TModel>(string prefix = "api")
             where TModel : IStandardEntity
         {
-            return $"api/{typeof(TModel).Name}s";
+            if (string.IsNullOrWhiteSpace(prefix))
+                return $"{typeof(TModel).Name}s";
+
+            return $"{prefix}/{typeof(TModel).Name}s";
         }
     }
 }

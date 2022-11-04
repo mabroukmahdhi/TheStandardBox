@@ -68,7 +68,7 @@ namespace TheStandardBox.Core.Extensions
             var properties = entity.GetType().GetProperties().Where(p =>
                 Attribute.IsDefined(p, typeof(PrimaryKeyAttribute)));
 
-            if (properties == null || properties.Any())
+            if (properties == null || !properties.Any())
             {
                 var entityName = standardEntityBroker.GetEntityName<TEntity>();
 

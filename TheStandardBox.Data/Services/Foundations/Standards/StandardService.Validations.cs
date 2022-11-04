@@ -39,10 +39,25 @@ namespace TheStandardBox.Data.Services.Standards
             {
                 foreach (var property in properties)
                 {
-                    var val = property.GetValue(entity) as string;
+                    var val = property.GetValue(entity);
                     var name = property.Name;
 
-                    validations.Add((Rule: IsInvalid(val), Parameter: name));
+                    if (property.PropertyType == typeof(string))
+                    {
+                        validations.Add((Rule: IsInvalid(val as string), Parameter: name));
+                    }
+                    else if (property.PropertyType == typeof(DateTimeOffset))
+                    {
+                        validations.Add((Rule: IsInvalid((DateTimeOffset)val), Parameter: name));
+                    }
+                    else if (property.PropertyType == typeof(Guid))
+                    {
+                        validations.Add((Rule: IsInvalid((Guid)val), Parameter: name));
+                    }
+                    else
+                    {
+                        validations.Add((Rule: IsInvalid(val), Parameter: name));
+                    }
                 }
             }
 
@@ -131,7 +146,7 @@ namespace TheStandardBox.Data.Services.Standards
 
         protected virtual dynamic IsInvalid(string text) => new
         {
-            Condition = String.IsNullOrWhiteSpace(text),
+            Condition = string.IsNullOrWhiteSpace(text),
             Message = "Text is required"
         };
 

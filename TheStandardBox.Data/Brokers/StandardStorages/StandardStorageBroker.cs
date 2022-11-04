@@ -38,7 +38,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             }
         }
 
-        public async ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
+        public virtual async ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
              where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Added;

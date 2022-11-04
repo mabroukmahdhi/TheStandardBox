@@ -20,7 +20,7 @@ namespace TheStandardBox.Core.Extensions
             services.AddSingleton<ILoggingBroker, LoggingBroker>();
             services.AddTransient<ILoggingBroker, LoggingBroker>();
             services.AddTransient<IDateTimeBroker, DateTimeBroker>();
-            services.AddTransient<IEntityBroker, EntityBroker>();
+            services.AddTransient<IStandardEntityBroker, StandardEntityBroker>();
         }
     }
 }

@@ -39,7 +39,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
         }
 
         public virtual async ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
-             where TEntity : class, IEntity
+             where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Added;
             await this.SaveChangesAsync();
@@ -48,16 +48,16 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
         }
 
         public virtual IQueryable<TEntity> SelectAllEntities<TEntity>()
-             where TEntity : class, IEntity => this.Set<TEntity>();
+             where TEntity : class, IStandardEntity => this.Set<TEntity>();
 
         public virtual async ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(
-            params object[] entityIds) where TEntity : class, IEntity
+            params object[] entityIds) where TEntity : class, IStandardEntity
         {
             return await this.FindAsync<TEntity>(entityIds);
         }
 
         public virtual async ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IEntity
+            where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Modified;
             await this.SaveChangesAsync();
@@ -66,7 +66,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
         }
 
         public virtual async ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IEntity
+            where TEntity : class, IStandardEntity
         {
             this.Entry(entity).State = EntityState.Deleted;
             await this.SaveChangesAsync();

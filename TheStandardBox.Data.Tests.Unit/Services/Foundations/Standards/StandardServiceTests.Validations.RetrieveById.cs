@@ -26,7 +26,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new InvalidEntityException(this.entityName);
 
             invalidEntityException.AddData(
-                key: nameof(IStandardEntity.Id),
+                key: "Id",
                 values: "Id is required");
 
             var expectedEntityValidationException =

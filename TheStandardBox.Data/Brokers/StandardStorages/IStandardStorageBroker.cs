@@ -13,18 +13,18 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
     public interface IStandardStorageBroker
     {
         ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IEntity;
+            where TEntity : class, IStandardEntity;
 
         IQueryable<TEntity> SelectAllEntities<TEntity>()
-            where TEntity : class, IEntity;
+            where TEntity : class, IStandardEntity;
 
         ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(params object[] entityIds)
-            where TEntity : class, IEntity;
+            where TEntity : class, IStandardEntity;
 
         ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IEntity;
+            where TEntity : class, IStandardEntity;
         
         ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IEntity;
+            where TEntity : class, IStandardEntity;
     }
 }

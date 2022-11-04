@@ -11,8 +11,8 @@ namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
 {
     public class NotFoundEntityException : Xeption
     {
-        public NotFoundEntityException(string entityName, Guid orderId)
-            : base(message: $"Couldn't find {entityName} with orderId: {orderId}.")
+        public NotFoundEntityException(string entityName, params object[] entityIds)
+            : base(message: $"Couldn't find {entityName} with Id(s): {string.Join("; ", entityIds)}.")
         { }
     }
 }

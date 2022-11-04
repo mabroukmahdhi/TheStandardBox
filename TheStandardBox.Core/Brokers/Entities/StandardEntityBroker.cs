@@ -9,7 +9,7 @@ using TheStandardBox.Core.Models.Foundations.Standards;
 
 namespace TheStandardBox.Core.Brokers.Entities
 {
-    public class EntityBroker : IEntityBroker
+    public class StandardEntityBroker : IStandardEntityBroker
     {
         public virtual string GetEntityName(Type type) => type.Name;
 

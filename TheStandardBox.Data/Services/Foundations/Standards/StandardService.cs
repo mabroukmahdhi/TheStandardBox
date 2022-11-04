@@ -7,9 +7,11 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using TheStandardBox.Core.Brokers.DateTimes;
 using TheStandardBox.Core.Brokers.Entities;
 using TheStandardBox.Core.Brokers.Loggings;
+using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Data.Brokers.StandardStorages;
 using TheStandardBox.Data.Services.Foundations.Standards;
@@ -28,7 +30,7 @@ namespace TheStandardBox.Data.Services.Standards
             IStandardStorageBroker standardStorageBroker,
             IDateTimeBroker dateTimeBroker,
             ILoggingBroker loggingBroker,
-            IEntityBroker entityBroker)
+            IStandardEntityBroker entityBroker)
         {
             this.standardStorageBroker = standardStorageBroker;
             this.dateTimeBroker = dateTimeBroker;
@@ -67,9 +69,9 @@ namespace TheStandardBox.Data.Services.Standards
                 ValidateEntityOnModify(entity);
 
                 TEntity maybeTEntity =
-                    await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(entity.Id);
+                    await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(entity.GetPrimaryKeys());
 
-                ValidateStorageEntity(maybeTEntity, entity.Id);
+                ValidateStorageEntity(maybeTEntity, entity.GetPrimaryKeys());
                 ValidateAgainstStorageEntityOnModify(inputEntity: entity, storageEntity: maybeTEntity);
 
                 return await this.standardStorageBroker.UpdateEntityAsync(entity);

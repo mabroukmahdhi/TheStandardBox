@@ -6,11 +6,9 @@
 
 using System;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards
+namespace TheStandardBox.Core.Attributes.Annotations
 {
-    public interface IEntity
-    {
-        DateTimeOffset CreatedDate { get; set; }
-        DateTimeOffset UpdatedDate { get; set; }
-    }
+    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+    public class PrimaryKeyAttribute : Attribute
+    { }
 }

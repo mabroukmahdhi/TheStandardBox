@@ -1,6 +1,12 @@
 # TheStandardBox
 A .NET Library for essential code according to [The Standard](https://github.com/hassanhabib/The-Standard)
 
+## Installation
+Install the nuget package in your API project:
+```shell
+NuGet\Install-Package TheStandardBox.Data -Version 1.0.0
+```
+
 ## How to use?
 This library will allow to you to use easly a sort of standard Storage Broker, Foundation Servicer and Controller:
 

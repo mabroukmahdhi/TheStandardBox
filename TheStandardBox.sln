@@ -9,7 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{3FA9A0E1-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheStandardBox.Data", "TheStandardBox.Data\TheStandardBox.Data.csproj", "{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheStandardBox.Data.Tests.Unit", "TheStandardBox.Data.Tests.Unit\TheStandardBox.Data.Tests.Unit.csproj", "{51BD5420-04D2-41CB-AC0F-B914FDAF0315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheStandardBox.Data.Tests.Unit", "TheStandardBox.Data.Tests.Unit\TheStandardBox.Data.Tests.Unit.csproj", "{51BD5420-04D2-41CB-AC0F-B914FDAF0315}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{CFFFC3CD-21B4-493A-A1A8-D8BDF0E87A86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{D746527D-E28D-4D09-9310-6B29A37E15F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "Sample\WebApplication1\WebApplication1.csproj", "{95D56573-2258-47D8-987E-E51BAAAD971B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1.Tests.Unit", "Sample\WebApplication1.Tests.Unit\WebApplication1.Tests.Unit.csproj", "{A275B6AB-6B37-4AFB-9FE9-1C6427A836D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,13 +37,24 @@ Global
 		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51BD5420-04D2-41CB-AC0F-B914FDAF0315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95D56573-2258-47D8-987E-E51BAAAD971B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95D56573-2258-47D8-987E-E51BAAAD971B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95D56573-2258-47D8-987E-E51BAAAD971B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95D56573-2258-47D8-987E-E51BAAAD971B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A275B6AB-6B37-4AFB-9FE9-1C6427A836D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A275B6AB-6B37-4AFB-9FE9-1C6427A836D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A275B6AB-6B37-4AFB-9FE9-1C6427A836D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A275B6AB-6B37-4AFB-9FE9-1C6427A836D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{579007E3-249C-4409-994D-0B52B3A92939} = {CFFFC3CD-21B4-493A-A1A8-D8BDF0E87A86}
 		{A6479BA5-97F7-49E4-AF3C-BFFC9544FBA0} = {3FA9A0E1-DC09-4F54-AD55-7DFA9C7E3078}
 		{51BD5420-04D2-41CB-AC0F-B914FDAF0315} = {3FA9A0E1-DC09-4F54-AD55-7DFA9C7E3078}
+		{95D56573-2258-47D8-987E-E51BAAAD971B} = {D746527D-E28D-4D09-9310-6B29A37E15F1}
+		{A275B6AB-6B37-4AFB-9FE9-1C6427A836D7} = {D746527D-E28D-4D09-9310-6B29A37E15F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1E92B11-688C-44BB-931D-219A5A42A6D6}

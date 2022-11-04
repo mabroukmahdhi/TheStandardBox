@@ -9,8 +9,8 @@ using System.Collections.Generic;
 
 namespace TheStandardBox.Core.Models.Foundations.Standards
 {
-    public interface IStandardEntity : IEntity
+    public interface IJoinEntity : IEntity
     {
-        Guid Id { get; set; }
+        IEnumerable<Guid> Ids { get; set; }
     }
 }

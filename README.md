@@ -1,6 +1,10 @@
 # TheStandardBox
 A .NET Library for essential code according to [The Standard](https://github.com/hassanhabib/The-Standard)
 
+- TheStandardBox.Core : [![Nuget](https://img.shields.io/nuget/v/TheStandardBox.Core)](https://www.nuget.org/packages/TheStandardBox.Core/)
+- TheStandardBox.Data : [![Nuget](https://img.shields.io/nuget/v/TheStandardBox.Data)](https://www.nuget.org/packages/TheStandardBox.Data/)
+- TheStandardBox.Data.Tests.Unit : [![Nuget](https://img.shields.io/nuget/v/TheStandardBox.Data.Tests.Unit)](https://www.nuget.org/packages/TheStandardBox.Data.Tests.Unit/)
+
 ## Installation
 Install the nuget package in your API project:
 ```shell

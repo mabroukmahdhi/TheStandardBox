@@ -8,10 +8,8 @@ namespace WebApplication1.Models.Foundations.UserOptions
 {
     public class UserOption : IStandardEntity
     {
-        [PrimaryKey]
         public Guid UserId { get; set; }
         public User User { get; set; }
-        [PrimaryKey]
         public Guid OptionId { get; set; }
         public Option Option { get; set; } 
         public DateTimeOffset CreatedDate { get; set; }

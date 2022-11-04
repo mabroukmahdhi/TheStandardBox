@@ -66,7 +66,8 @@ namespace TheStandardBox.Core.Extensions
         public static IEnumerable<PropertyInfo> GetPrimaryKeyProperties<TEntity>(this TEntity entity)
         {
             var properties = entity.GetType().GetProperties().Where(p =>
-                Attribute.IsDefined(p, typeof(PrimaryKeyAttribute)));
+                Attribute.IsDefined(p, typeof(PrimaryKeyAttribute))
+                    || p.Name.EndsWith("Id"));
 
             if (properties == null || !properties.Any())
             {
@@ -77,6 +78,14 @@ namespace TheStandardBox.Core.Extensions
                 invalidEntityException.AddData("PrimaryKey", "No key was defined");
 
                 throw new EntityValidationException(entityName, invalidEntityException);
+            }
+
+            var customized = properties.Where(p =>
+                Attribute.IsDefined(p, typeof(PrimaryKeyAttribute)));
+
+            if (customized != null && customized.Any())
+            {
+                return customized;
             }
 
             return properties;

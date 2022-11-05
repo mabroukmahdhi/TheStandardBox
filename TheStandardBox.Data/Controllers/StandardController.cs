@@ -15,7 +15,7 @@ using TheStandardBox.Data.Services.Foundations.Standards;
 
 namespace TheStandardBox.Data.Controllers
 {
-    public class StandardController<TEntity> : RESTFulController
+    public partial class StandardController<TEntity> : RESTFulController
         where TEntity : class, IStandardEntity
     {
         protected readonly IStandardService<TEntity> standardService;
@@ -24,162 +24,39 @@ namespace TheStandardBox.Data.Controllers
             this.standardService = standardService;
 
         [HttpPost]
-        public virtual async ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity entity)
-        {
-            try
+        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity entity) =>
+            TryCatchOnPost(async () =>
             {
-                TEntity addedEntity =
-                    await this.standardService.AddEntityAsync(entity);
-
-                return Created(addedEntity);
-            }
-            catch (EntityValidationException entityValidationException)
-            {
-                return BadRequest(entityValidationException.InnerException);
-            }
-            catch (EntityDependencyValidationException entityValidationException)
-                when (entityValidationException.InnerException is InvalidEntityReferenceException)
-            {
-                return FailedDependency(entityValidationException.InnerException);
-            }
-            catch (EntityDependencyValidationException entityDependencyValidationException)
-               when (entityDependencyValidationException.InnerException is AlreadyExistsEntityException)
-            {
-                return Conflict(entityDependencyValidationException.InnerException);
-            }
-            catch (EntityDependencyException entityDependencyException)
-            {
-                return InternalServerError(entityDependencyException);
-            }
-            catch (EntityServiceException standardServiceException)
-            {
-                return InternalServerError(standardServiceException);
-            }
-        }
+                return await this.standardService.AddEntityAsync(entity);
+            });
 
         [HttpGet]
-        public virtual ActionResult<IQueryable<TEntity>> GetAllEntities()
-        {
-            try
+        public virtual ActionResult<IQueryable<TEntity>> GetAllEntities() =>
+            TryCatchOnGetAll(() =>
             {
-                IQueryable<TEntity> retrievedEntities =
-                    this.standardService.RetrieveAllEntities();
+                return this.standardService.RetrieveAllEntities();
+            });
 
-                return Ok(retrievedEntities);
-            }
-            catch (EntityDependencyException entityDependencyException)
-            {
-                return InternalServerError(entityDependencyException);
-            }
-            catch (EntityServiceException standardServiceException)
-            {
-                return InternalServerError(standardServiceException);
-            }
-        }
 
         [HttpGet("{itemId}")]
-        public virtual async ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid itemId)
-        {
-            try
+        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid itemId) =>
+            TryCatchOnGetById(async () =>
             {
-                TEntity entity = await this.standardService.RetrieveEntityByIdAsync(itemId);
-
-                return Ok(entity);
-            }
-            catch (EntityValidationException entityValidationException)
-                when (entityValidationException.InnerException is NotFoundEntityException)
-            {
-                return NotFound(entityValidationException.InnerException);
-            }
-            catch (EntityValidationException entityValidationException)
-            {
-                return BadRequest(entityValidationException.InnerException);
-            }
-            catch (EntityDependencyException entityDependencyException)
-            {
-                return InternalServerError(entityDependencyException);
-            }
-            catch (EntityServiceException standardServiceException)
-            {
-                return InternalServerError(standardServiceException);
-            }
-        }
+                return await this.standardService.RetrieveEntityByIdAsync(itemId);
+            });
 
         [HttpPut]
-        public virtual async ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity entity)
-        {
-            try
+        public virtual ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity entity) =>
+            TryCatchOnPut(async () =>
             {
-                TEntity modifiedEntity =
-                    await this.standardService.ModifyEntityAsync(entity);
-
-                return Ok(modifiedEntity);
-            }
-            catch (EntityValidationException entityValidationException)
-                when (entityValidationException.InnerException is NotFoundEntityException)
-            {
-                return NotFound(entityValidationException.InnerException);
-            }
-            catch (EntityValidationException entityValidationException)
-            {
-                return BadRequest(entityValidationException.InnerException);
-            }
-            catch (EntityDependencyValidationException entityValidationException)
-                when (entityValidationException.InnerException is InvalidEntityReferenceException)
-            {
-                return FailedDependency(entityValidationException.InnerException);
-            }
-            catch (EntityDependencyValidationException entityDependencyValidationException)
-               when (entityDependencyValidationException.InnerException is AlreadyExistsEntityException)
-            {
-                return Conflict(entityDependencyValidationException.InnerException);
-            }
-            catch (EntityDependencyException entityDependencyException)
-            {
-                return InternalServerError(entityDependencyException);
-            }
-            catch (EntityServiceException standardServiceException)
-            {
-                return InternalServerError(standardServiceException);
-            }
-        }
+                return await this.standardService.ModifyEntityAsync(entity);
+            });
 
         [HttpDelete("{itemId}")]
-        public virtual async ValueTask<ActionResult<TEntity>> DeleteEntityByIdAsync(Guid itemId)
-        {
-            try
+        public virtual ValueTask<ActionResult<TEntity>> DeleteEntityByIdAsync(Guid itemId) =>
+            TryCatchOnDelete(async () =>
             {
-                TEntity deletedEntity =
-                    await this.standardService.RemoveEntityByIdAsync(itemId);
-
-                return Ok(deletedEntity);
-            }
-            catch (EntityValidationException entityValidationException)
-                when (entityValidationException.InnerException is NotFoundEntityException)
-            {
-                return NotFound(entityValidationException.InnerException);
-            }
-            catch (EntityValidationException entityValidationException)
-            {
-                return BadRequest(entityValidationException.InnerException);
-            }
-            catch (EntityDependencyValidationException entityDependencyValidationException)
-                when (entityDependencyValidationException.InnerException is LockedEntityException)
-            {
-                return Locked(entityDependencyValidationException.InnerException);
-            }
-            catch (EntityDependencyValidationException entityDependencyValidationException)
-            {
-                return BadRequest(entityDependencyValidationException);
-            }
-            catch (EntityDependencyException entityDependencyException)
-            {
-                return InternalServerError(entityDependencyException);
-            }
-            catch (EntityServiceException standardServiceException)
-            {
-                return InternalServerError(standardServiceException);
-            }
-        }
+                return await this.standardService.RemoveEntityByIdAsync(itemId);
+            });
     }
 }

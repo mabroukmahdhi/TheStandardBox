@@ -11,14 +11,14 @@ using TheStandardBox.Core.Brokers.DateTimes;
 using TheStandardBox.Core.Brokers.Entities;
 using TheStandardBox.Core.Brokers.Loggings;
 using TheStandardBox.Core.Extensions;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Data.Brokers.StandardStorages;
 using TheStandardBox.Data.Services.Foundations.Standards;
 
 namespace TheStandardBox.Data.Services.Standards
 {
     public partial class StandardService<TEntity> : IStandardService<TEntity>
-        where TEntity : class, IStandardEntity
+        where TEntity : class, IBaseEntity
     {
         protected readonly IStandardStorageBroker standardStorageBroker;
         protected readonly IDateTimeBroker dateTimeBroker;

@@ -8,21 +8,21 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Data.Services.Foundations.Standards;
 
 namespace TheStandardBox.Data.Controllers
 {
     public partial class StandardController<TEntity> : CatchableController<TEntity>
-        where TEntity : class, IStandardEntity
+        where TEntity : class, IBaseEntity
     {
         protected readonly IStandardService<TEntity> standardService;
 
         public StandardController(IStandardService<TEntity> standardService) =>
-            this.standardService = standardService;
+             this.standardService = standardService;
 
         [HttpPost]
-        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity entity) =>
+        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync([FromBody]TEntity entity) =>
             TryCatchOnPost(async () =>
             {
                 return await this.standardService.AddEntityAsync(entity);
@@ -44,24 +44,24 @@ namespace TheStandardBox.Data.Controllers
             });
 
         [HttpGet("{entityId1}/{entityId2}")]
-        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid entityId1, Guid entityId2) =>
+        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdsAsync(Guid entityId1, Guid entityId2) =>
            TryCatchOnGetById(async () =>
            {
                return await this.standardService.RetrieveEntityByIdAsync(entityId1, entityId2);
            });
 
         [HttpPut]
-        public virtual ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity entity) =>
+        public virtual ValueTask<ActionResult<TEntity>> PutEntityAsync([FromBody] TEntity entity) =>
             TryCatchOnPut(async () =>
             {
                 return await this.standardService.ModifyEntityAsync(entity);
             });
 
-        [HttpDelete("{itemId}")]
-        public virtual ValueTask<ActionResult<TEntity>> DeleteEntityByIdAsync(Guid itemId) =>
+        [HttpDelete("{entityId}")]
+        public virtual ValueTask<ActionResult<TEntity>> DeleteEntityByIdAsync(Guid entityId) =>
             TryCatchOnDelete(async () =>
             {
-                return await this.standardService.RemoveEntityByIdAsync(itemId);
+                return await this.standardService.RemoveEntityByIdAsync(entityId);
             });
     }
 }

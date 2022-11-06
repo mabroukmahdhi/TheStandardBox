@@ -9,8 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TheStandardBox.Core.Attributes.Annotations;
 using TheStandardBox.Core.Attributes.Validations;
+using TheStandardBox.Core.Models.Foundations.Bases;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using TheStandardBox.Core.Models.Foundations.Standards;
-using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
 
 namespace TheStandardBox.Data.Services.Standards
 {
@@ -21,8 +22,8 @@ namespace TheStandardBox.Data.Services.Standards
             List<(dynamic Rule, string Parameter)> sharedValidations =
                 new()
                 {
-                    (Rule: IsInvalid(entity.CreatedDate), Parameter: nameof(IStandardEntity.CreatedDate)),
-                    (Rule: IsInvalid(entity.UpdatedDate), Parameter: nameof(IStandardEntity.UpdatedDate))
+                    (Rule: IsInvalid(entity.CreatedDate), Parameter: nameof(IBaseEntity.CreatedDate)),
+                    (Rule: IsInvalid(entity.UpdatedDate), Parameter: nameof(IBaseEntity.UpdatedDate))
                 };
 
             return sharedValidations;
@@ -95,8 +96,8 @@ namespace TheStandardBox.Data.Services.Standards
             validations.Add((Rule: IsSame(
                     firstDate: entity.UpdatedDate,
                     secondDate: entity.CreatedDate,
-                    secondDateName: nameof(IStandardEntity.CreatedDate)),
-                Parameter: nameof(IStandardEntity.UpdatedDate)));
+                    secondDateName: nameof(IBaseEntity.CreatedDate)),
+                Parameter: nameof(IBaseEntity.UpdatedDate)));
 
             validations.Add((Rule: IsNotRecent(entity.UpdatedDate), Parameter: nameof(entity.UpdatedDate)));
 

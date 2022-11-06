@@ -7,12 +7,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Bases;
 
 namespace TheStandardBox.Data.Services.Foundations.Standards
 {
     public interface IStandardService<TEntity>
-        where TEntity : class, IStandardEntity
+        where TEntity : class, IBaseEntity
     {
         ValueTask<TEntity> AddEntityAsync(TEntity entity);
         IQueryable<TEntity> RetrieveAllEntities();

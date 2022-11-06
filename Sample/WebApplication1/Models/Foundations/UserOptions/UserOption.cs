@@ -1,11 +1,13 @@
 ﻿using System;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Attributes.Contollers;
+using TheStandardBox.Core.Models.Foundations.Joins;
 using WebApplication1.Models.Foundations.Options;
 using WebApplication1.Models.Foundations.Users;
 
 namespace WebApplication1.Models.Foundations.UserOptions
 {
-    public class UserOption : IStandardEntity
+    [GeneratedController("api/useroptions")]
+    public class UserOption : IJoinEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }

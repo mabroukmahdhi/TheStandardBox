@@ -4,13 +4,15 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
-using TheStandardBox.Core.Models.Foundations.Bases;
-
-namespace TheStandardBox.Core.Models.Foundations.Standards
+namespace TheStandardBox.Core.Models.Controllers
 {
-    public interface IStandardEntity:IBaseEntity
+    public enum AllowedAction
     {
-        Guid Id { get; set; }
+        None,
+        GetAllEntities,
+        GetEntityById,
+        PostEntity,
+        PutEntity,
+        DeleteEntityById
     }
 }

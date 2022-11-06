@@ -6,11 +6,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using TheStandardBox.Core.Attributes.Annotations;
 using TheStandardBox.Core.Brokers.Entities;
-using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 
 namespace TheStandardBox.Core.Extensions
 {
@@ -49,9 +50,25 @@ namespace TheStandardBox.Core.Extensions
             return (TIdentifier)ids?.FirstOrDefault();
         }
 
-        public static string GetPrimaryKeyName<TEntity>(this TEntity entity)
+        public static object? GetPrimaryKeyValue<TEntity>(this TEntity entity, string idPropertyName)
+            where TEntity : class
         {
             var properties = GetPrimaryKeyProperties(entity);
+
+            var property = properties.FirstOrDefault(p =>
+                p.Name == idPropertyName);
+
+            return property?.GetValue(entity);
+        }
+
+        public static string GetPrimaryKeyName<TEntity>(this TEntity entity)
+        {
+            return typeof(TEntity).GetPrimaryKeyName();
+        }
+
+        public static string GetPrimaryKeyName(this Type entityType)
+        {
+            var properties = GetPrimaryKeyProperties(entityType);
 
             List<string> names = new();
 
@@ -65,13 +82,18 @@ namespace TheStandardBox.Core.Extensions
 
         public static IEnumerable<PropertyInfo> GetPrimaryKeyProperties<TEntity>(this TEntity entity)
         {
-            var properties = entity.GetType().GetProperties().Where(p =>
+            return typeof(TEntity).GetPrimaryKeyProperties();
+        }
+
+        public static IEnumerable<PropertyInfo> GetPrimaryKeyProperties(this Type entityType)
+        {
+            var properties = entityType.GetProperties().Where(p =>
                 Attribute.IsDefined(p, typeof(PrimaryKeyAttribute))
                     || p.Name.EndsWith("Id"));
 
             if (properties == null || !properties.Any())
             {
-                var entityName = standardEntityBroker.GetEntityName<TEntity>();
+                var entityName = standardEntityBroker.GetEntityName(entityType);
 
                 var invalidEntityException = new InvalidEntityException(entityName);
 
@@ -90,5 +112,8 @@ namespace TheStandardBox.Core.Extensions
 
             return properties;
         }
+
+        public static bool ImplementsInterface(this Type type, string interfaceName) =>
+            type.GetInterface(interfaceName) != null;
     }
 }

@@ -6,25 +6,25 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Bases;
 
 namespace TheStandardBox.Data.Brokers.StandardStorages
 {
     public interface IStandardStorageBroker
     {
         ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IStandardEntity;
+            where TEntity : class, IBaseEntity;
 
         IQueryable<TEntity> SelectAllEntities<TEntity>()
-            where TEntity : class, IStandardEntity;
+            where TEntity : class, IBaseEntity;
 
         ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(params object[] entityIds)
-            where TEntity : class, IStandardEntity;
+            where TEntity : class, IBaseEntity;
 
         ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IStandardEntity;
+            where TEntity : class, IBaseEntity;
 
         ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IStandardEntity;
+            where TEntity : class, IBaseEntity;
     }
 }

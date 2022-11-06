@@ -4,13 +4,10 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
 using TheStandardBox.Core.Models.Foundations.Bases;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards
+namespace TheStandardBox.Core.Models.Foundations.Joins
 {
-    public interface IStandardEntity:IBaseEntity
-    {
-        Guid Id { get; set; }
-    }
+    public interface IJoinEntity : IBaseEntity
+    { }
 }

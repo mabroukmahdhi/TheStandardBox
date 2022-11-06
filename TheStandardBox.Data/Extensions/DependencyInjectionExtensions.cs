@@ -4,10 +4,14 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using TheStandardBox.Core.Extensions;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Data.Brokers.StandardStorages;
+using TheStandardBox.Data.Controllers.Conventions;
+using TheStandardBox.Data.Controllers.Providers;
 using TheStandardBox.Data.Services.Foundations.Standards;
 using TheStandardBox.Data.Services.Standards;
 
@@ -15,15 +19,32 @@ namespace TheStandardBox.Data.Extensions
 {
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection AddTheStandardBoxData(this IServiceCollection services)
+        public static IServiceCollection AddTheStandardBoxData(
+            this IServiceCollection services,
+            Action<MvcOptions> configure = null)
         {
             return services.AddTheStandardBoxData<StandardStorageBroker>();
         }
 
-        public static IServiceCollection AddTheStandardBoxData<TDbContext>(this IServiceCollection services)
+        public static IServiceCollection AddTheStandardBoxData<TDbContext>(
+            this IServiceCollection services,
+            Action<MvcOptions> configure = null)
             where TDbContext : StandardStorageBroker
         {
             services.AddTheStandardBoxCore();
+
+            if (configure == null)
+            {
+                services.AddControllers(options =>
+                {
+                    options.Conventions.Add(new GenericControllerRouteConvention());
+                    options.Conventions.Add(new ActionBuildingConvention());
+                }).ConfigureApplicationPartManager(m =>
+                {
+                    m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
+                });
+            }
+
             services.AddDbContext<TDbContext>();
             services.AddScoped<IStandardStorageBroker, StandardStorageBroker>();
             services.AddScoped<IStandardStorageBroker, TDbContext>();
@@ -31,7 +52,7 @@ namespace TheStandardBox.Data.Extensions
         }
 
         public static IServiceCollection AddStandardFoundationService<TEntity>(this IServiceCollection services)
-                    where TEntity : class, IStandardEntity
+                    where TEntity : class, IBaseEntity
         {
             services.AddScoped<IStandardService<TEntity>, StandardService<TEntity>>();
             return services;

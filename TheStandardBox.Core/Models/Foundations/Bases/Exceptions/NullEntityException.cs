@@ -6,13 +6,12 @@
 
 using Xeptions;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
+namespace TheStandardBox.Core.Models.Foundations.Bases.Exceptions
 {
-    public class EntityValidationException : Xeption
+    public class NullEntityException : Xeption
     {
-        public EntityValidationException(string entityName, Xeption innerException)
-            : base(message: $"{entityName} validation errors occurred, please try again.",
-                  innerException)
+        public NullEntityException(string entityName)
+            : base(message: $"{entityName} is null.")
         { }
     }
 }

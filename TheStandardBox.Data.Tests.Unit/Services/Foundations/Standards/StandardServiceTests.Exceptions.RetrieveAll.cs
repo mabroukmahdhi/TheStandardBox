@@ -8,7 +8,7 @@ using System;
 using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Moq;
-using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using Xunit;
 
 namespace StandardApi.PoC.Tests.Unit.Services.Standards

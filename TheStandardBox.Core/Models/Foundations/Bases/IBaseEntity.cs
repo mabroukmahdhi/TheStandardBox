@@ -5,12 +5,12 @@
 // ---------------------------------------------------------------
 
 using System;
-using TheStandardBox.Core.Models.Foundations.Bases;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards
+namespace TheStandardBox.Core.Models.Foundations.Bases
 {
-    public interface IStandardEntity:IBaseEntity
+    public interface IBaseEntity
     {
-        Guid Id { get; set; }
+        DateTimeOffset CreatedDate { get; set; }
+        DateTimeOffset UpdatedDate { get; set; }
     }
 }

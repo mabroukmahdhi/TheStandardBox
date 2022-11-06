@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using EFxceptions.Models.Exceptions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using Xeptions;
 
 namespace TheStandardBox.Data.Services.Standards

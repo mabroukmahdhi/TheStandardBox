@@ -15,7 +15,7 @@ using TheStandardBox.Data.Services.Foundations.Standards;
 
 namespace TheStandardBox.Data.Controllers
 {
-    public partial class StandardController<TEntity> : RESTFulController
+    public partial class StandardController<TEntity> : CatchableController<TEntity>
         where TEntity : class, IStandardEntity
     {
         protected readonly IStandardService<TEntity> standardService;

@@ -4,20 +4,17 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
-using TheStandardBox.Data.Services.Foundations.Standards;
 
 namespace TheStandardBox.Data.Controllers
 {
-    public partial class StandardController<TEntity>
+    public class CatchableController<TEntity> : RESTFulController
+        where TEntity : class, IStandardEntity
     {
         protected delegate ValueTask<TEntity> ReturningEntityFunction();
         protected delegate IQueryable<TEntity> ReturningEntitiesFunction();
@@ -135,7 +132,7 @@ namespace TheStandardBox.Data.Controllers
                 return InternalServerError(standardServiceException);
             }
         }
-        
+
         protected virtual async ValueTask<ActionResult<TEntity>> TryCatchOnDelete(ReturningEntityFunction returningEntityFunction)
         {
             try
@@ -171,6 +168,5 @@ namespace TheStandardBox.Data.Controllers
                 return InternalServerError(standardServiceException);
             }
         }
-
     }
 }

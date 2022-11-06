@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using TheStandardBox.Core.Attributes.Contollers;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using WebApplication1.Models.Foundations.Users;
 
 namespace WebApplication1.Models.Foundations.Options
 {
+    [GeneratedController("api/options")]
     public class Option : IStandardEntity
     {
         public Guid Id { get; set; }

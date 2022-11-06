@@ -17,7 +17,7 @@ namespace TheStandardBox.Data.Controllers.Providers
     {
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
-            var currentAssembly = typeof(GenericTypeControllerFeatureProvider).Assembly;
+            var currentAssembly = Assembly.GetEntryAssembly();
             var candidates = currentAssembly.GetExportedTypes().Where(x => x.GetCustomAttributes<GeneratedControllerAttribute>().Any());
 
             foreach (var candidate in candidates)

@@ -1,8 +1,11 @@
+using FluentAssertions.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using TheStandardBox.Data.Controllers.Conventions;
+using TheStandardBox.Data.Controllers.Providers;
 using TheStandardBox.Data.Extensions;
 using WebApplication1.Brokers.Storages;
 using WebApplication1.Models.Foundations.Options;
@@ -17,10 +20,15 @@ namespace WebApplication1
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers(c =>
+            builder.Services.AddControllers(options =>
             {
-                c.Conventions.Add(new ActionHidingConvention());
+                options.Conventions.Add(new ActionHidingConvention());
+                options.Conventions.Add(new GenericControllerRouteConvention());
+            }).ConfigureApplicationPartManager(m =>
+            {
+                m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
             });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -29,11 +37,12 @@ namespace WebApplication1
             builder.Services.AddStandardFoundationService<User>();
             builder.Services.AddStandardFoundationService<UserOption>();
 
-            builder.Services.AddMvc().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            });
+            builder.Services.AddMvc()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                });
 
             var app = builder.Build();
 

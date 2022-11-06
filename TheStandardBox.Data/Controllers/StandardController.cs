@@ -18,8 +18,6 @@ namespace TheStandardBox.Data.Controllers
     {
         protected readonly IStandardService<TEntity> standardService;
 
-        public TEntity Entity { get; protected set; }
-
         public StandardController(IStandardService<TEntity> standardService) =>
              this.standardService = standardService;
 
@@ -59,11 +57,11 @@ namespace TheStandardBox.Data.Controllers
                 return await this.standardService.ModifyEntityAsync(entity);
             });
 
-        [HttpDelete("{itemId}")]
-        public virtual ValueTask<ActionResult<TEntity>> DeleteEntityByIdAsync(Guid itemId) =>
+        [HttpDelete("{entityId}")]
+        public virtual ValueTask<ActionResult<TEntity>> DeleteEntityByIdAsync(Guid entityId) =>
             TryCatchOnDelete(async () =>
             {
-                return await this.standardService.RemoveEntityByIdAsync(itemId);
+                return await this.standardService.RemoveEntityByIdAsync(entityId);
             });
     }
 }

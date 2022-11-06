@@ -22,8 +22,8 @@ namespace WebApplication1
 
             builder.Services.AddControllers(options =>
             {
-                options.Conventions.Add(new ActionHidingConvention());
                 options.Conventions.Add(new GenericControllerRouteConvention());
+                options.Conventions.Add(new ActionHidingConvention());
             }).ConfigureApplicationPartManager(m =>
             {
                 m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());

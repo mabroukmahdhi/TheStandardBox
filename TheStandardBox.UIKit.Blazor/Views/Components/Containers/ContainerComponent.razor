@@ -1,5 +1,18 @@
-﻿<h3>ContainerComponent</h3>
-
-@code {
-
-}
+﻿@inherits BasicComponent
+<ContainerStatesComponent State=@State>
+    <LoadingFragment>
+        Loading ...
+    </LoadingFragment>
+    <ContentFragment>
+        @if (Content != null)
+        {
+            @Content
+        }
+    </ContentFragment>
+    <ErrorFragment>
+        @if (Error != null)
+        {
+            @Error
+        }
+    </ErrorFragment>
+</ContainerStatesComponent>

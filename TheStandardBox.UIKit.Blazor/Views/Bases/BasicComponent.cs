@@ -13,6 +13,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
     {
         [Parameter]
         public bool IsDisabled { get; set; }
+
         public bool IsEnabled => IsDisabled is false;
 
         [Parameter]

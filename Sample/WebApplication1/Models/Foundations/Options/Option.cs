@@ -7,7 +7,7 @@ using WebApplication1.Models.Foundations.Users;
 
 namespace WebApplication1.Models.Foundations.Options
 {
-    [GeneratedController("api/options")]
+    [GeneratedController("api/options",AllowedAction.GetAllEntities)]
     public class Option : IStandardEntity
     {
         public Guid Id { get; set; }

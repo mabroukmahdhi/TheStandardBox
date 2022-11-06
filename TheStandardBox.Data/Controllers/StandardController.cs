@@ -22,7 +22,7 @@ namespace TheStandardBox.Data.Controllers
              this.standardService = standardService;
 
         [HttpPost]
-        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity entity) =>
+        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync([FromBody]TEntity entity) =>
             TryCatchOnPost(async () =>
             {
                 return await this.standardService.AddEntityAsync(entity);
@@ -51,7 +51,7 @@ namespace TheStandardBox.Data.Controllers
            });
 
         [HttpPut]
-        public virtual ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity entity) =>
+        public virtual ValueTask<ActionResult<TEntity>> PutEntityAsync([FromBody] TEntity entity) =>
             TryCatchOnPut(async () =>
             {
                 return await this.standardService.ModifyEntityAsync(entity);

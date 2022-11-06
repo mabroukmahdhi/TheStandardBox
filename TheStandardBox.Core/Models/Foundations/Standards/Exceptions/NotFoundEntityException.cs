@@ -4,7 +4,6 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
 using Xeptions;
 
 namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions

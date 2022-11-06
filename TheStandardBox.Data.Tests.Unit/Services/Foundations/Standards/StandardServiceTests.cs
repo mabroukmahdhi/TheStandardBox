@@ -59,10 +59,10 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
         public static TheoryData GetMinutesBeforeOrAfter()
         {
-            int randomNumber = 
+            int randomNumber =
                 new IntRange(min: 2, max: 10).GetValue();
 
-            int randomNegativeNumber = 
+            int randomNegativeNumber =
                 -1 * new IntRange(min: 2, max: 10).GetValue();
 
             return new TheoryData<int>

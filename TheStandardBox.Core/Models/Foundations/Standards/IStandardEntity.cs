@@ -8,7 +8,7 @@ using System;
 
 namespace TheStandardBox.Core.Models.Foundations.Standards
 {
-    public interface IStandardEntity 
+    public interface IStandardEntity
     {
         DateTimeOffset CreatedDate { get; set; }
         DateTimeOffset UpdatedDate { get; set; }

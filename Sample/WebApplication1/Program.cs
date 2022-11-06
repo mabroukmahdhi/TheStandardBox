@@ -1,11 +1,7 @@
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using TheStandardBox.Data.Controllers.Conventions;
-using TheStandardBox.Data.Controllers.Providers;
 using TheStandardBox.Data.Extensions;
 using WebApplication1.Brokers.Storages;
 using WebApplication1.Models.Foundations.Options;
@@ -19,15 +15,6 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddControllers(options =>
-            {
-                options.Conventions.Add(new GenericControllerRouteConvention());
-                options.Conventions.Add(new ActionBuildingConvention());
-            }).ConfigureApplicationPartManager(m =>
-            {
-                m.FeatureProviders.Add(new GenericTypeControllerFeatureProvider());
-            });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

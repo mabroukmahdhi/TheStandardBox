@@ -53,7 +53,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(entityId),
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>

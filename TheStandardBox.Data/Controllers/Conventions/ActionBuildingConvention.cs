@@ -33,8 +33,11 @@ namespace TheStandardBox.Data.Controllers.Conventions
                     var allowsGetById = customNameAttribute.AllowedActions.Contains(
                         AllowedAction.GetEntityById);
 
-                    if (action.ActionName == "GetEntityByIds"
-                        && allowsGetById)
+                    var allowsDeleteById = customNameAttribute.AllowedActions.Contains(
+                       AllowedAction.DeleteEntityById);
+
+                    if ((action.ActionName == "GetEntityByIds" && allowsGetById)
+                        || (action.ActionName == "DeleteEntityByIds" && allowsDeleteById))
                     {
                         if (IsVisibleAction(action, nameof(IJoinEntity)))
                         {
@@ -54,6 +57,13 @@ namespace TheStandardBox.Data.Controllers.Conventions
 
                     if (action.ActionName == "GetEntityById"
                         && allowsGetById)
+                    {
+                        action.ApiExplorer.IsVisible =
+                            IsVisibleAction(action, nameof(IStandardEntity));
+                    }
+
+                    if (action.ActionName == "DeleteEntityById"
+                        && allowsDeleteById)
                     {
                         action.ApiExplorer.IsVisible =
                             IsVisibleAction(action, nameof(IStandardEntity));

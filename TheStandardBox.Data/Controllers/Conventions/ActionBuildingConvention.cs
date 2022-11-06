@@ -44,10 +44,6 @@ namespace TheStandardBox.Data.Controllers.Conventions
                             var ids = id?.Split('_')?.Select(i => i.Replace("Id", "s"))?.ToList();
                             if (ids != null)
                             {
-                                var namespc = action.Controller.ControllerType.Namespace;
-                                if (namespc == null)
-                                    return;
-
                                 var routeModel = action.Selectors.FirstOrDefault().AttributeRouteModel;
 
                                 routeModel.Template = $"{ids[0]?.ToLower()}/{{entityId1}}/{ids[1]?.ToLower()}/{{entityId2}}";

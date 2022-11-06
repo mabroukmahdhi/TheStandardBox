@@ -27,7 +27,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             storageEntity.UpdatedDate = randomEntity.CreatedDate;
             TEntity updatedEntity = inputEntity;
             TEntity expectedEntity = updatedEntity.DeepClone();
-            var entityId = inputEntity.GetPrimaryKeys();
+            var entityId = inputEntity.Id;
 
             this.dateTimeBrokerMock.Setup(broker =>
                 broker.GetCurrentDateTimeOffset())
@@ -53,7 +53,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id),
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>

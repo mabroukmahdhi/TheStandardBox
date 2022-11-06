@@ -26,18 +26,18 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             TEntity expectedEntity = storageEntity.DeepClone();
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.GetPrimaryKeys()))
+                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id))
                     .ReturnsAsync(storageEntity);
 
             // when
             TEntity actualEntity =
-                await this.standardService.RetrieveEntityByIdAsync(inputEntity.GetPrimaryKey<TEntity, Guid>());
+                await this.standardService.RetrieveEntityByIdAsync(inputEntity.Id);
 
             // then
             actualEntity.Should().BeEquivalentTo(expectedEntity);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id),
                     Times.Once);
 
             this.standardStorageBrokerMock.VerifyNoOtherCalls();

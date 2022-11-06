@@ -4,9 +4,11 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EFxceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TheStandardBox.Core.Models.Foundations.Bases;
@@ -57,6 +59,12 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             return await this.FindAsync<TEntity>(entityIds);
         }
 
+        public virtual async ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(Guid entityId) 
+            where TEntity : class, IBaseEntity
+        {
+            return await this.FindAsync<TEntity>(entityId);
+        }
+
         public virtual async ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity
         {
@@ -83,15 +91,26 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
 
             modelBuilder.Entity<TJoinEntity>()
                 .HasOne(typeof(TRelatedEntity1).Name)
-                .WithMany(typeof(TRelatedEntity2).Name + "s")
+                .WithMany(GetPluralName(typeof(TRelatedEntity2).Name))
                 .HasForeignKey(typeof(TRelatedEntity1).Name + "Id")
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TJoinEntity>()
                 .HasOne(typeof(TRelatedEntity2).Name)
-                .WithMany(typeof(TRelatedEntity1).Name + "s")
+                .WithMany(GetPluralName(typeof(TRelatedEntity1).Name))
                 .HasForeignKey(typeof(TRelatedEntity2).Name + "Id")
                 .OnDelete(DeleteBehavior.NoAction);
+        }
+
+        protected virtual string GetPluralName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return name;
+
+            if (name?.EndsWith("y") == true)
+                return name[..(name.Length - 1)] + "ies";
+
+            return name + "s";
         }
 
         public override void Dispose()

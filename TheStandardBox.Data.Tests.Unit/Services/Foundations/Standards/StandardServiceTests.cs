@@ -39,7 +39,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             this.dateTimeBrokerMock = new Mock<IDateTimeBroker>();
             this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
-            var entityBroker = new EntityBroker();
+            var entityBroker = new StandardEntityBroker();
 
             this.standardService = new StandardService<TEntity>(
                 standardStorageBroker: this.standardStorageBrokerMock.Object,
@@ -59,10 +59,10 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
 
         public static TheoryData GetMinutesBeforeOrAfter()
         {
-            int randomNumber = 
+            int randomNumber =
                 new IntRange(min: 2, max: 10).GetValue();
 
-            int randomNegativeNumber = 
+            int randomNegativeNumber =
                 -1 * new IntRange(min: 2, max: 10).GetValue();
 
             return new TheoryData<int>
@@ -131,7 +131,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new InvalidEntityException(entityName);
 
             invalidEntityException.AddData(
-                key: nameof(IStandardEntity.Id),
+                key: "Id",
                 values: "Id is required");
 
             invalidEntityException.AddData(
@@ -151,7 +151,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new InvalidEntityException(entityName);
 
             invalidEntityException.AddData(
-                 key: nameof(IStandardEntity.Id),
+                 key: "Id",
                  values: "Id is required");
 
             invalidEntityException.AddData(

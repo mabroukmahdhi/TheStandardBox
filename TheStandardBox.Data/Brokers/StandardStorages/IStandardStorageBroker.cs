@@ -23,7 +23,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
 
         ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
             where TEntity : class, IStandardEntity;
-        
+
         ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
             where TEntity : class, IStandardEntity;
     }

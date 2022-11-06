@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheStandardBox.Core.Attributes.Annotations;
 using TheStandardBox.Core.Attributes.Validations;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
@@ -18,8 +19,8 @@ namespace TheStandardBox.Data.Services.Standards
         protected virtual IEnumerable<(dynamic Rule, string Parameter)> SharedValidations(TEntity entity)
         {
             List<(dynamic Rule, string Parameter)> sharedValidations =
-                new List<(dynamic Rule, string Parameter)>{
-                    (Rule: IsInvalid(entity.Id), Parameter: nameof(IStandardEntity.Id)),
+                new()
+                {
                     (Rule: IsInvalid(entity.CreatedDate), Parameter: nameof(IStandardEntity.CreatedDate)),
                     (Rule: IsInvalid(entity.UpdatedDate), Parameter: nameof(IStandardEntity.UpdatedDate))
                 };
@@ -38,10 +39,25 @@ namespace TheStandardBox.Data.Services.Standards
             {
                 foreach (var property in properties)
                 {
-                    var val = property.GetValue(entity) as string;
+                    var val = property.GetValue(entity);
                     var name = property.Name;
 
-                    validations.Add((Rule: IsInvalid(val), Parameter: name));
+                    if (property.PropertyType == typeof(string))
+                    {
+                        validations.Add((Rule: IsInvalid(val as string), Parameter: name));
+                    }
+                    else if (property.PropertyType == typeof(DateTimeOffset))
+                    {
+                        validations.Add((Rule: IsInvalid((DateTimeOffset)val), Parameter: name));
+                    }
+                    else if (property.PropertyType == typeof(Guid))
+                    {
+                        validations.Add((Rule: IsInvalid((Guid)val), Parameter: name));
+                    }
+                    else
+                    {
+                        validations.Add((Rule: IsInvalid(val), Parameter: name));
+                    }
                 }
             }
 
@@ -55,6 +71,7 @@ namespace TheStandardBox.Data.Services.Standards
             List<(dynamic Rule, string Parameter)> validations = new();
 
             validations.AddRange(SharedValidations(entity));
+            validations.AddRange(ValidateByAttribute(entity, typeof(PrimaryKeyAttribute)));
             validations.AddRange(ValidateByAttribute(entity, typeof(ValidateOnAddAttribute)));
             validations.Add((Rule: IsNotSame(
                     firstDate: entity.UpdatedDate,
@@ -87,13 +104,13 @@ namespace TheStandardBox.Data.Services.Standards
         }
 
         protected virtual void ValidateEntityId(Guid entityId) =>
-            Validate((Rule: IsInvalid(entityId), Parameter: nameof(IStandardEntity.Id)));
+            Validate((Rule: IsInvalid(entityId), Parameter: "Id"));
 
-        protected virtual void ValidateStorageEntity(TEntity maybeEntity, Guid entityId)
+        protected virtual void ValidateStorageEntity(TEntity maybeEntity, params object[] entityIds)
         {
             if (maybeEntity is null)
             {
-                throw new NotFoundEntityException(this.entityName, entityId);
+                throw new NotFoundEntityException(this.entityName, entityIds);
             }
         }
 
@@ -129,7 +146,7 @@ namespace TheStandardBox.Data.Services.Standards
 
         protected virtual dynamic IsInvalid(string text) => new
         {
-            Condition = String.IsNullOrWhiteSpace(text),
+            Condition = string.IsNullOrWhiteSpace(text),
             Message = "Text is required"
         };
 

@@ -8,7 +8,6 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
 using Xunit;
 
@@ -26,7 +25,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new InvalidEntityException(this.entityName);
 
             invalidEntityException.AddData(
-                key: nameof(IStandardEntity.Id),
+                key: "Id",
                 values: "Id is required");
 
             var expectedEntityValidationException =

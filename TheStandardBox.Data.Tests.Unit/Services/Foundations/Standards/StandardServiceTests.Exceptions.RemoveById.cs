@@ -10,6 +10,7 @@ using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
 using Xunit;
 
@@ -31,12 +32,12 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityDependencyException(entityName, failedEntityStorageException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.GetPrimaryKeys()))
                     .Throws(sqlException);
 
             // when
             ValueTask<TEntity> addEntityTask =
-                this.standardService.RemoveEntityByIdAsync(randomEntity.Id);
+                this.standardService.RemoveEntityByIdAsync(randomEntity.GetPrimaryKey<TEntity, Guid>());
 
             EntityDependencyException actualEntityDependencyException =
                 await Assert.ThrowsAsync<EntityDependencyException>(
@@ -47,7 +48,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityDependencyException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.GetPrimaryKeys()),
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>

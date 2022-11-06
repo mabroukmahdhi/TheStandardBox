@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
+using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
 using Xunit;
@@ -143,7 +144,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                         Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.GetPrimaryKeys()),
                     Times.Never);
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
@@ -161,13 +162,13 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             TEntity nullEntity = null;
 
             var notFoundEntityException =
-                new NotFoundEntityException(entityName, nonExistEntity.Id);
+                new NotFoundEntityException(entityName, nonExistEntity.GetPrimaryKeys());
 
             var expectedEntityValidationException =
                 new EntityValidationException(entityName, notFoundEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(nonExistEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(nonExistEntity.GetPrimaryKeys()))
                 .ReturnsAsync(nullEntity);
 
             this.dateTimeBrokerMock.Setup(broker =>
@@ -187,7 +188,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityValidationException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(nonExistEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(nonExistEntity.GetPrimaryKeys()),
                     Times.Once);
 
             this.dateTimeBrokerMock.Verify(broker =>
@@ -226,7 +227,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityValidationException(entityName, invalidEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.GetPrimaryKeys()))
                 .ReturnsAsync(storageEntity);
 
             this.dateTimeBrokerMock.Setup(broker =>
@@ -246,7 +247,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 .BeEquivalentTo(expectedEntityValidationException);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.GetPrimaryKeys()),
                     Times.Once);
 
             this.dateTimeBrokerMock.Verify(broker =>
@@ -282,7 +283,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                 new EntityValidationException(entityName, invalidEntityException);
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id))
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.GetPrimaryKeys()))
                 .ReturnsAsync(storageEntity);
 
             this.dateTimeBrokerMock.Setup(broker =>
@@ -307,7 +308,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                         Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.Id),
+                broker.SelectEntityByIdAsync<TEntity>(invalidEntity.GetPrimaryKeys()),
                     Times.Once);
 
             this.standardStorageBrokerMock.VerifyNoOtherCalls();

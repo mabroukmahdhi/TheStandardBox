@@ -7,6 +7,7 @@ namespace WebApplication1.Models.Foundations.UserOptions
 {
     public class UserOption : IStandardEntity
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
         public Guid OptionId { get; set; }

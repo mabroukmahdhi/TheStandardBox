@@ -36,12 +36,19 @@ namespace TheStandardBox.Data.Controllers
             });
 
 
-        [HttpGet("{itemId}")]
-        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid itemId) =>
+        [HttpGet("{entityId}")]
+        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid entityId) =>
             TryCatchOnGetById(async () =>
             {
-                return await this.standardService.RetrieveEntityByIdAsync(itemId);
+                return await this.standardService.RetrieveEntityByIdAsync(entityId);
             });
+
+        [HttpGet("{entityId1}/{entityId2}")]
+        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid entityId1, Guid entityId2) =>
+           TryCatchOnGetById(async () =>
+           {
+               return await this.standardService.RetrieveEntityByIdAsync(entityId1, entityId2);
+           });
 
         [HttpPut]
         public virtual ValueTask<ActionResult<TEntity>> PutEntityAsync(TEntity entity) =>

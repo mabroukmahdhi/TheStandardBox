@@ -17,6 +17,7 @@ namespace TheStandardBox.Data.Services.Foundations.Standards
         ValueTask<TEntity> AddEntityAsync(TEntity entity);
         IQueryable<TEntity> RetrieveAllEntities();
         ValueTask<TEntity> RetrieveEntityByIdAsync(Guid entityId);
+        ValueTask<TEntity> RetrieveEntityByIdAsync(Guid entityId1, Guid entityId2);
         ValueTask<TEntity> ModifyEntityAsync(TEntity entity);
         ValueTask<TEntity> RemoveEntityByIdAsync(Guid entityId);
     }

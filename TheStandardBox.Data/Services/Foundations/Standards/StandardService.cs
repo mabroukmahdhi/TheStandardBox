@@ -62,6 +62,22 @@ namespace TheStandardBox.Data.Services.Standards
                 return maybeTEntity;
             });
 
+        public ValueTask<TEntity> RetrieveEntityByIdAsync(
+            Guid entityId1,
+            Guid entityId2) =>
+        TryCatch(async () =>
+            {
+                ValidateEntityId(entityId1);
+                ValidateEntityId(entityId2);
+
+                TEntity maybeTEntity = await this.standardStorageBroker
+                    .SelectEntityByIdAsync<TEntity>(entityId1, entityId2);
+
+                ValidateStorageEntity(maybeTEntity, entityId1, entityId2);
+
+                return maybeTEntity;
+            });
+
         public virtual ValueTask<TEntity> ModifyEntityAsync(TEntity entity) =>
             TryCatch(async () =>
             {

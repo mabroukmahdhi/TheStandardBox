@@ -6,10 +6,11 @@
 
 using System;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards
+namespace TheStandardBox.Core.Models.Foundations.Bases
 {
-    public interface IStandardEntity
+    public interface IBaseEntity
     {
-        Guid Id { get; set; }
+        DateTimeOffset CreatedDate { get; set; }
+        DateTimeOffset UpdatedDate { get; set; }
     }
 }

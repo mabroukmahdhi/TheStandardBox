@@ -6,6 +6,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using TheStandardBox.Core.Extensions;
+using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Data.Brokers.StandardStorages;
 using TheStandardBox.Data.Services.Foundations.Standards;
@@ -31,7 +32,7 @@ namespace TheStandardBox.Data.Extensions
         }
 
         public static IServiceCollection AddStandardFoundationService<TEntity>(this IServiceCollection services)
-                    where TEntity : class, IStandardEntity
+                    where TEntity : class, IBaseEntity
         {
             services.AddScoped<IStandardService<TEntity>, StandardService<TEntity>>();
             return services;

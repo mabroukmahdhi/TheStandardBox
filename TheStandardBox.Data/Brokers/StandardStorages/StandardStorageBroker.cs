@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EFxceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Core.Models.Foundations.Standards;
 
 namespace TheStandardBox.Data.Brokers.StandardStorages
@@ -39,7 +40,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
         }
 
         public virtual async ValueTask<TEntity> InsertEntityAsync<TEntity>(TEntity entity)
-             where TEntity : class, IStandardEntity
+             where TEntity : class, IBaseEntity
         {
             this.Entry(entity).State = EntityState.Added;
             await this.SaveChangesAsync();
@@ -48,16 +49,16 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
         }
 
         public virtual IQueryable<TEntity> SelectAllEntities<TEntity>()
-             where TEntity : class, IStandardEntity => this.Set<TEntity>();
+             where TEntity : class, IBaseEntity => this.Set<TEntity>();
 
         public virtual async ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(
-            params object[] entityIds) where TEntity : class, IStandardEntity
+            params object[] entityIds) where TEntity : class, IBaseEntity
         {
             return await this.FindAsync<TEntity>(entityIds);
         }
 
         public virtual async ValueTask<TEntity> UpdateEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IStandardEntity
+            where TEntity : class, IBaseEntity
         {
             this.Entry(entity).State = EntityState.Modified;
             await this.SaveChangesAsync();
@@ -66,7 +67,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
         }
 
         public virtual async ValueTask<TEntity> DeleteEntityAsync<TEntity>(TEntity entity)
-            where TEntity : class, IStandardEntity
+            where TEntity : class, IBaseEntity
         {
             this.Entry(entity).State = EntityState.Deleted;
             await this.SaveChangesAsync();

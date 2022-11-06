@@ -8,18 +8,20 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Data.Services.Foundations.Standards;
 
 namespace TheStandardBox.Data.Controllers
 {
     public partial class StandardController<TEntity> : CatchableController<TEntity>
-        where TEntity : class, IStandardEntity
+        where TEntity : class, IBaseEntity
     {
         protected readonly IStandardService<TEntity> standardService;
 
+        public TEntity Entity { get; protected set; }
+
         public StandardController(IStandardService<TEntity> standardService) =>
-            this.standardService = standardService;
+             this.standardService = standardService;
 
         [HttpPost]
         public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync(TEntity entity) =>
@@ -44,7 +46,7 @@ namespace TheStandardBox.Data.Controllers
             });
 
         [HttpGet("{entityId1}/{entityId2}")]
-        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdAsync(Guid entityId1, Guid entityId2) =>
+        public virtual ValueTask<ActionResult<TEntity>> GetEntityByIdsAsync(Guid entityId1, Guid entityId2) =>
            TryCatchOnGetById(async () =>
            {
                return await this.standardService.RetrieveEntityByIdAsync(entityId1, entityId2);

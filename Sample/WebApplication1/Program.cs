@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using TheStandardBox.Data.Controllers.Conventions;
 using TheStandardBox.Data.Extensions;
 using WebApplication1.Brokers.Storages;
 using WebApplication1.Models.Foundations.Options;
@@ -16,7 +17,10 @@ namespace WebApplication1
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(c =>
+            {
+                c.Conventions.Add(new ActionHidingConvention());
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

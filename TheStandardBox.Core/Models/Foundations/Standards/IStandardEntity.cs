@@ -5,10 +5,11 @@
 // ---------------------------------------------------------------
 
 using System;
+using TheStandardBox.Core.Models.Foundations.Bases;
 
 namespace TheStandardBox.Core.Models.Foundations.Standards
 {
-    public interface IStandardEntity
+    public interface IStandardEntity:IBaseEntity
     {
         Guid Id { get; set; }
     }

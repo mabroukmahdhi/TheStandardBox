@@ -6,11 +6,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using TheStandardBox.Core.Attributes.Annotations;
 using TheStandardBox.Core.Brokers.Entities;
-using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 
 namespace TheStandardBox.Core.Extensions
 {
@@ -90,5 +91,8 @@ namespace TheStandardBox.Core.Extensions
 
             return properties;
         }
+
+        public static bool ImplementsInterface(this Type type, string interfaceName) =>
+            type.GetInterface(interfaceName) != null;
     }
 }

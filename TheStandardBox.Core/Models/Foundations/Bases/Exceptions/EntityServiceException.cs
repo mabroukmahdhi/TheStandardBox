@@ -7,13 +7,12 @@
 using System;
 using Xeptions;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
+namespace TheStandardBox.Core.Models.Foundations.Bases.Exceptions
 {
-    public class LockedEntityException : Xeption
+    public class EntityServiceException : Xeption
     {
-        public LockedEntityException(string entityName, Exception innerException)
-            : base(message: $"Locked {entityName} record exception, please try again later", innerException)
-        {
-        }
+        public EntityServiceException(string entityName, Exception innerException)
+            : base(message: $"{entityName} service error occurred, contact support.", innerException)
+        { }
     }
 }

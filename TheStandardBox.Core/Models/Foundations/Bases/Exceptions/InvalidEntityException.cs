@@ -6,7 +6,7 @@
 
 using Xeptions;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
+namespace TheStandardBox.Core.Models.Foundations.Bases.Exceptions
 {
     public class InvalidEntityException : Xeption
     {

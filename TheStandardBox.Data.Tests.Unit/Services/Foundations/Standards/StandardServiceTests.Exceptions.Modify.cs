@@ -12,6 +12,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using TheStandardBox.Core.Extensions;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
 using Xunit;
 

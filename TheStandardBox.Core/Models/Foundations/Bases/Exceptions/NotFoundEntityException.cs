@@ -6,12 +6,12 @@
 
 using Xeptions;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
+namespace TheStandardBox.Core.Models.Foundations.Bases.Exceptions
 {
-    public class NullEntityException : Xeption
+    public class NotFoundEntityException : Xeption
     {
-        public NullEntityException(string entityName)
-            : base(message: $"{entityName} is null.")
+        public NotFoundEntityException(string entityName, params object[] entityIds)
+            : base(message: $"Couldn't find {entityName} with Id(s): {string.Join("; ", entityIds)}.")
         { }
     }
 }

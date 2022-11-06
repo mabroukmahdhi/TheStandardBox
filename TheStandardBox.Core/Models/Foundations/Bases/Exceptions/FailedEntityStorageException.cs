@@ -7,12 +7,12 @@
 using System;
 using Xeptions;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
+namespace TheStandardBox.Core.Models.Foundations.Bases.Exceptions
 {
-    public class FailedEntityServiceException : Xeption
+    public class FailedEntityStorageException : Xeption
     {
-        public FailedEntityServiceException(string entityName, Exception innerException)
-            : base(message: $"Failed {entityName} service occurred, please contact support", innerException)
+        public FailedEntityStorageException(string entityName, Exception innerException)
+            : base(message: $"Failed {entityName} storage error occurred, contact support.", innerException)
         { }
     }
 }

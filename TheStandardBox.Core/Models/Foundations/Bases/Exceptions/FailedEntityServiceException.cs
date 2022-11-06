@@ -7,11 +7,12 @@
 using System;
 using Xeptions;
 
-namespace TheStandardBox.Core.Models.Foundations.Standards.Exceptions
+namespace TheStandardBox.Core.Models.Foundations.Bases.Exceptions
 {
-    public class InvalidEntityReferenceException : Xeption
+    public class FailedEntityServiceException : Xeption
     {
-        public InvalidEntityReferenceException(string entityName, Exception innerException)
-            : base(message: $"Invalid {entityName} reference error occurred.", innerException) { }
+        public FailedEntityServiceException(string entityName, Exception innerException)
+            : base(message: $"Failed {entityName} service occurred, please contact support", innerException)
+        { }
     }
 }

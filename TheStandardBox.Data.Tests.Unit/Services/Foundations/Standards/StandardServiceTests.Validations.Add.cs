@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Core.Models.Foundations.Standards.Exceptions;
 using Xunit;

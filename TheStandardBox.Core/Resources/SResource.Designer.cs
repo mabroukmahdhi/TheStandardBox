@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TheStandardBox.UIKit.Blazor.Resources {
+namespace TheStandardBox.Core.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TheStandardBox.UIKit.Blazor.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheStandardBox.UIKit.Blazor.Resources.SResource", typeof(SResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TheStandardBox.Core.Resources.SResource", typeof(SResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

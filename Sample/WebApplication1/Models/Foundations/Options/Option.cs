@@ -5,11 +5,10 @@ using TheStandardBox.Core.Attributes.Contollers;
 using TheStandardBox.Core.Models.Controllers;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using WebApplication1.Models.Foundations.UserOptions;
-using WebApplication1.Models.Foundations.Users;
 
 namespace WebApplication1.Models.Foundations.Options
 {
-    [GeneratedController("api/options",AllowedAction.GetAllEntities)]
+    [GeneratedController("api/options", AllowedAction.GetAllEntities)]
     public class Option : IStandardEntity
     {
         public Guid Id { get; set; }

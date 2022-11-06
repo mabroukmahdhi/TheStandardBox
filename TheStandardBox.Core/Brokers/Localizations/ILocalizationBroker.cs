@@ -6,7 +6,7 @@
 
 using System.Resources;
 
-namespace TheStandardBox.UIKit.Blazor.Brokers.Localizations
+namespace TheStandardBox.Core.Brokers.Localizations
 {
     public interface ILocalizationBroker
     {

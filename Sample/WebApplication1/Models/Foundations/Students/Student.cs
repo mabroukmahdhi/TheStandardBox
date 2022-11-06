@@ -9,10 +9,10 @@ namespace WebApplication1.Models.Foundations.Students
     [GeneratedController("api/students")]
     public class Student : IStandardEntity
     {
-        public Guid Id { get ; set ; }
-        public string Name { get ; set ; }
-        public DateTimeOffset CreatedDate { get ; set ; }
-        public DateTimeOffset UpdatedDate { get ; set ; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
+        public DateTimeOffset UpdatedDate { get; set; }
         public IEnumerable<StudentCard> Cards { get; set; }
     }
 }

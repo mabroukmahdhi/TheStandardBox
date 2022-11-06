@@ -33,7 +33,7 @@ namespace TheStandardBox.Core.Attributes.Contollers
                 var list = new List<AllowedAction>
                 {
                      AllowedAction.GetAllEntities,
-                     AllowedAction.GetEntityById, 
+                     AllowedAction.GetEntityById,
                      AllowedAction.PostEntity,
                      AllowedAction.PutEntity,
                      AllowedAction.DeleteEntityById

@@ -6,9 +6,9 @@
 
 using System.Globalization;
 using System.Resources;
-using TheStandardBox.UIKit.Blazor.Resources;
+using TheStandardBox.Core.Resources;
 
-namespace TheStandardBox.UIKit.Blazor.Brokers.Localizations
+namespace TheStandardBox.Core.Brokers.Localizations
 {
     public class LocalizationBroker : ILocalizationBroker
     {
@@ -20,7 +20,7 @@ namespace TheStandardBox.UIKit.Blazor.Brokers.Localizations
         public string GetText(string key)
         {
             string value =
-                this.ResourceManager.GetString(
+                ResourceManager.GetString(
                     name: key,
                     culture: CultureInfo.CurrentCulture);
 

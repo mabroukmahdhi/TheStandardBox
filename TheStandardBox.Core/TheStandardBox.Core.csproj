@@ -41,4 +41,19 @@
     <PackageReference Include="Xeption" Version="2.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\SResource.Designer.cs">
+      <DependentUpon>SResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\SResource.resx">
+      <LastGenOutput>SResource.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -7,9 +7,9 @@
 using Blazored.LocalStorage;
 using Blazored.SessionStorage;
 using Microsoft.Extensions.DependencyInjection;
+using TheStandardBox.Core.Brokers.Localizations;
 using TheStandardBox.Core.Extensions;
 using TheStandardBox.UIKit.Blazor.Brokers.Apis;
-using TheStandardBox.UIKit.Blazor.Brokers.Localizations;
 using TheStandardBox.UIKit.Blazor.Brokers.LocalStorages;
 
 namespace TheStandardBox.UIKit.Blazor.Exceptions

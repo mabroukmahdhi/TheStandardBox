@@ -24,7 +24,7 @@ namespace TheStandardBox.Data.Controllers.Conventions
                 if (customNameAttribute?.Route != null)
                 {
                     var name = customNameAttribute.Route.Split('/').LastOrDefault();
-                    controller.ControllerName = $"{name}GenericController"; 
+                    controller.ControllerName = $"{name}GenericController";
                     controller.Selectors.Add(new SelectorModel
                     {
                         AttributeRouteModel = new AttributeRouteModel(new RouteAttribute(customNameAttribute.Route)),

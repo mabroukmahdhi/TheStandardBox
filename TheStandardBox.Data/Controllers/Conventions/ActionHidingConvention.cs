@@ -15,47 +15,73 @@ using TheStandardBox.Core.Models.Foundations.Standards;
 
 namespace TheStandardBox.Data.Controllers.Conventions
 {
-    public class ActionHidingConvention : IActionModelConvention
+    public class ActionBuildingConvention : IActionModelConvention
     {
         public void Apply(ActionModel action)
         {
-            if (action.Controller.ControllerName.EndsWith("GenericController"))
+            try
             {
-                var genericType = action.Controller.ControllerType.GenericTypeArguments[0];
-                var customNameAttribute = genericType.GetCustomAttribute<GeneratedControllerAttribute>();
-
-                action.ApiExplorer.IsVisible =
-                    customNameAttribute.AllowedActions?.Any(a =>
-                        a.ToString() == action.ActionName) ?? false;
-
-                var allowsGetById = customNameAttribute.AllowedActions.Contains(
-                    AllowedAction.GetEntityById);
-
-                if (action.ActionName == "GetEntityByIds"
-                    && allowsGetById)
+                if (action.Controller.ControllerName.EndsWith("GenericController"))
                 {
-                    action.ApiExplorer.IsVisible =
-                        IsVisibleAction(action, nameof(IJoinEntity));
-                    return;
-                }
+                    var genericType = action.Controller.ControllerType.GenericTypeArguments[0];
+                    var customNameAttribute = genericType.GetCustomAttribute<GeneratedControllerAttribute>();
 
-                if (action.ActionName == "GetEntityById"
-                    && allowsGetById)
-                {
                     action.ApiExplorer.IsVisible =
-                        IsVisibleAction(action, nameof(IStandardEntity));
+                        customNameAttribute.AllowedActions?.Any(a =>
+                            a.ToString() == action.ActionName) ?? false;
+
+                    var allowsGetById = customNameAttribute.AllowedActions.Contains(
+                        AllowedAction.GetEntityById);
+
+                    if (action.ActionName == "GetEntityByIds"
+                        && allowsGetById)
+                    {
+                        if (IsVisibleAction(action, nameof(IJoinEntity)))
+                        {
+                            action.ApiExplorer.IsVisible = true;
+
+                            var id = genericType.GetPrimaryKeyName();
+                            var ids = id?.Split('_')?.Select(i => i.Replace("Id", "s"))?.ToList();
+                            if (ids != null)
+                            {
+                                var namespc = action.Controller.ControllerType.Namespace;
+                                if (namespc == null)
+                                    return;
+
+                                var routeModel = action.Selectors.FirstOrDefault().AttributeRouteModel;
+
+                                routeModel.Template = $"{ids[0]?.ToLower()}/{{entityId1}}/{ids[1]?.ToLower()}/{{entityId2}}";
+                            }
+                        }
+                        return;
+                    }
+
+                    if (action.ActionName == "GetEntityById"
+                        && allowsGetById)
+                    {
+                        action.ApiExplorer.IsVisible =
+                            IsVisibleAction(action, nameof(IStandardEntity));
+                    }
                 }
             }
+            catch { }
         }
 
         private bool IsVisibleAction(ActionModel action, string interfaceName)
         {
-            if (action.Controller.ControllerType.IsGenericType)
+            try
             {
-                var genericType = action.Controller.ControllerType.GenericTypeArguments[0];
-                return genericType.ImplementsInterface(interfaceName);
+                if (action.Controller.ControllerType.IsGenericType)
+                {
+                    var genericType = action.Controller.ControllerType.GenericTypeArguments[0];
+                    return genericType.ImplementsInterface(interfaceName);
+                }
+                return false;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
         }
     }
 }

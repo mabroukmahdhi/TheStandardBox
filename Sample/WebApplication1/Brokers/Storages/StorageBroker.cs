@@ -16,9 +16,7 @@ namespace WebApplication1.Brokers.Storages
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserOption>()
-                   .HasKey(userOption =>
-                       new { userOption.UserId, userOption.OptionId });
+            SetJoinEntityReferences<UserOption, User, Option>(modelBuilder);
         }
 
         public DbSet<Option> Options { get; set; }

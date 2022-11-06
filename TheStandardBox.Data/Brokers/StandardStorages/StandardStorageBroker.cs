@@ -4,13 +4,16 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EFxceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Bases;
-using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.Core.Models.Foundations.Joins;
 
 namespace TheStandardBox.Data.Brokers.StandardStorages
 {
@@ -73,6 +76,25 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             await this.SaveChangesAsync();
 
             return entity;
+        }
+
+        protected virtual void SetJoinEntityReferences<TJoinEntity, TRelatedEntity1, TRelatedEntity2>(
+            ModelBuilder modelBuilder) where TJoinEntity : class, IJoinEntity
+        {
+            modelBuilder.Entity<TJoinEntity>()
+                .HasKey(typeof(TRelatedEntity1).Name + "Id", typeof(TRelatedEntity2).Name + "Id");
+
+            modelBuilder.Entity<TJoinEntity>()
+                .HasOne(typeof(TRelatedEntity1).Name)
+                .WithMany(typeof(TRelatedEntity2).Name + "s")
+                .HasForeignKey(typeof(TRelatedEntity1).Name + "Id")
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TJoinEntity>()
+                .HasOne(typeof(TRelatedEntity2).Name)
+                .WithMany(typeof(TRelatedEntity1).Name + "s")
+                .HasForeignKey(typeof(TRelatedEntity2).Name + "Id")
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public override void Dispose()

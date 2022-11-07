@@ -13,19 +13,19 @@ namespace TheStandardBox.UIKit.Blazor.Brokers.Apis
 {
     public interface IStandardApiBroker
     {
-        ValueTask<TModel> PostModelAsync<TModel>(TModel model, string relativeUrl)
-            where TModel : IStandardEntity;
+        ValueTask<TEntity> PostEntityAsync<TEntity>(TEntity model, string relativeUrl)
+            where TEntity : IStandardEntity;
 
-        ValueTask<List<TModel>> GetAllModelsAsync<TModel>(string relativeUrl)
-            where TModel : IStandardEntity;
+        ValueTask<List<TEntity>> GetAllEntitiesAsync<TEntity>(string relativeUrl)
+            where TEntity : IStandardEntity;
 
-        ValueTask<TModel> GetModelByIdAsync<TModel>(Guid modelId, string relativeUrl)
-            where TModel : IStandardEntity;
+        ValueTask<TEntity> GetEntityByIdAsync<TEntity>(Guid modelId, string relativeUrl)
+            where TEntity : IStandardEntity;
 
-        ValueTask<TModel> PutModelAsync<TModel>(TModel model, string relativeUrl)
-            where TModel : IStandardEntity;
+        ValueTask<TEntity> PutEntityAsync<TEntity>(TEntity model, string relativeUrl)
+            where TEntity : IStandardEntity;
 
-        ValueTask<TModel> DeleteModelByIdAsync<TModel>(Guid modelId, string relativeUrl)
-            where TModel : IStandardEntity;
+        ValueTask<TEntity> DeleteEntityByIdAsync<TEntity>(Guid modelId, string relativeUrl)
+            where TEntity : IStandardEntity;
     }
 }

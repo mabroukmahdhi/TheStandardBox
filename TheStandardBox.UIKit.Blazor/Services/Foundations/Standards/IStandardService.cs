@@ -15,7 +15,7 @@ namespace TheStandardBox.UIKit.Blazor.Services.Foundations.Standards
         where TEntity : IStandardEntity
     {
         ValueTask<TEntity> AddEntityAsync(TEntity entity);
-        ValueTask<List<TEntity>> RetrieveAllEntitysAsync();
+        ValueTask<List<TEntity>> RetrieveAllEntitiesAsync();
         ValueTask<TEntity> RetrieveEntityByIdAsync(Guid entityId);
         ValueTask<TEntity> ModifyEntityAsync(TEntity entity);
         ValueTask<TEntity> RemoveEntityByIdAsync(Guid entityId);

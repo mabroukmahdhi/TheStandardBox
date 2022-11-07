@@ -8,7 +8,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EFxceptions;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TheStandardBox.Core.Models.Foundations.Bases;
@@ -59,7 +58,7 @@ namespace TheStandardBox.Data.Brokers.StandardStorages
             return await this.FindAsync<TEntity>(entityIds);
         }
 
-        public virtual async ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(Guid entityId) 
+        public virtual async ValueTask<TEntity> SelectEntityByIdAsync<TEntity>(Guid entityId)
             where TEntity : class, IBaseEntity
         {
             return await this.FindAsync<TEntity>(entityId);

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using TheStandardBox.Core.Extensions;
 using Xunit;
 
 namespace StandardApi.PoC.Tests.Unit.Services.Standards

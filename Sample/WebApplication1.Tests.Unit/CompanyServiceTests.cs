@@ -1,8 +1,6 @@
 ﻿using StandardApi.PoC.Tests.Unit.Services.Standards;
 using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using WebApplication1.Models.Foundations.Companies;
-using WebApplication1.Models.Foundations.Users;
-using Xunit;
 
 namespace WebApplication1.Tests.Unit
 {
@@ -17,6 +15,6 @@ namespace WebApplication1.Tests.Unit
         {
             return base.ShouldThrowValidationExceptionOnAddIfEntityIsInvalidAndLogItAsync(invalidText);
         }
-          
+
     }
 }

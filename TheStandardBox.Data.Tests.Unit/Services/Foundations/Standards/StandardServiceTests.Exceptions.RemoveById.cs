@@ -10,7 +10,6 @@ using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using Xunit;
 

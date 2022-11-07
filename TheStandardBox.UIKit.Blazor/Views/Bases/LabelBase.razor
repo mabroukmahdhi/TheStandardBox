@@ -1,0 +1,9 @@
+﻿@inherits TextBase
+@if (IsVisible)
+{
+    <label class=@GetCssClass() style=@GetStyle()>
+        @{
+            base.BuildRenderTree(__builder);
+        }
+    </label>
+}

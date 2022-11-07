@@ -1,0 +1,13 @@
+﻿@using Syncfusion.Blazor.Calendars
+@using Syncfusion.Blazor.Inputs
+@inherits InputComponent<DateTimeOffset>
+@if (IsVisible)
+{
+    <SfDatePicker InputAttributes=@GetAttributes()
+              Value=@Value
+              CssClass=@CssClass
+              FloatLabelType=@FloatLabelType.Auto
+              Enabled=@IsEnabled
+              ValueChanged=@ValueChanged
+              Placeholder=@Placeholder />
+} 

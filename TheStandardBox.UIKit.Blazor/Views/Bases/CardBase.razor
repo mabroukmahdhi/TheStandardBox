@@ -1,0 +1,23 @@
+﻿@using Syncfusion.Blazor.Cards
+@inherits BasicComponent
+@if (IsVisible)
+{
+    <SfCard CssClass=@CssClass style=@GetStyle()>
+        @if (HasTitles)
+        {
+            <CardHeader Title=@Title
+                SubTitle=@SubTitle  />
+        }
+        <CardContent EnableSeparator=false Content=@TextContent>
+            @if (string.IsNullOrWhiteSpace(TextContent))
+            {
+                @Content
+            }
+        </CardContent>
+        <CardFooter>
+            <CardFooterContent>
+                @Footer
+            </CardFooterContent>
+        </CardFooter>
+    </SfCard> 
+}

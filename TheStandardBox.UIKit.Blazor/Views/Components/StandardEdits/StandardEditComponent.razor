@@ -1,5 +1,27 @@
-﻿<h3>StandardEditComponent</h3>
-
-@code {
-
+﻿@using TheStandardBox.Core.Models.Foundations.Standards
+@using TheStandardBox.UIKit.Blazor.Models.Components.Labels
+@using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
+@using TheStandardBox.UIKit.Blazor.Views.Bases
+@typeparam TEntity where TEntity: IStandardEntity
+@if (textViewElements != null)
+{
+    @foreach (var element in textViewElements)
+    {
+        @if (element.Type == SmartViewElementType.TextBox)
+        {
+            var elm = element as SmartTextViewElement;
+            <TextBoxBase @bind-Value=@elm.Value Placeholder=@elm.Placeholder />
+            continue;
+        }
+        @if (element.Type == SmartViewElementType.DatePicker)
+        {
+            var elm = element as SmartDateViewElement;
+            <DatePickerBase Placeholder=@elm.Placeholder @bind-Value=@elm.Value />
+            continue;
+        }
+    }
+    <br />
+    <ButtonBase Text="@($"Add New {typeof(TEntity).Name}")" OnClick=@OnAddClicked />
+    <br />
+    <LabelBase TextColor="LabelTextColor.Danger" Value=@AddErrorMessage />
 }

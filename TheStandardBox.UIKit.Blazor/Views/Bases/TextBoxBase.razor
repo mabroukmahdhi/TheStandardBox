@@ -1,0 +1,15 @@
+﻿@using Syncfusion.Blazor.Inputs
+@inherits InputComponent<string>
+@if (IsVisible)
+{
+    <SfTextBox InputAttributes=@GetAttributes()
+           Value=@Value
+           CssClass=@CssClass
+           FloatLabelType=@FloatLabelType.Auto
+           Type=@GetInputType()
+           Enabled=@IsEnabled
+           Width=@Width
+           ValueChanged=@ValueChanged
+           Input=@OnInputEvent
+           Placeholder=@Placeholder />
+} 

@@ -1,0 +1,11 @@
+﻿@using Syncfusion.Blazor.Buttons
+@inherits BasicComponent
+@if (IsVisible)
+{
+    <SfButton Disabled="@IsDisabled"
+          OnClick="Click"
+          CssClass=@GetCssClass()
+          IconCss=@GetIcon()>
+        @Text
+    </SfButton>
+}

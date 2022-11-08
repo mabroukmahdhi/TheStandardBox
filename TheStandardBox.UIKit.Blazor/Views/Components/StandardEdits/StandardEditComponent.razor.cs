@@ -11,7 +11,6 @@ using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Models.Components.Containers;
 using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
 using TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits;
-using TheStandardBox.UIKit.Blazor.Views.Bases;
 using TheStandardBox.UIKit.Blazor.Views.Components.Localizations;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
@@ -23,7 +22,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
         public IStandardEditViewService<TEntity> EditViewService { get; set; }
 
         [Parameter]
-        public int ColumnCount { get; set; }
+        public int ColumnCount { get; set; } = 0;
 
         [Parameter]
         public TEntity Entity { get; set; }

@@ -19,37 +19,39 @@
                         @foreach (var element in textViewElements)
                         {
                             <div class="form-row">
-                                @if (element.Type == ViewElementType.TextBox)
+                                @for (int i = 0; i < ColumnCount; i++)
                                 {
-                                    var elm = element as TextViewElement;
-                                    <TextBoxBase @bind-Value=@elm.Value
-                                     Placeholder=@elm.Placeholder />
-                                    continue;
-                                }
-                                @if (element.Type == ViewElementType.DatePicker)
-                                {
-                                    var elm = element as DateViewElement;
-                                    <DatePickerBase Placeholder=@elm.Placeholder
-                                        @bind-Value=@elm.Value />
-                                    continue;
-                                }
-                                @if (element.Type == ViewElementType.ChecBox)
-                                {
-                                    var elm = element as CheckboxViewElement;
-                                    <CheckBoxBase Label=@elm.Placeholder
-                                      @bind-Value=@elm.Value />
-                                    continue;
+                                    <div class="col">
+                                        @if (element.Type == ViewElementType.TextBox)
+                                        {
+                                            var elm = element as TextViewElement;
+                                            <TextBoxBase @bind-Value=@elm.Value Placeholder=@elm.Placeholder />
+                                            continue;
+                                        }
+                                        @if (element.Type == ViewElementType.DatePicker)
+                                        {
+                                            var elm = element as DateViewElement;
+                                            <DatePickerBase Placeholder=@elm.Placeholder @bind-Value=@elm.Value />
+                                            continue;
+                                        }
+                                        @if (element.Type == ViewElementType.ChecBox)
+                                        {
+                                            var elm = element as CheckboxViewElement;
+                                            <CheckBoxBase Label=@elm.Placeholder @bind-Value=@elm.Value />
+                                            continue;
+                                        }
+                                    </div>
                                 }
                             </div>
                         }
+                        @if (!string.IsNullOrWhiteSpace(AddErrorMessage))
+                        {
+                            <div>
+                                <LabelBase TextColor="LabelTextColor.Danger"
+                                   Value=@AddErrorMessage />
+                            </div>
+                        }
                     </div>
-                    @if (!string.IsNullOrWhiteSpace(AddErrorMessage))
-                    {
-                        <div>
-                            <LabelBase TextColor="LabelTextColor.Danger"
-                               Value=@AddErrorMessage />
-                        </div>
-                    }
                 </Content>
             </ContainerComponent>
         </Content>

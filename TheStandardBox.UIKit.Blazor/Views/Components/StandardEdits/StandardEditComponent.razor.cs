@@ -22,7 +22,9 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
         public IStandardEditViewService<TEntity> EditViewService { get; set; }
 
         [Parameter]
-        public int ColumnCount { get; set; } = 0;
+        public int Columns { get; set; } = 1;
+
+        protected int ColumnCount => Columns > 0 ? Columns : 1;
 
         [Parameter]
         public TEntity Entity { get; set; }

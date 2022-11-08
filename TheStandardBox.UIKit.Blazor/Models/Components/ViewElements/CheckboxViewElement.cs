@@ -1,13 +1,15 @@
 ﻿// ---------------------------------------------------------------
-// Copyright (c) Cydista. All rights reserved.
+// Copyright (c) Mabrouk Mahdhi. All rights reserved.
 // Licensed under the MIT License.
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using System;
+
 namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
-    public class SmartTextViewElement : SmartViewElement<string>
+    public class CheckboxViewElement : ViewElement<bool>
     {
-        public override SmartViewElementType Type => SmartViewElementType.TextBox;
+        public override ViewElementType Type { get; set; } = ViewElementType.ChecBox;
     }
 }

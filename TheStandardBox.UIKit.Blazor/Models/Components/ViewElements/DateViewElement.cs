@@ -8,8 +8,8 @@ using System;
 
 namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
-    public class SmartDateViewElement : SmartViewElement<DateTimeOffset>
+    public class DateViewElement : ViewElement<DateTimeOffset>
     {
-        public override SmartViewElementType Type => SmartViewElementType.DatePicker;
+        public override ViewElementType Type { get; set; } = ViewElementType.DatePicker;
     }
 }

@@ -6,7 +6,7 @@
 
 namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
-    public enum SmartViewElementType
+    public enum ViewElementType
     {
         TextBox,
         DatePicker,

@@ -2,27 +2,64 @@
 @using TheStandardBox.UIKit.Blazor.Models.Components.Labels
 @using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 @using TheStandardBox.UIKit.Blazor.Views.Bases
+@using TheStandardBox.UIKit.Blazor.Views.Components.Containers
+@using TheStandardBox.UIKit.Blazor.Views.Components.Localizations
+@inherits LocalizedComponent
 @typeparam TEntity where TEntity: IStandardEntity
 
 @if (textViewElements != null)
 {
-    @foreach (var element in textViewElements)
-    {
-        @if (element.Type == SmartViewElementType.TextBox)
-        {
-            var elm = element as SmartTextViewElement;
-            <TextBoxBase @bind-Value=@elm.Value Placeholder=@elm.Placeholder />
-            continue;
-        }
-        @if (element.Type == SmartViewElementType.DatePicker)
-        {
-            var elm = element as SmartDateViewElement;
-            <DatePickerBase Placeholder=@elm.Placeholder @bind-Value=@elm.Value />
-            continue;
-        }
-    }
-    <br />
-    <ButtonBase Text="@($"Add New {typeof(TEntity).Name}")" OnClick=@OnAddClicked />
-    <br />
-    <LabelBase TextColor="LabelTextColor.Danger" Value=@AddErrorMessage />
+    <CardBase CssClass=@GetCssClass()
+          HasShadow=false
+          Style=@GetStyle()>
+        <Content>
+            <ContainerComponent State="State">
+                <Content>
+                    <div class="form">
+                        @foreach (var element in textViewElements)
+                        {
+                            <div class="form-row">
+                                @if (element.Type == ViewElementType.TextBox)
+                                {
+                                    var elm = element as TextViewElement;
+                                    <TextBoxBase @bind-Value=@elm.Value
+                                     Placeholder=@elm.Placeholder />
+                                    continue;
+                                }
+                                @if (element.Type == ViewElementType.DatePicker)
+                                {
+                                    var elm = element as DateViewElement;
+                                    <DatePickerBase Placeholder=@elm.Placeholder
+                                        @bind-Value=@elm.Value />
+                                    continue;
+                                }
+                                @if (element.Type == ViewElementType.ChecBox)
+                                {
+                                    var elm = element as CheckboxViewElement;
+                                    <CheckBoxBase Label=@elm.Placeholder
+                                      @bind-Value=@elm.Value />
+                                    continue;
+                                }
+                            </div>
+                        }
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(AddErrorMessage))
+                    {
+                        <div>
+                            <LabelBase TextColor="LabelTextColor.Danger"
+                               Value=@AddErrorMessage />
+                        </div>
+                    }
+                </Content>
+            </ContainerComponent>
+        </Content>
+        <Footer>
+            <CardFooterBase CssClass="d-flex flex-row-reverse">
+                <Content>
+                    <ButtonBase Text="@($"Add New {typeof(TEntity).Name}")"
+                            OnClick=@OnAddClicked />
+                </Content>
+            </CardFooterBase>
+        </Footer>
+    </CardBase>
 }

@@ -7,7 +7,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using FluentAssertions.Equivalency;
+using TheStandardBox.Core.Brokers.Localizations;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
 using TheStandardBox.UIKit.Blazor.Services.Foundations.Standards;
@@ -18,13 +21,19 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
         where TEntity : IStandardEntity
     {
         private readonly IStandardService<TEntity> standardService;
+        private readonly ILocalizationBroker localizationBroker;
 
-        public StandardEditViewService(IStandardService<TEntity> standardService) =>
-             this.standardService = standardService;
+        public StandardEditViewService(
+            IStandardService<TEntity> standardService,
+            ILocalizationBroker localizationBroker)
+        {
+            this.standardService = standardService;
+            this.localizationBroker = localizationBroker;
+        }
 
         public List<IViewElement> GenerateViewElements(TEntity entity)
         {
-            List<IViewElement> textViewElements =
+            List<IViewElement> viewElements =
             Enumerable.Empty<IViewElement>().ToList();
 
             var properties = typeof(TEntity).GetProperties();
@@ -33,41 +42,69 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
             {
                 if (property.PropertyType == typeof(DateTimeOffset))
                 {
-                    var elm = new SmartDateViewElement
-                    {
-                        Placeholder = property.Name,
-                        Id = property.Name,
-                        Value = (DateTimeOffset)property.GetValue(entity)
-                    };
+                    IViewElement elm = CreateViewElement(
+                        property: property,
+                        value: (DateTimeOffset)property.GetValue(entity),
+                        type: ViewElementType.DatePicker);
 
-                    textViewElements.Add(elm);
+                    viewElements.Add(elm);
                     continue;
                 }
 
                 if (property.PropertyType == typeof(string))
                 {
-                    var elm = new SmartTextViewElement
-                    {
-                        Placeholder = property.Name,
-                        Id = property.Name,
-                        Value = (string)property.GetValue(entity)
-                    };
+                    IViewElement elm = CreateViewElement(
+                        property: property,
+                        value: (string)property.GetValue(entity),
+                        type: ViewElementType.TextBox);
 
-                    textViewElements.Add(elm);
+                    viewElements.Add(elm);
+                    continue;
+                }
+
+                if (property.PropertyType == typeof(bool))
+                {
+                    IViewElement elm = CreateViewElement(
+                        property: property,
+                        value: (bool)property.GetValue(entity),
+                        type: ViewElementType.ChecBox);
+
+                    viewElements.Add(elm);
                     continue;
                 }
             }
 
-            return textViewElements;
+            return viewElements;
         }
 
-        public async ValueTask UpsertEntityAsync(TEntity entity)
+        public async ValueTask UpsertEntityAsync(TEntity entity, List<IViewElement> viewElements)
         {
+            foreach (var item in viewElements)
+            {
+                entity.GetType()
+                    .GetProperty(item.Id)
+                    .SetValue(entity, item.GetValue());
+            }
+
             var date = DateTimeOffset.Now;
             entity.CreatedDate = date;
             entity.UpdatedDate = date;
 
             await standardService.AddEntityAsync(entity);
+        }
+
+        private IViewElement CreateViewElement<T>(
+            PropertyInfo property,
+            T value,
+            ViewElementType type)
+        {
+            return new ViewElement<T>
+            {
+                Placeholder = property.Name,
+                Id = property.Name,
+                Value = value,
+                Type = type
+            };
         }
     }
 }

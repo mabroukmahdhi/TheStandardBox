@@ -6,11 +6,11 @@
 
 namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
-    public abstract class SmartViewElement<TValue> : IViewElement
+    public  class ViewElement<TValue> : IViewElement
     {
         public string Placeholder { get; set; }
         public TValue Value { get; set; }
-        public abstract SmartViewElementType Type { get; }
+        public virtual ViewElementType Type { get; set; }
 
         public string Id { get; set; }
 

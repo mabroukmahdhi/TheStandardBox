@@ -6,19 +6,24 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.UIKit.Blazor.Models.Components.Containers;
 using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
-using TheStandardBox.UIKit.Blazor.Services.Foundations.Standards;
+using TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits;
+using TheStandardBox.UIKit.Blazor.Views.Bases;
+using TheStandardBox.UIKit.Blazor.Views.Components.Localizations;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
 {
-    public partial class StandardEditComponent<TEntity> : ComponentBase
+    public partial class StandardEditComponent<TEntity> : LocalizedComponent
         where TEntity : IStandardEntity
     {
         [Inject]
-        public IStandardService<TEntity> SmartService { get; set; }
+        public IStandardEditViewService<TEntity> EditViewService { get; set; }
+
+        [Parameter]
+        public int ColumnCount { get; set; }
 
         [Parameter]
         public TEntity Entity { get; set; }
@@ -38,55 +43,17 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
                 Entity.Id = Guid.NewGuid();
             }
 
-            textViewElements = new List<SmartTextViewElement>()
-                .Cast<IViewElement>().ToList();
-
-            var properties = typeof(TEntity).GetProperties();
-
-            foreach (var property in properties)
-            {
-                if (property.PropertyType == typeof(DateTimeOffset))
-                {
-                    var elm = new SmartDateViewElement
-                    {
-                        Placeholder = property.Name,
-                        Id = property.Name,
-                        Value = (DateTimeOffset)property.GetValue(Entity)
-                    };
-
-                    textViewElements.Add(elm);
-                    continue;
-                }
-
-                if (property.PropertyType == typeof(string))
-                {
-                    var elm = new SmartTextViewElement
-                    {
-                        Placeholder = property.Name,
-                        Id = property.Name,
-                        Value = (string)property.GetValue(Entity)
-                    };
-
-                    textViewElements.Add(elm);
-                    continue;
-                }
-            }
+            textViewElements = EditViewService.GenerateViewElements(Entity);
+            State = ComponentState.Content;
         }
 
         private async void OnAddClicked()
         {
             try
             {
-                foreach (var item in textViewElements)
-                {
-                    Entity.GetType().GetProperty(item.Id).SetValue(Entity, item.GetValue());
-                }
                 AddErrorMessage = string.Empty;
-                var date = DateTimeOffset.Now;
-                Entity.CreatedDate = date;
-                Entity.UpdatedDate = date;
 
-                await SmartService.AddEntityAsync(Entity);
+                await EditViewService.UpsertEntityAsync(Entity, textViewElements);
             }
             catch (Exception ex)
             {

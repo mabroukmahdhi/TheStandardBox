@@ -16,6 +16,6 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
     {
         List<IViewElement> GenerateViewElements(TEntity entity);
 
-        ValueTask UpsertEntityAsync(TEntity entity);
+        ValueTask UpsertEntityAsync(TEntity entity, List<IViewElement> viewElements);
     }
 }

@@ -7,9 +7,10 @@ namespace BlazorAppSample.Models.Foundations.Ports
     public class Port : IStandardEntity
     {
         public Guid Id { get; set; }
-        [Field("Name", "PORT_NAME")]
+        [Field]
         public string Name { get; set; }
         public Guid AddressId { get; set; }
+        [Field]
         public string Information { get; set; }
         public Guid CreatedByUserId { get; set; }
         public Guid UpdatedByUserId { get; set; }

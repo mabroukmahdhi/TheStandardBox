@@ -10,7 +10,7 @@ namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
     {
         TextBox,
         DatePicker,
-        ChecBox,
+        CheckBox,
         Button
     }
 }

@@ -10,6 +10,6 @@ namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
     public class CheckboxViewElement : ViewElement<bool>
     {
-        public override ViewElementType Type { get; set; } = ViewElementType.ChecBox;
+        public override ViewElementType Type => ViewElementType.CheckBox;
     }
 }

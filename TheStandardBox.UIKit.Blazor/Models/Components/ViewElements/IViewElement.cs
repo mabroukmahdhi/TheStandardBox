@@ -8,7 +8,7 @@ namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
     public interface IViewElement
     {
-        ViewElementType Type { get; set; }
+        ViewElementType Type { get;}
         string Id { get; set; }
         object GetValue();
     }

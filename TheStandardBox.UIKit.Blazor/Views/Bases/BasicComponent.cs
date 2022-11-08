@@ -12,6 +12,9 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
     public class BasicComponent : ComponentBase
     {
         [Parameter]
+        public string Id { get; set; }
+
+        [Parameter]
         public bool IsDisabled { get; set; }
 
         public bool IsEnabled => IsDisabled is false;

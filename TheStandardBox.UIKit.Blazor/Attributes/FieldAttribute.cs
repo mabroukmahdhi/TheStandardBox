@@ -15,12 +15,8 @@ namespace TheStandardBox.UIKit.Blazor.Attributes
         { }
 
         public FieldAttribute(string name) =>
-            this.Name = name;
+            this.Name = name; 
 
-        public FieldAttribute(string name, string placeholderResKey) : this(name) =>
-            this.PlaceholderResKey = placeholderResKey;
-
-        public string Name { get; }
-        public string PlaceholderResKey { get; }
+        public string Name { get; } 
     }
 }

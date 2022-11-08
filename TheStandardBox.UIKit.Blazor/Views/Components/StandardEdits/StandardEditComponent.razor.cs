@@ -45,6 +45,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
             }
 
             textViewElements = EditViewService.GenerateViewElements(Entity);
+
             State = ComponentState.Content;
         }
 

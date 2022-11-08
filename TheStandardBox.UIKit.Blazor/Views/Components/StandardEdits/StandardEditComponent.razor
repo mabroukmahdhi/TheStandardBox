@@ -24,20 +24,20 @@
                                     <div class="col">
                                         @if (element.Type == ViewElementType.TextBox)
                                         {
-                                            var elm = (TextViewElement)element ;
-                                            <TextBoxBase @bind-Value=@elm.Value Placeholder=@elm.Placeholder />
+                                            var elm = element as TextViewElement;
+                                            <TextBoxBase  Id=@elm.Id @bind-Value=@elm.Value Placeholder=@elm.Placeholder />
                                             continue;
                                         }
                                         @if (element.Type == ViewElementType.DatePicker)
                                         {
                                             var elm = element as DateViewElement;
-                                            <DatePickerBase Placeholder=@elm.Placeholder @bind-Value=@elm.Value />
+                                            <DatePickerBase Id=@elm.Id Placeholder=@elm.Placeholder @bind-Value=@elm.Value />
                                             continue;
                                         }
-                                        @if (element.Type == ViewElementType.ChecBox)
+                                        @if (element.Type == ViewElementType.CheckBox)
                                         {
                                             var elm = element as CheckboxViewElement;
-                                            <CheckBoxBase Label=@elm.Placeholder @bind-Value=@elm.Value />
+                                            <CheckBoxBase Id=@elm.Id Label=@elm.Placeholder @bind-Value=@elm.Value />
                                             continue;
                                         }
                                     </div>

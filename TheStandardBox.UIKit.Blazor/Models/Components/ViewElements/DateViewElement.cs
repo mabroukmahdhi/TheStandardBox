@@ -10,6 +10,6 @@ namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
     public class DateViewElement : ViewElement<DateTimeOffset>
     {
-        public override ViewElementType Type { get; set; } = ViewElementType.DatePicker;
+        public override ViewElementType Type => ViewElementType.DatePicker;
     }
 }

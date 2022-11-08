@@ -8,6 +8,6 @@ namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
     public class TextViewElement : ViewElement<string>
     {
-        public override ViewElementType Type { get; set; } = ViewElementType.TextBox;
+        public override ViewElementType Type => ViewElementType.TextBox;
     }
 }

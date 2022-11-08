@@ -2,7 +2,8 @@
 @inherits InputComponent<string>
 @if (IsVisible)
 {
-    <SfTextBox InputAttributes=@GetAttributes()
+    <SfTextBox ID=@Id
+           InputAttributes=@GetAttributes()
            Value=@Value
            CssClass=@CssClass
            FloatLabelType=@FloatLabelType.Auto

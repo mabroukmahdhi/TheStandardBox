@@ -9,9 +9,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using FluentAssertions.Equivalency;
 using TheStandardBox.Core.Brokers.Localizations;
 using TheStandardBox.Core.Models.Foundations.Standards;
+using TheStandardBox.UIKit.Blazor.Attributes;
+using TheStandardBox.UIKit.Blazor.Brokers.Localizations;
 using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
 using TheStandardBox.UIKit.Blazor.Services.Foundations.Standards;
 
@@ -40,12 +41,23 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
 
             foreach (var property in properties)
             {
+                var fieldAttribute = property.GetCustomAttribute<FieldAttribute>();
+
+                if (fieldAttribute == null)
+                    continue;
+
+                var id = string.IsNullOrWhiteSpace(fieldAttribute.Name)
+                    ? property.Name
+                    : fieldAttribute.Name;
+
+                id = $"StandardEdit_{id}";
+
                 if (property.PropertyType == typeof(DateTimeOffset))
                 {
-                    IViewElement elm = CreateViewElement(
-                        property: property,
+                    IViewElement elm = CreateDateViewElement(
+                        id: id,
                         value: (DateTimeOffset)property.GetValue(entity),
-                        type: ViewElementType.DatePicker);
+                        defaultPlaceholder: property.Name);
 
                     viewElements.Add(elm);
                     continue;
@@ -53,10 +65,10 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
 
                 if (property.PropertyType == typeof(string))
                 {
-                    IViewElement elm = CreateViewElement(
-                        property: property,
+                    IViewElement elm = CreateTextViewElement(
+                        id: id,
                         value: (string)property.GetValue(entity),
-                        type: ViewElementType.TextBox);
+                        defaultPlaceholder: property.Name);
 
                     viewElements.Add(elm);
                     continue;
@@ -64,10 +76,10 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
 
                 if (property.PropertyType == typeof(bool))
                 {
-                    IViewElement elm = CreateViewElement(
-                        property: property,
+                    IViewElement elm = CreateCheckboxViewElement(
+                        id: id,
                         value: (bool)property.GetValue(entity),
-                        type: ViewElementType.ChecBox);
+                        defaultPlaceholder: property.Name);
 
                     viewElements.Add(elm);
                     continue;
@@ -93,18 +105,48 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
             await standardService.AddEntityAsync(entity);
         }
 
-        private IViewElement CreateViewElement<T>(
-            PropertyInfo property,
-            T value,
-            ViewElementType type)
+        private IViewElement CreateTextViewElement(
+            string id,
+            string value,
+            string defaultPlaceholder)
         {
-            return new ViewElement<T>
+            return new TextViewElement
             {
-                Placeholder = property.Name,
-                Id = property.Name,
-                Value = value,
-                Type = type
+                Placeholder = GetPlaceholder(id, defaultPlaceholder),
+                Id = id,
+                Value = value
             };
         }
+
+        private IViewElement CreateDateViewElement(
+            string id,
+            DateTimeOffset value,
+            string defaultPlaceholder)
+        {
+            return new DateViewElement
+            {
+                Placeholder = GetPlaceholder(id, defaultPlaceholder),
+                Id = id,
+                Value = value
+            };
+        }
+
+        private IViewElement CreateCheckboxViewElement(
+            string id,
+            bool value,
+            string defaultPlaceholder)
+        {
+            return new CheckboxViewElement
+            {
+                Placeholder = GetPlaceholder(id, defaultPlaceholder),
+                Id = id,
+                Value = value
+            };
+        }
+
+        private string GetPlaceholder(string id, string defaultValue) =>
+            string.IsNullOrEmpty(this.localizationBroker[id])
+                ? defaultValue
+                : this.localizationBroker[id];
     }
 }

@@ -15,6 +15,7 @@ using TheStandardBox.Core.Brokers.Localizations;
 using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Brokers.Apis;
+using TheStandardBox.UIKit.Blazor.Brokers.Localizations;
 using TheStandardBox.UIKit.Blazor.Models.Configurations;
 using TheStandardBox.UIKit.Blazor.Services.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits;
@@ -72,7 +73,7 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
         {
             services.AddSyncfusionBlazor();
             services.AddScoped<IStandardApiBroker, StandardApiBroker>();
-            services.TryAddSingleton<ILocalizationBroker, LocalizationBroker>();
+            services.Replace(ServiceDescriptor.Singleton<ILocalizationBroker, UILocalizationBroker>());
         }
     }
 }

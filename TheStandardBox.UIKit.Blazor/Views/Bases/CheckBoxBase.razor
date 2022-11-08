@@ -2,7 +2,7 @@
 @inherits InputComponent<bool>
 @if (IsVisible)
 {
-    <SfCheckBox Checked="@Value"
+    <SfCheckBox Name=@Id Checked="@Value"
             Disabled="@IsDisabled"
             Label="@Label"
             CheckedChanged=ValueChanged />

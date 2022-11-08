@@ -34,6 +34,7 @@ namespace TheStandardBox.UIKit.Blazor.Services.Foundations.Standards
 
             this.relativeUrl =
                 this.entityBroker.GetRelativeApiUrl<TEntity>();
+
             this.entityName = this.entityBroker.GetEntityName<TEntity>();
         }
 

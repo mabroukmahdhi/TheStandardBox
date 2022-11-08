@@ -12,7 +12,7 @@ using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using Xunit;
 
-namespace StandardApi.PoC.Tests.Unit.Services.Standards
+namespace TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards
 {
     public abstract partial class StandardServiceTests<TEntity>
     {

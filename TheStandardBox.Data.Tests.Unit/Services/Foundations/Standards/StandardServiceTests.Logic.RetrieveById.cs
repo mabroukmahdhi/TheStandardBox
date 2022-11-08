@@ -10,7 +10,7 @@ using Force.DeepCloner;
 using Moq;
 using Xunit;
 
-namespace StandardApi.PoC.Tests.Unit.Services.Standards
+namespace TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards
 {
     public partial class StandardServiceTests<TEntity>
     {

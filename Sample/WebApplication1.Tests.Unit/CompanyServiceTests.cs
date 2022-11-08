@@ -1,5 +1,5 @@
-﻿using StandardApi.PoC.Tests.Unit.Services.Standards;
-using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
+﻿using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
+using TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards;
 using WebApplication1.Models.Foundations.Companies;
 
 namespace WebApplication1.Tests.Unit

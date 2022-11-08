@@ -22,7 +22,7 @@ using Tynamix.ObjectFiller;
 using Xeptions;
 using Xunit;
 
-namespace StandardApi.PoC.Tests.Unit.Services.Standards
+namespace TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards
 {
     public abstract partial class StandardServiceTests<TEntity>
         where TEntity : class, IStandardEntity

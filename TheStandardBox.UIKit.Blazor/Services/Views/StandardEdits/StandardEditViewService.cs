@@ -43,46 +43,46 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits
             {
                 var fieldAttribute = property.GetCustomAttribute<FieldAttribute>();
 
-                if (fieldAttribute == null)
-                    continue;
-
-                var id = string.IsNullOrWhiteSpace(fieldAttribute.Name)
-                    ? property.Name
-                    : fieldAttribute.Name;
-
-                id = $"StandardEdit_{id}";
-
-                if (property.PropertyType == typeof(DateTimeOffset))
+                if (fieldAttribute != null)
                 {
-                    IViewElement elm = CreateDateViewElement(
-                        id: id,
-                        value: (DateTimeOffset)property.GetValue(entity),
-                        defaultPlaceholder: property.Name);
+                    var id = string.IsNullOrWhiteSpace(fieldAttribute.Name)
+                        ? property.Name
+                        : fieldAttribute.Name;
 
-                    viewElements.Add(elm);
-                    continue;
-                }
+                    id = $"StandardEdit_{id}";
 
-                if (property.PropertyType == typeof(string))
-                {
-                    IViewElement elm = CreateTextViewElement(
-                        id: id,
-                        value: (string)property.GetValue(entity),
-                        defaultPlaceholder: property.Name);
+                    if (property.PropertyType == typeof(DateTimeOffset))
+                    {
+                        IViewElement elm = CreateDateViewElement(
+                            id: id,
+                            value: (DateTimeOffset)property.GetValue(entity),
+                            defaultPlaceholder: property.Name);
 
-                    viewElements.Add(elm);
-                    continue;
-                }
+                        viewElements.Add(elm);
+                        continue;
+                    }
 
-                if (property.PropertyType == typeof(bool))
-                {
-                    IViewElement elm = CreateCheckboxViewElement(
-                        id: id,
-                        value: (bool)property.GetValue(entity),
-                        defaultPlaceholder: property.Name);
+                    if (property.PropertyType == typeof(string))
+                    {
+                        IViewElement elm = CreateTextViewElement(
+                            id: id,
+                            value: (string)property.GetValue(entity),
+                            defaultPlaceholder: property.Name);
 
-                    viewElements.Add(elm);
-                    continue;
+                        viewElements.Add(elm);
+                        continue;
+                    }
+
+                    if (property.PropertyType == typeof(bool))
+                    {
+                        IViewElement elm = CreateCheckboxViewElement(
+                            id: id,
+                            value: (bool)property.GetValue(entity),
+                            defaultPlaceholder: property.Name);
+
+                        viewElements.Add(elm);
+                        continue;
+                    }
                 }
             }
 

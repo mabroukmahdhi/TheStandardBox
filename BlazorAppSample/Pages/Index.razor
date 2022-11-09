@@ -6,4 +6,6 @@
 
 <h1>Hello, world!</h1>
 
-<StandardEditComponent TEntity="Port" />
+<StandardEditComponent TEntity="Port"
+                       Entity="@(new Port{Name="Mahdhi Port",Information="New"})"
+                       Columns="2" />

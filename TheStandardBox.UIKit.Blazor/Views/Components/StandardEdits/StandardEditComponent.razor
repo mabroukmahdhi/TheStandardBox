@@ -1,4 +1,5 @@
-﻿@using TheStandardBox.Core.Models.Foundations.Standards
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using TheStandardBox.Core.Models.Foundations.Standards
 @using TheStandardBox.UIKit.Blazor.Models.Components.Labels
 @using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 @using TheStandardBox.UIKit.Blazor.Views.Bases
@@ -9,59 +10,12 @@
 
 @if (textViewElements != null)
 {
-    <CardBase CssClass=@GetCssClass()
-          HasShadow=false
-          Style=@GetStyle()>
-        <Content>
-            <ContainerComponent State="State">
-                <Content>
-                    <div class="form">
-                        @foreach (var element in textViewElements)
-                        {
-                            <div class="form-row">
-                                @for (int i = 0; i < ColumnCount; i++)
-                                {
-                                    <div class="col">
-                                        @if (element.Type == ViewElementType.TextBox)
-                                        {
-                                            var elm = element as TextViewElement;
-                                            <TextBoxBase  Id=@elm.Id @bind-Value=@elm.Value Placeholder=@elm.Placeholder />
-                                            continue;
-                                        }
-                                        @if (element.Type == ViewElementType.DatePicker)
-                                        {
-                                            var elm = element as DateViewElement;
-                                            <DatePickerBase Id=@elm.Id Placeholder=@elm.Placeholder @bind-Value=@elm.Value />
-                                            continue;
-                                        }
-                                        @if (element.Type == ViewElementType.CheckBox)
-                                        {
-                                            var elm = element as CheckboxViewElement;
-                                            <CheckBoxBase Id=@elm.Id Label=@elm.Placeholder @bind-Value=@elm.Value />
-                                            continue;
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        }
-                        @if (!string.IsNullOrWhiteSpace(AddErrorMessage))
-                        {
-                            <div>
-                                <LabelBase TextColor="LabelTextColor.Danger"
-                                   Value=@AddErrorMessage />
-                            </div>
-                        }
-                    </div>
-                </Content>
-            </ContainerComponent>
-        </Content>
-        <Footer>
-            <CardFooterBase CssClass="d-flex flex-row-reverse">
-                <Content>
-                    <ButtonBase Text="@($"Add New {typeof(TEntity).Name}")"
-                            OnClick=@OnAddClicked />
-                </Content>
-            </CardFooterBase>
-        </Footer>
-    </CardBase>
+    <EditForm Model=@Entity OnValidSubmit=@OnAddClicked>
+        <DataAnnotationsValidator />
+        @CreateComponent()
+        <ValidationSummary></ValidationSummary>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </EditForm>
 }

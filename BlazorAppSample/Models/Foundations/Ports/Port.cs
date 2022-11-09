@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Attributes;
 
@@ -7,10 +9,14 @@ namespace BlazorAppSample.Models.Foundations.Ports
     public class Port : IStandardEntity
     {
         public Guid Id { get; set; }
-        [Field]
+        [Required]
+        [Display(Name = "Port name")]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
         public Guid AddressId { get; set; }
-        [Field]
+        [Required]
+        [Display(Name = "Port details")]
+        [DataType(DataType.Text)]
         public string Information { get; set; }
         public Guid CreatedByUserId { get; set; }
         public Guid UpdatedByUserId { get; set; }

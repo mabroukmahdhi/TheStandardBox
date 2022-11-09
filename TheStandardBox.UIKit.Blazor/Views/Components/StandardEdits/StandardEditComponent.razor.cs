@@ -6,7 +6,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.CompilerServices;
+using Syncfusion.Blazor.Calendars;
+using Syncfusion.Blazor.Inputs;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Models.Components.Containers;
 using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
@@ -63,5 +68,95 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
             }
             StateHasChanged();
         }
+
+        public RenderFragment CreateComponent() => builder =>
+        {
+            var proList = typeof(TEntity).GetProperties();
+            foreach (var prp in proList)
+            {
+                Type T = prp.GetType();
+                if (prp.GetCustomAttributes(typeof(DataTypeAttribute), false).Length != 0)
+                {
+                    var attrList = (DataTypeAttribute)prp.GetCustomAttributes(typeof(DataTypeAttribute), false).First();
+                    var displayLabel = (DisplayAttribute)prp.GetCustomAttributes(typeof(DisplayAttribute), false).First();
+                    // Get the initial property value.
+                    var propInfoValue = typeof(TEntity).GetProperty(prp.Name);
+                    // Create an expression to set the ValueExpression-attribute.
+                    var constant = System.Linq.Expressions.Expression.Constant(Entity, typeof(TEntity));
+                    var exp = System.Linq.Expressions.MemberExpression.Property(constant, prp.Name);
+                    switch (attrList.DataType)
+                    {
+                        case DataType.Text:
+                        case DataType.EmailAddress:
+                        case DataType.PhoneNumber:
+                        case DataType.MultilineText:
+                            {
+                                builder.OpenComponent(0, typeof(SfTextBox));
+                                // Create the handler for ValueChanged.
+                                builder.AddAttribute(3, "ValueChanged", RuntimeHelpers.TypeCheck<Microsoft.AspNetCore.Components.EventCallback<System.String>>(Microsoft.AspNetCore.Components.EventCallback.Factory.Create<System.String>(this, Microsoft.AspNetCore.Components.EventCallback.Factory.CreateInferred(this, __value => propInfoValue.SetValue(Entity, __value), (string)propInfoValue.GetValue(Entity)))));
+                                builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<string>>(exp));
+                                if (attrList.DataType == DataType.MultilineText)
+                                    builder.AddAttribute(5, "Multiline", true);
+                                break;
+                            }
+                        case DataType.Date:
+                            builder.OpenComponent(0, typeof(SfDatePicker<DateTime?>));
+                            builder.AddAttribute(3, "ValueChanged", RuntimeHelpers.TypeCheck<Microsoft.AspNetCore.Components.EventCallback<DateTime?>>(Microsoft.AspNetCore.Components.EventCallback.Factory.Create<DateTime?>(this, Microsoft.AspNetCore.Components.EventCallback.Factory.CreateInferred(this, __value => propInfoValue.SetValue(Entity, __value), (DateTime?)propInfoValue.GetValue(Entity)))));
+                            builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<DateTime?>>(exp));
+                            break;
+                        case DataType.Duration:
+                            builder.OpenComponent(0, typeof(SfNumericTextBox<decimal?>));
+                            builder.AddAttribute(3, "ValueChanged", RuntimeHelpers.TypeCheck<Microsoft.AspNetCore.Components.EventCallback<decimal?>>(Microsoft.AspNetCore.Components.EventCallback.Factory.Create<decimal?>(this, Microsoft.AspNetCore.Components.EventCallback.Factory.CreateInferred(this, __value => propInfoValue.SetValue(Entity, __value), (decimal?)propInfoValue.GetValue(Entity)))));
+                            builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<decimal?>>(exp));
+                            break;
+                        case DataType.Custom:
+                            //if (attrList.CustomDataType == "DropdownList")
+                            //{
+                            //    builder.OpenComponent(0, typeof(Syncfusion.Blazor.DropDowns.SfDropDownList<string, Countries>));
+                            //    builder.AddAttribute(1, "DataSource", countries.GetCountries());
+                            //    builder.AddAttribute(4, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((builder2) =>
+                            //    {
+                            //        builder2.AddMarkupContent(5, "\r\n    ");
+                            //        builder2.OpenComponent<Syncfusion.Blazor.DropDowns.DropDownListFieldSettings>
+                            //      (6);
+
+                            //        builder2.AddAttribute(7, "Value", "Code");
+                            //        builder2.AddAttribute(8, "Text", "Name");
+                            //        builder2.CloseComponent();
+                            //        builder2.AddMarkupContent(9, "\r\n");
+                            //    }));
+
+                            //}
+                            //else if (attrList.CustomDataType == "ComboBox")
+                            //{
+                            //    builder.OpenComponent(0, typeof(Syncfusion.Blazor.DropDowns.SfComboBox<string, Cities>));
+                            //    builder.AddAttribute(1, "DataSource", cities.GetCities());
+                            //    builder.AddAttribute(4, "ChildContent", (Microsoft.AspNetCore.Components.RenderFragment)((builder2) =>
+                            //    {
+                            //        builder2.AddMarkupContent(5, "\r\n    ");
+                            //        builder2.OpenComponent<Syncfusion.Blazor.DropDowns.ComboBoxFieldSettings>
+                            //      (6);
+
+                            //        builder2.AddAttribute(7, "Value", "Code");
+                            //        builder2.AddAttribute(8, "Text", "Name");
+                            //        builder2.CloseComponent();
+                            //        builder2.AddMarkupContent(9, "\r\n");
+                            //    }));
+                            //}
+                            //builder.AddAttribute(3, "ValueChanged", RuntimeHelpers.TypeCheck<Microsoft.AspNetCore.Components.EventCallback<System.String>>(Microsoft.AspNetCore.Components.EventCallback.Factory.Create<System.String>(this, Microsoft.AspNetCore.Components.EventCallback.Factory.CreateInferred(this, __value => propInfoValue.SetValue(Entity, __value), (string)propInfoValue.GetValue(Entity)))));
+                            //builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<string>>(exp));
+                            break;
+                        default:
+                            break;
+                    }
+                    var defaultValue = propInfoValue.GetValue(Entity);
+                    builder.AddAttribute(1, "Value", defaultValue);
+                    builder.AddAttribute(6, "PlaceHolder", displayLabel.Name);
+                    builder.AddAttribute(6, "FloatLabelType", FloatLabelType.Auto);
+
+                    builder.CloseComponent();
+                }
+            }
+        };
     }
 }

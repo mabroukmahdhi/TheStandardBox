@@ -5,7 +5,6 @@
 // ---------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
@@ -14,7 +13,6 @@ using Syncfusion.Blazor.Calendars;
 using Syncfusion.Blazor.Inputs;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Models.Components.Containers;
-using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
 using TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits;
 using TheStandardBox.UIKit.Blazor.Views.Components.Localizations;
 
@@ -37,7 +35,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
         [Parameter]
         public EventCallback<TEntity> EntityChanged { get; set; }
 
-        private List<IViewElement> textViewElements;
+        // private List<IViewElement> textViewElements;
 
         private string AddErrorMessage { get; set; }
 
@@ -49,7 +47,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
                 Entity.Id = Guid.NewGuid();
             }
 
-            textViewElements = EditViewService.GenerateViewElements(Entity);
+            //textViewElements = EditViewService.GenerateViewElements(Entity);
 
             State = ComponentState.Content;
         }
@@ -60,7 +58,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
             {
                 AddErrorMessage = string.Empty;
 
-                await EditViewService.UpsertEntityAsync(Entity, textViewElements);
+                //  await EditViewService.UpsertEntityAsync(Entity, textViewElements);
             }
             catch (Exception ex)
             {
@@ -90,6 +88,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
                         case DataType.EmailAddress:
                         case DataType.PhoneNumber:
                         case DataType.MultilineText:
+                        case DataType.Password:
                             {
                                 builder.OpenComponent(0, typeof(SfTextBox));
                                 // Create the handler for ValueChanged.
@@ -97,12 +96,15 @@ namespace TheStandardBox.UIKit.Blazor.Views.Components.StandardEdits
                                 builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<string>>(exp));
                                 if (attrList.DataType == DataType.MultilineText)
                                     builder.AddAttribute(5, "Multiline", true);
+
+                                if (attrList.DataType == DataType.Password)
+                                    builder.AddAttribute(6, "Type", InputType.Password);
                                 break;
                             }
                         case DataType.Date:
-                            builder.OpenComponent(0, typeof(SfDatePicker<DateTime?>));
-                            builder.AddAttribute(3, "ValueChanged", RuntimeHelpers.TypeCheck<Microsoft.AspNetCore.Components.EventCallback<DateTime?>>(Microsoft.AspNetCore.Components.EventCallback.Factory.Create<DateTime?>(this, Microsoft.AspNetCore.Components.EventCallback.Factory.CreateInferred(this, __value => propInfoValue.SetValue(Entity, __value), (DateTime?)propInfoValue.GetValue(Entity)))));
-                            builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<DateTime?>>(exp));
+                            builder.OpenComponent(0, typeof(SfDatePicker<DateTimeOffset>));
+                            builder.AddAttribute(3, "ValueChanged", RuntimeHelpers.TypeCheck<Microsoft.AspNetCore.Components.EventCallback<DateTimeOffset>>(Microsoft.AspNetCore.Components.EventCallback.Factory.Create<DateTimeOffset>(this, Microsoft.AspNetCore.Components.EventCallback.Factory.CreateInferred(this, __value => propInfoValue.SetValue(Entity, __value), (DateTimeOffset)propInfoValue.GetValue(Entity)))));
+                            builder.AddAttribute(4, "ValueExpression", System.Linq.Expressions.Expression.Lambda<Func<DateTimeOffset>>(exp));
                             break;
                         case DataType.Duration:
                             builder.OpenComponent(0, typeof(SfNumericTextBox<decimal?>));

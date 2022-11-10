@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 using TheStandardBox.Core.Models.Foundations.Standards;
-using TheStandardBox.UIKit.Blazor.Attributes;
 
 namespace BlazorAppSample.Models.Foundations.Ports
 {

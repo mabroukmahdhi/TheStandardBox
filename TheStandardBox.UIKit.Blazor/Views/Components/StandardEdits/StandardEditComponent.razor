@@ -8,14 +8,14 @@
 @inherits LocalizedComponent
 @typeparam TEntity where TEntity: IStandardEntity
 
-@if (textViewElements != null)
+@*@if (textViewElements != null)
 {
-    <EditForm Model=@Entity OnValidSubmit=@OnAddClicked>
-        <DataAnnotationsValidator />
-        @CreateComponent()
-        <ValidationSummary></ValidationSummary>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-    </EditForm>
-}
+ *@
+<EditForm Model=@Entity OnValidSubmit=@OnAddClicked>
+    <DataAnnotationsValidator />
+    @CreateComponent()
+    <ValidationSummary></ValidationSummary>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>

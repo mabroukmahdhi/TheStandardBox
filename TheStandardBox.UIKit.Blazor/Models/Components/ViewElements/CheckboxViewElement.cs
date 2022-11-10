@@ -4,8 +4,6 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
-
 namespace TheStandardBox.UIKit.Blazor.Models.Components.ViewElements
 {
     public class CheckboxViewElement : ViewElement<bool>

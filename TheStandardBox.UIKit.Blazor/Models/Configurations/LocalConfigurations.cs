@@ -10,6 +10,6 @@ namespace TheStandardBox.UIKit.Blazor.Models.Configurations
     {
         public string DefaultCulture { get; set; }
         public string SyncfusionLicenseKey { get; set; }
-        public ApiConfigurations ApiConfigurations { get; set; } 
+        public ApiConfigurations ApiConfigurations { get; set; }
     }
 }

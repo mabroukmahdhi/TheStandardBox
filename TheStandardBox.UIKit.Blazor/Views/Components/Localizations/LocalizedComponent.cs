@@ -6,7 +6,6 @@
 
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.Core.Brokers.Localizations;
-using TheStandardBox.UIKit.Blazor.Brokers.Localizations;
 using TheStandardBox.UIKit.Blazor.Views.Components.Containers;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Components.Localizations

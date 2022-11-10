@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using TheStandardBox.Core.Brokers.Localizations;
 using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.UIKit.Blazor.Attributes;
-using TheStandardBox.UIKit.Blazor.Brokers.Localizations;
 using TheStandardBox.UIKit.Blazor.Models.Components.ViewElements;
 using TheStandardBox.UIKit.Blazor.Services.Foundations.Standards;
 

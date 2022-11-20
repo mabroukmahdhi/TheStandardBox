@@ -22,8 +22,8 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
         public override RenderFragment CreateComponent() => builder =>
         {
             builder.OpenElement(0, "button");
-            builder.AddContent(1, Label);
-            builder.AddAttribute(2, "onclick", Click);
+            builder.AddAttribute(3, "onclick", OnClick);
+            builder.AddContent(4, Label);
             builder.CloseElement();
         };
     }

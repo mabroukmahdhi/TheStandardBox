@@ -23,9 +23,6 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
         {
             this.IsDisabled = false;
             InvokeAsync(StateHasChanged);
-        }
-
-        public virtual RenderFragment CreateComponent() =>
-            builder => { };
+        } 
     }
 }

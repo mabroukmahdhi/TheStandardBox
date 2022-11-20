@@ -16,6 +16,7 @@ using TheStandardBox.UIKit.Blazor.Brokers.Apis;
 using TheStandardBox.UIKit.Blazor.Brokers.Localizations;
 using TheStandardBox.UIKit.Blazor.Models.Configurations;
 using TheStandardBox.UIKit.Blazor.Services.Foundations.Standards;
+using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 using TheStandardBox.UIKit.Blazor.Services.Views.StandardEdits;
 
 namespace TheStandardBox.UIKit.Blazor.Extensions
@@ -26,6 +27,7 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
         {
             services.AddTheStandardBoxCore();
             services.AddStandardBrokers();
+            services.AddStandardComponentRenderer<RenderingService>();
         }
 
         public static void AddFoundationService<TEntity>(this IServiceCollection services)
@@ -38,6 +40,12 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
             where TEntity : class, IStandardEntity
         {
             services.AddScoped<IStandardEditViewService<TEntity>, StandardEditViewService<TEntity>>();
+        }
+
+        public static void AddStandardComponentRenderer<TRenderer>(this IServiceCollection services)
+            where TRenderer : class, IRenderingService
+        {
+            services.Replace(ServiceDescriptor.Scoped<IRenderingService, TRenderer>());
         }
 
         public static void AddStandardHttpClient(

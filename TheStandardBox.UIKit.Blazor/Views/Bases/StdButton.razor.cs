@@ -6,11 +6,14 @@
 
 using System;
 using Microsoft.AspNetCore.Components;
+using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Bases
 {
     public partial class StdButton : BasicComponent
     {
+        [Inject]
+        public IRenderingService RenderingService { get; set; }
         [Parameter]
         public string Label { get; set; }
 
@@ -19,12 +22,7 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
 
         public void Click() => OnClick.Invoke();
 
-        public override RenderFragment CreateComponent() => builder =>
-        {
-            builder.OpenElement(0, "button");
-            builder.AddAttribute(3, "onclick", OnClick);
-            builder.AddContent(4, Label);
-            builder.CloseElement();
-        };
+        private RenderFragment CreateComponent() =>
+            RenderingService.CreateStandardButton(this);
     }
 }

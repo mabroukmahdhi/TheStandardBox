@@ -9,8 +9,6 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Syncfusion.Blazor;
-using Syncfusion.Licensing;
 using TheStandardBox.Core.Brokers.Localizations;
 using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Standards;
@@ -42,18 +40,6 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
             services.AddScoped<IStandardEditViewService<TEntity>, StandardEditViewService<TEntity>>();
         }
 
-        public static void RegisterSyncfusion(this IConfiguration configuration)
-        {
-            LocalConfigurations localConfigurations =
-                configuration.Get<LocalConfigurations>();
-
-            if (!string.IsNullOrWhiteSpace(localConfigurations?.SyncfusionLicenseKey))
-            {
-                SyncfusionLicenseProvider.RegisterLicense(
-                licenseKey: localConfigurations.SyncfusionLicenseKey);
-            }
-        }
-
         public static void AddStandardHttpClient(
             this IServiceCollection services,
             IConfiguration configuration)
@@ -71,7 +57,6 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
 
         private static void AddStandardBrokers(this IServiceCollection services)
         {
-            services.AddSyncfusionBlazor();
             services.AddScoped<IStandardApiBroker, StandardApiBroker>();
             services.Replace(ServiceDescriptor.Singleton<ILocalizationBroker, UILocalizationBroker>());
         }

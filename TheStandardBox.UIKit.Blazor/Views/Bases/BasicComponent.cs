@@ -23,6 +23,6 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
         {
             this.IsDisabled = false;
             InvokeAsync(StateHasChanged);
-        } 
+        }
     }
 }

@@ -17,6 +17,9 @@ namespace TheStandardBox.UIKit.Blazor.Views.Standards
         [Parameter]
         public bool IsDisabled { get; set; }
 
+        [Parameter]
+        public bool IsVisible { get; set; } = true;
+
         public void Disable()
         {
             this.IsDisabled = true;

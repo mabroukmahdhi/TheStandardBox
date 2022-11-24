@@ -1,2 +1,5 @@
 ﻿@inherits StandardComponent
-@CreateComponent()
+@if (IsVisible)
+{
+    @CreateComponent()
+}

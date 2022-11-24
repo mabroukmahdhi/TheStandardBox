@@ -9,8 +9,10 @@ using TheStandardBox.UIKit.Blazor.Views.Standards;
 
 namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
 {
-    public class RenderingService : IRenderingService
+    public class StandardRenderingService : IStandardRenderingService
     {
+        private StdTextBox callingTextBox;
+
         public virtual RenderFragment CreateStandardButton(StdButton button) =>
             builder =>
             {
@@ -25,6 +27,20 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
             {
                 builder.OpenElement(0, "label");
                 builder.AddContent(3, label.Value);
+                builder.CloseElement();
+            };
+
+        public RenderFragment CreateStandardTextBox(StdTextBox textBox) =>
+            builder =>
+            {
+                builder.OpenElement(0, "input");
+                builder.AddAttribute(3, "value", textBox.Value); 
+                builder.AddAttribute(4, "onchange",
+                    EventCallback.Factory.CreateBinder(
+                        receiver: textBox,
+                        setter: _value => textBox.SetValue(_value),
+                        existingValue: textBox.Value));
+
                 builder.CloseElement();
             };
     }

@@ -9,9 +9,10 @@ using TheStandardBox.UIKit.Blazor.Views.Standards;
 
 namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
 {
-    public interface IRenderingService
+    public interface IStandardRenderingService
     {
         RenderFragment CreateStandardButton(StdButton button);
         RenderFragment CreateStandardLabel(StdLabel label);
+        RenderFragment CreateStandardTextBox(StdTextBox textBox);
     }
 }

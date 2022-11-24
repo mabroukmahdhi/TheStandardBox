@@ -27,7 +27,7 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
         {
             services.AddTheStandardBoxCore();
             services.AddStandardBrokers();
-            services.AddStandardComponentRenderer<RenderingService>();
+            services.AddStandardComponentRenderer<StandardRenderingService>();
         }
 
         public static void AddFoundationService<TEntity>(this IServiceCollection services)
@@ -43,9 +43,9 @@ namespace TheStandardBox.UIKit.Blazor.Extensions
         }
 
         public static void AddStandardComponentRenderer<TRenderer>(this IServiceCollection services)
-            where TRenderer : class, IRenderingService
+            where TRenderer : class, IStandardRenderingService
         {
-            services.Replace(ServiceDescriptor.Scoped<IRenderingService, TRenderer>());
+            services.Replace(ServiceDescriptor.Scoped<IStandardRenderingService, TRenderer>());
         }
 
         public static void AddStandardHttpClient(

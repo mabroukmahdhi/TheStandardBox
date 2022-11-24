@@ -5,7 +5,7 @@
 // ---------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using TheStandardBox.UIKit.Blazor.Views.Bases;
+using TheStandardBox.UIKit.Blazor.Views.Standards;
 
 namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
 {

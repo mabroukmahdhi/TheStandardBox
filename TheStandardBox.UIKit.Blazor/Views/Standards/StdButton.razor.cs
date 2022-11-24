@@ -8,9 +8,9 @@ using System;
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Bases
+namespace TheStandardBox.UIKit.Blazor.Views.Standards
 {
-    public partial class StdButton : BasicComponent
+    public partial class StdButton : StandardComponent
     {
         [Parameter]
         public string Label { get; set; }

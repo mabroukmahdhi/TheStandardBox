@@ -7,9 +7,9 @@
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Bases
+namespace TheStandardBox.UIKit.Blazor.Views.Standards
 {
-    public class BasicComponent : ComponentBase
+    public class StandardComponent : ComponentBase
     {
         [Inject]
         public IRenderingService RenderingService { get; set; }

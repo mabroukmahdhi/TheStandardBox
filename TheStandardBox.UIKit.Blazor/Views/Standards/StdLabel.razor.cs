@@ -6,9 +6,9 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Bases
+namespace TheStandardBox.UIKit.Blazor.Views.Standards
 {
-    public partial class StdLabel : BasicComponent
+    public partial class StdLabel : StandardComponent
     {
         [Parameter]
         public string Value { get; set; }

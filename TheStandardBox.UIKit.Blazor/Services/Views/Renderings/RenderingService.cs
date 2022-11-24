@@ -19,5 +19,13 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
                 builder.AddContent(4, button.Label);
                 builder.CloseElement();
             };
+
+        public virtual RenderFragment CreateStandardLabel(StdLabel label) =>
+            builder =>
+            {
+                builder.OpenElement(0, "label");
+                builder.AddContent(3, label.Value);
+                builder.CloseElement();
+            };
     }
 }

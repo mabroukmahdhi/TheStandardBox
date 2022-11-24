@@ -12,5 +12,6 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
     public interface IRenderingService
     {
         RenderFragment CreateStandardButton(StdButton button);
+        RenderFragment CreateStandardLabel(StdLabel label);
     }
 }

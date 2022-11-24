@@ -5,11 +5,15 @@
 // ---------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Bases
 {
     public class BasicComponent : ComponentBase
     {
+        [Inject]
+        public IRenderingService RenderingService { get; set; }
+
         [Parameter]
         public bool IsDisabled { get; set; }
 
@@ -24,5 +28,8 @@ namespace TheStandardBox.UIKit.Blazor.Views.Bases
             this.IsDisabled = false;
             InvokeAsync(StateHasChanged);
         }
+
+        protected virtual RenderFragment CreateComponent() =>
+            builder => { };
     }
 }

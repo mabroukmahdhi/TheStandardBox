@@ -8,7 +8,7 @@ using System;
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Standards
+namespace TheStandardBox.UIKit.Blazor.Views.Bases.Standards
 {
     public partial class StdButton : StandardComponent
     {

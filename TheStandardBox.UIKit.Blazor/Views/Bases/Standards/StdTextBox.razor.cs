@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Standards
+namespace TheStandardBox.UIKit.Blazor.Views.Bases.Standards
 {
     public partial class StdTextBox : StandardComponent
     {
@@ -42,35 +42,35 @@ namespace TheStandardBox.UIKit.Blazor.Views.Standards
 
         public void SetValue(string value)
         {
-            this.Value = value;
-            ValueChanged.InvokeAsync(this.Value);
+            Value = value;
+            ValueChanged.InvokeAsync(Value);
         }
 
         public void SetPlaceholder(string placeholder) =>
-            this.Placeholder = placeholder;
+            Placeholder = placeholder;
 
         public void SetIsPassword(bool isPassword) =>
-            this.IsPassword = isPassword;
+            IsPassword = isPassword;
 
         public void SetMaxLength(int length) =>
-            this.MaxLength = length;
+            MaxLength = length;
 
         public void SetWidth(string width) =>
-            this.Width = width;
+            Width = width;
 
         protected override Dictionary<string, object> GetAttributes()
         {
             if (MaxLength > 0)
             {
-                this.Attributes ??= new Dictionary<string, object>();
+                Attributes ??= new Dictionary<string, object>();
 
                 if (Attributes.ContainsKey("maxlength"))
                 {
-                    this.Attributes["maxlength"] = MaxLength;
+                    Attributes["maxlength"] = MaxLength;
                 }
                 else
                 {
-                    this.Attributes.Add("maxlength", MaxLength);
+                    Attributes.Add("maxlength", MaxLength);
                 }
             }
 
@@ -79,8 +79,8 @@ namespace TheStandardBox.UIKit.Blazor.Views.Standards
 
         protected virtual async void OnValueChanged(ChangeEventArgs changeEventArgs)
         {
-            this.Value = (string)changeEventArgs.Value;
-            await ValueChanged.InvokeAsync(this.Value);
+            Value = (string)changeEventArgs.Value;
+            await ValueChanged.InvokeAsync(Value);
         }
 
         protected override RenderFragment CreateComponent() =>

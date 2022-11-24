@@ -7,7 +7,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Standards
+namespace TheStandardBox.UIKit.Blazor.Views.Bases.Standards
 {
     public partial class StdDatePicker : StandardComponent
     {
@@ -19,17 +19,17 @@ namespace TheStandardBox.UIKit.Blazor.Views.Standards
 
         public void SetValue(DateTime value)
         {
-            this.Value = value;
-            ValueChanged.InvokeAsync(this.Value);
+            Value = value;
+            ValueChanged.InvokeAsync(Value);
         }
 
         public string GetFormattedValue(string format) =>
-            this.Value.ToString(format);
+            Value.ToString(format);
 
         protected virtual async void OnValueChanged(ChangeEventArgs changeEventArgs)
         {
-            this.Value = (DateTime)changeEventArgs.Value;
-            await ValueChanged.InvokeAsync(this.Value);
+            Value = (DateTime)changeEventArgs.Value;
+            await ValueChanged.InvokeAsync(Value);
         }
 
         protected override RenderFragment CreateComponent() =>

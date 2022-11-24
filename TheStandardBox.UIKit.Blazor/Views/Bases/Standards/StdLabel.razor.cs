@@ -6,7 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Standards
+namespace TheStandardBox.UIKit.Blazor.Views.Bases.Standards
 {
     public partial class StdLabel : StandardComponent
     {

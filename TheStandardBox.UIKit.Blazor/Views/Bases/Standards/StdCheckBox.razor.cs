@@ -7,7 +7,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Standards
+namespace TheStandardBox.UIKit.Blazor.Views.Bases.Standards
 {
     public partial class StdCheckBox : StandardComponent
     {
@@ -22,14 +22,14 @@ namespace TheStandardBox.UIKit.Blazor.Views.Standards
 
         public void SetValue(bool value)
         {
-            this.Value = value;
-            ValueChanged.InvokeAsync(this.Value);
+            Value = value;
+            ValueChanged.InvokeAsync(Value);
         }
 
         protected virtual async void OnValueChanged(ChangeEventArgs changeEventArgs)
         {
-            this.Value = (bool)changeEventArgs.Value;
-            await ValueChanged.InvokeAsync(this.Value);
+            Value = (bool)changeEventArgs.Value;
+            await ValueChanged.InvokeAsync(Value);
         }
 
         protected override RenderFragment CreateComponent() =>

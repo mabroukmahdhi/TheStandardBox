@@ -6,7 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.UIKit.Blazor.Models.Components.Containers;
-using TheStandardBox.UIKit.Blazor.Views.Standards;
+using TheStandardBox.UIKit.Blazor.Views.Bases.Standards;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Components.Containers
 {

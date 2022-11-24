@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.UIKit.Blazor.Services.Views.Renderings;
 
-namespace TheStandardBox.UIKit.Blazor.Views.Standards
+namespace TheStandardBox.UIKit.Blazor.Views.Bases.Standards
 {
     public class StandardComponent : ComponentBase
     {
@@ -32,21 +32,21 @@ namespace TheStandardBox.UIKit.Blazor.Views.Standards
 
         public void Disable()
         {
-            this.IsDisabled = true;
+            IsDisabled = true;
             InvokeAsync(StateHasChanged);
         }
 
         public void Enable()
         {
-            this.IsDisabled = false;
+            IsDisabled = false;
             InvokeAsync(StateHasChanged);
         }
 
         public void SetAttributes(Dictionary<string, object> attributes) =>
-            this.Attributes = attributes;
+            Attributes = attributes;
 
         protected virtual Dictionary<string, object> GetAttributes()
-            => this.Attributes;
+            => Attributes;
 
         protected virtual string GetCssClass()
             => CssClass;

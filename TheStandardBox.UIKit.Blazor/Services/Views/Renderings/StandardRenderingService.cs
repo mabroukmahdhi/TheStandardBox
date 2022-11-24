@@ -35,6 +35,21 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
                 builder.CloseElement();
             };
 
+        public RenderFragment CreateStandardDatePicker(StdDatePicker datePicker) =>
+            builder =>
+            {
+                builder.OpenElement(0, "input");
+                builder.AddAttribute(3, "type", "date");
+                builder.AddAttribute(4, "value", datePicker.GetFormattedValue("yyyy-MM-dd"));
+                builder.AddAttribute(5, "onchange",
+                    EventCallback.Factory.CreateBinder(
+                        receiver: datePicker,
+                        setter: _value => datePicker.SetValue(_value),
+                        existingValue: datePicker.Value));
+
+                builder.CloseElement();
+            };
+
         public virtual RenderFragment CreateStandardLabel(StdLabel label) =>
             builder =>
             {

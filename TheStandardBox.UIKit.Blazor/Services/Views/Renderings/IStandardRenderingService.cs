@@ -15,5 +15,6 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
         RenderFragment CreateStandardLabel(StdLabel label);
         RenderFragment CreateStandardTextBox(StdTextBox textBox);
         RenderFragment CreateStandardCheckBox(StdCheckBox checkBox);
+        RenderFragment CreateStandardDatePicker(StdDatePicker datePicker);
     }
 }

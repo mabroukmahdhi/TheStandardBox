@@ -11,14 +11,27 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
 {
     public class StandardRenderingService : IStandardRenderingService
     {
-        private StdTextBox callingTextBox;
-
         public virtual RenderFragment CreateStandardButton(StdButton button) =>
             builder =>
             {
                 builder.OpenElement(0, "button");
                 builder.AddAttribute(3, "onclick", button.OnClick);
                 builder.AddContent(4, button.Label);
+                builder.CloseElement();
+            };
+
+        public RenderFragment CreateStandardCheckBox(StdCheckBox checkBox) =>
+            builder =>
+            {
+                builder.OpenElement(0, "input");
+                builder.AddAttribute(3, "type", "checkbox");
+                builder.AddAttribute(3, "value", checkBox.Value);
+                builder.AddAttribute(4, "onchange",
+                    EventCallback.Factory.CreateBinder(
+                        receiver: checkBox,
+                        setter: _value => checkBox.SetValue(_value),
+                        existingValue: checkBox.Value));
+
                 builder.CloseElement();
             };
 
@@ -34,8 +47,9 @@ namespace TheStandardBox.UIKit.Blazor.Services.Views.Renderings
             builder =>
             {
                 builder.OpenElement(0, "input");
-                builder.AddAttribute(3, "value", textBox.Value); 
-                builder.AddAttribute(4, "onchange",
+                builder.AddAttribute(3, "type", textBox.IsPassword ? "password" : "text");
+                builder.AddAttribute(4, "value", textBox.Value);
+                builder.AddAttribute(5, "onchange",
                     EventCallback.Factory.CreateBinder(
                         receiver: textBox,
                         setter: _value => textBox.SetValue(_value),

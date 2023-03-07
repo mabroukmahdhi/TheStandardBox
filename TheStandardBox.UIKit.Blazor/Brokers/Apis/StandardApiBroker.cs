@@ -24,24 +24,24 @@ namespace TheStandardBox.UIKit.Blazor.Brokers.Apis
             this.apiClient = new RESTFulApiFactoryClient(this.httpClient);
         }
 
-        public virtual async ValueTask<List<TModel>> GetAllModelsAsync<TModel>(string relativeUrl)
-            where TModel : IStandardEntity =>
-                await this.apiClient.GetContentAsync<List<TModel>>(relativeUrl);
+        public virtual async ValueTask<List<TEntity>> GetAllEntitiesAsync<TEntity>(string relativeUrl)
+            where TEntity : IStandardEntity =>
+                await this.apiClient.GetContentAsync<List<TEntity>>(relativeUrl);
 
-        public virtual async ValueTask<TModel> GetModelByIdAsync<TModel>(Guid modelId, string relativeUrl)
-            where TModel : IStandardEntity =>
-                await this.apiClient.GetContentAsync<TModel>(relativeUrl);
+        public virtual async ValueTask<TEntity> GetEntityByIdAsync<TEntity>(Guid modelId, string relativeUrl)
+            where TEntity : IStandardEntity =>
+                await this.apiClient.GetContentAsync<TEntity>(relativeUrl);
 
-        public virtual async ValueTask<TModel> PostModelAsync<TModel>(TModel model, string relativeUrl)
-            where TModel : IStandardEntity =>
+        public virtual async ValueTask<TEntity> PostEntityAsync<TEntity>(TEntity model, string relativeUrl)
+            where TEntity : IStandardEntity =>
                 await this.apiClient.PostContentAsync(relativeUrl, model);
 
-        public virtual async ValueTask<TModel> PutModelAsync<TModel>(TModel model, string relativeUrl)
-            where TModel : IStandardEntity =>
+        public virtual async ValueTask<TEntity> PutEntityAsync<TEntity>(TEntity model, string relativeUrl)
+            where TEntity : IStandardEntity =>
                 await this.apiClient.PutContentAsync(relativeUrl, model);
 
-        public virtual async ValueTask<TModel> DeleteModelByIdAsync<TModel>(Guid modelId, string relativeUrl)
-            where TModel : IStandardEntity =>
-                await this.apiClient.DeleteContentAsync<TModel>(relativeUrl);
+        public virtual async ValueTask<TEntity> DeleteEntityByIdAsync<TEntity>(Guid modelId, string relativeUrl)
+            where TEntity : IStandardEntity =>
+                await this.apiClient.DeleteContentAsync<TEntity>(relativeUrl);
     }
 }

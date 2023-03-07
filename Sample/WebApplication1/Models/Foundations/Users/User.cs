@@ -18,6 +18,9 @@ namespace WebApplication1.Models.Foundations.Users
         public string Firstname { get; set; }
         [ValidateOnModify]
         public string Lastname { get; set; }
+
+        public Guid AddressId { get; set; }
+
         public DateTimeOffset CreatedDate { get; set; }
         public DateTimeOffset UpdatedDate { get; set; }
         [JsonIgnore]

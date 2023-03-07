@@ -12,6 +12,7 @@ using TheStandardBox.Core.Brokers.Entities;
 using TheStandardBox.Core.Brokers.Loggings;
 using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Bases;
+using TheStandardBox.Core.Models.Foundations.Standards;
 using TheStandardBox.Data.Brokers.StandardStorages;
 using TheStandardBox.Data.Services.Foundations.Standards;
 
@@ -83,10 +84,23 @@ namespace TheStandardBox.Data.Services.Standards
             {
                 ValidateEntityOnModify(entity);
 
-                TEntity maybeTEntity =
-                    await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(entity.GetPrimaryKeys());
+                TEntity maybeTEntity = default;
 
-                ValidateStorageEntity(maybeTEntity, entity.GetPrimaryKeys());
+                if (entity is IStandardEntity standardEntity)
+                {
+                    maybeTEntity = await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(
+                        entityId: standardEntity.Id);
+
+                    ValidateStorageEntity(maybeTEntity, standardEntity.Id);
+                }
+                else
+                {
+                    maybeTEntity = await this.standardStorageBroker.SelectEntityByIdAsync<TEntity>(
+                        entity.GetPrimaryKeys());
+
+                    ValidateStorageEntity(maybeTEntity, entity.GetPrimaryKeys());
+                }
+
                 ValidateAgainstStorageEntityOnModify(inputEntity: entity, storageEntity: maybeTEntity);
 
                 return await this.standardStorageBroker.UpdateEntityAsync(entity);
@@ -104,5 +118,21 @@ namespace TheStandardBox.Data.Services.Standards
 
                 return await this.standardStorageBroker.DeleteEntityAsync(maybeTEntity);
             });
+
+        public virtual ValueTask<TEntity> RemoveEntityByIdAsync(
+            Guid entityId1,
+            Guid entityId2) =>
+           TryCatch(async () =>
+           {
+               ValidateEntityId(entityId1);
+               ValidateEntityId(entityId2);
+
+               TEntity maybeTEntity = await this.standardStorageBroker
+                   .SelectEntityByIdAsync<TEntity>(entityId1, entityId2);
+
+               ValidateStorageEntity(maybeTEntity, entityId1, entityId2);
+
+               return await this.standardStorageBroker.DeleteEntityAsync(maybeTEntity);
+           });
     }
 }

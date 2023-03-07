@@ -63,5 +63,12 @@ namespace TheStandardBox.Data.Controllers
             {
                 return await this.standardService.RemoveEntityByIdAsync(entityId);
             });
+
+        [HttpDelete("{entityId1}/{entityId2}")]
+        public virtual ValueTask<ActionResult<TEntity>> DeleteEntityByIdsAsync(Guid entityId1, Guid entityId2) =>
+            TryCatchOnDelete(async () =>
+            {
+                return await this.standardService.RemoveEntityByIdAsync(entityId1, entityId2);
+            });
     }
 }

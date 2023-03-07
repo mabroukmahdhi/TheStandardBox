@@ -59,5 +59,23 @@ namespace TheStandardBox.UIKit.Blazor.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string StandardEdit_Information {
+            get {
+                return ResourceManager.GetString("StandardEdit_Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string StandardEdit_Name {
+            get {
+                return ResourceManager.GetString("StandardEdit_Name", resourceCulture);
+            }
+        }
     }
 }

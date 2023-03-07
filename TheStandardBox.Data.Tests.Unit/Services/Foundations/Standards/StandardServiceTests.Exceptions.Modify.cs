@@ -11,11 +11,10 @@ using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Bases.Exceptions;
 using Xunit;
 
-namespace StandardApi.PoC.Tests.Unit.Services.Standards
+namespace TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards
 {
     public abstract partial class StandardServiceTests<TEntity>
     {
@@ -53,7 +52,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(randomEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -108,7 +107,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(someEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(someEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -158,7 +157,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(randomEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -209,7 +208,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(randomEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>
@@ -260,7 +259,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(randomEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(randomEntity.Id),
                     Times.Never);
 
             this.loggingBrokerMock.Verify(broker =>

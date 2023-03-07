@@ -47,7 +47,6 @@ namespace TheStandardBox.Data.Extensions
                 });
             }
 
-            services.AddDbContext<TDbContext>();
             services.AddScoped<IStandardStorageBroker, StandardStorageBroker>();
             services.AddScoped<IStandardStorageBroker, TDbContext>();
             return services;

@@ -29,6 +29,47 @@ namespace TheStandardBox.Data.Services.Standards
             return sharedValidations;
         }
 
+        protected virtual IEnumerable<(dynamic Rule, string Parameter)> ValidatePrimaryKey(TEntity entity)
+        {
+            List<(dynamic Rule, string Parameter)> validations = new();
+
+            if (entity is IStandardEntity standardEntity)
+            {
+                validations.Add((Rule: IsInvalid(standardEntity.Id), Parameter: nameof(IStandardEntity.Id)));
+                return validations;
+            }
+
+            var properties = entity.GetType().GetProperties().Where(p =>
+                Attribute.IsDefined(p, typeof(PrimaryKeyAttribute)));
+
+            if (properties != null)
+            {
+                foreach (var property in properties)
+                {
+                    var val = property.GetValue(entity);
+                    var name = property.Name;
+
+                    if (property.PropertyType == typeof(string))
+                    {
+                        validations.Add((Rule: IsInvalid(val as string), Parameter: name));
+                    }
+                    else if (property.PropertyType == typeof(DateTimeOffset))
+                    {
+                        validations.Add((Rule: IsInvalid((DateTimeOffset)val), Parameter: name));
+                    }
+                    else if (property.PropertyType == typeof(Guid))
+                    {
+                        validations.Add((Rule: IsInvalid((Guid)val), Parameter: name));
+                    }
+                    else
+                    {
+                        validations.Add((Rule: IsInvalid(val), Parameter: name));
+                    }
+                }
+            }
+            return validations;
+        }
+
         protected virtual IEnumerable<(dynamic Rule, string Parameter)> ValidateByAttribute(TEntity entity, Type attributeType)
         {
             List<(dynamic Rule, string Parameter)> validations = new();
@@ -71,8 +112,8 @@ namespace TheStandardBox.Data.Services.Standards
 
             List<(dynamic Rule, string Parameter)> validations = new();
 
+            validations.AddRange(ValidatePrimaryKey(entity));
             validations.AddRange(SharedValidations(entity));
-            validations.AddRange(ValidateByAttribute(entity, typeof(PrimaryKeyAttribute)));
             validations.AddRange(ValidateByAttribute(entity, typeof(ValidateOnAddAttribute)));
             validations.Add((Rule: IsNotSame(
                     firstDate: entity.UpdatedDate,
@@ -91,6 +132,7 @@ namespace TheStandardBox.Data.Services.Standards
 
             List<(dynamic Rule, string Parameter)> validations = new();
 
+            validations.AddRange(ValidatePrimaryKey(entity));
             validations.AddRange(SharedValidations(entity));
             validations.AddRange(ValidateByAttribute(entity, typeof(ValidateOnModifyAttribute)));
             validations.Add((Rule: IsSame(
@@ -112,6 +154,14 @@ namespace TheStandardBox.Data.Services.Standards
             if (maybeEntity is null)
             {
                 throw new NotFoundEntityException(this.entityName, entityIds);
+            }
+        }
+
+        protected virtual void ValidateStorageEntity(TEntity maybeEntity, Guid entityId)
+        {
+            if (maybeEntity is null)
+            {
+                throw new NotFoundEntityException(this.entityName, entityId);
             }
         }
 

@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using TheStandardBox.Core.Extensions;
 using Xunit;
 
-namespace StandardApi.PoC.Tests.Unit.Services.Standards
+namespace TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards
 {
     public abstract partial class StandardServiceTests<TEntity>
     {
@@ -27,7 +26,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             storageEntity.UpdatedDate = randomEntity.CreatedDate;
             TEntity updatedEntity = inputEntity;
             TEntity expectedEntity = updatedEntity.DeepClone();
-            var entityId = inputEntity.GetPrimaryKeys();
+            var entityId = inputEntity.Id;
 
             this.dateTimeBrokerMock.Setup(broker =>
                 broker.GetCurrentDateTimeOffset())
@@ -53,7 +52,7 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(entityId),
                     Times.Once);
 
             this.standardStorageBrokerMock.Verify(broker =>

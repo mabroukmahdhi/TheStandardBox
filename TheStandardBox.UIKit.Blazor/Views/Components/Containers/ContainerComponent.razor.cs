@@ -6,11 +6,11 @@
 
 using Microsoft.AspNetCore.Components;
 using TheStandardBox.UIKit.Blazor.Models.Components.Containers;
-using TheStandardBox.UIKit.Blazor.Views.Bases;
+using TheStandardBox.UIKit.Blazor.Views.Bases.Standards;
 
 namespace TheStandardBox.UIKit.Blazor.Views.Components.Containers
 {
-    public partial class ContainerComponent : BasicComponent
+    public partial class ContainerComponent : StandardComponent
     {
         [Parameter]
         public ComponentState State { get; set; }

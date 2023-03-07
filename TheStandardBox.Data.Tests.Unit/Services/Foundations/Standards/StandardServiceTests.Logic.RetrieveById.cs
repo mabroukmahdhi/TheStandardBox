@@ -4,15 +4,13 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using TheStandardBox.Core.Extensions;
 using Xunit;
 
-namespace StandardApi.PoC.Tests.Unit.Services.Standards
+namespace TheStandardBox.Data.Tests.Unit.Services.Foundations.Standards
 {
     public partial class StandardServiceTests<TEntity>
     {
@@ -26,18 +24,18 @@ namespace StandardApi.PoC.Tests.Unit.Services.Standards
             TEntity expectedEntity = storageEntity.DeepClone();
 
             this.standardStorageBrokerMock.Setup(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.GetPrimaryKeys()))
+                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id))
                     .ReturnsAsync(storageEntity);
 
             // when
             TEntity actualEntity =
-                await this.standardService.RetrieveEntityByIdAsync(inputEntity.GetPrimaryKey<TEntity, Guid>());
+                await this.standardService.RetrieveEntityByIdAsync(inputEntity.Id);
 
             // then
             actualEntity.Should().BeEquivalentTo(expectedEntity);
 
             this.standardStorageBrokerMock.Verify(broker =>
-                broker.SelectEntityByIdAsync<TEntity>(inputEntity.GetPrimaryKeys()),
+                broker.SelectEntityByIdAsync<TEntity>(inputEntity.Id),
                     Times.Once);
 
             this.standardStorageBrokerMock.VerifyNoOtherCalls();

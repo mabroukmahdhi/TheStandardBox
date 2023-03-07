@@ -16,9 +16,11 @@ namespace TheStandardBox.Core.Attributes.Contollers
     {
         public GeneratedControllerAttribute(
             string route,
+            bool needsAuthorization = false,
             params AllowedAction[] allowedActions)
         {
             Route = route;
+            NeedsAuthorization = needsAuthorization;
 
             if (allowedActions?.Any() == true)
             {
@@ -33,7 +35,7 @@ namespace TheStandardBox.Core.Attributes.Contollers
                 var list = new List<AllowedAction>
                 {
                      AllowedAction.GetAllEntities,
-                     AllowedAction.GetEntityById, 
+                     AllowedAction.GetEntityById,
                      AllowedAction.PostEntity,
                      AllowedAction.PutEntity,
                      AllowedAction.DeleteEntityById
@@ -44,6 +46,7 @@ namespace TheStandardBox.Core.Attributes.Contollers
         }
 
         public string Route { get; }
+        public bool NeedsAuthorization { get; }
         public AllowedAction[] AllowedActions { get; }
     }
 }

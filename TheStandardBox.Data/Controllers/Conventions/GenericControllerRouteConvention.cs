@@ -6,7 +6,6 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Linq;
 using System.Reflection;
 using TheStandardBox.Core.Attributes.Contollers;
@@ -21,10 +20,6 @@ namespace TheStandardBox.Data.Controllers.Conventions
             {
                 var genericType = controller.ControllerType.GenericTypeArguments[0];
                 var customNameAttribute = genericType.GetCustomAttribute<GeneratedControllerAttribute>();
-                if (customNameAttribute.NeedsAuthorization)
-                {
-                    controller.Filters.Add(new AuthorizeFilter());
-                }
                 if (customNameAttribute?.Route != null)
                 {
                     var name = customNameAttribute.Route.Split('/').LastOrDefault();

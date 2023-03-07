@@ -4,9 +4,9 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Data.Brokers.StandardStorages;
@@ -38,6 +38,8 @@ namespace TheStandardBox.Data.Extensions
                 services.AddControllers(options =>
                 {
                     options.Conventions.Add(new GenericControllerRouteConvention());
+                    options.Conventions.Add(new AuthorizeControllerConvention());
+                    options.Conventions.Add(new ActionAuthorizingConvention());
                     options.Conventions.Add(new ActionBuildingConvention());
                 }).ConfigureApplicationPartManager(m =>
                 {

@@ -16,15 +16,16 @@ namespace TheStandardBox.Core.Attributes.Contollers
     {
         public GeneratedControllerAttribute(
             string route,
-            params AllowedAction[] allowedActions)
+            AllowedAction[] allowedActions = null,
+            AllowedAction[] anonymousActions = null)
         {
             Route = route;
 
-            if (allowedActions?.Any() == true)
+            if (allowedActions != null && allowedActions?.Any() == true)
             {
                 AllowedActions = allowedActions;
             }
-            else if (allowedActions.Contains(AllowedAction.None))
+            else if (allowedActions != null && allowedActions.Contains(AllowedAction.None))
             {
                 AllowedActions = Array.Empty<AllowedAction>();
             }
@@ -33,7 +34,7 @@ namespace TheStandardBox.Core.Attributes.Contollers
                 var list = new List<AllowedAction>
                 {
                      AllowedAction.GetAllEntities,
-                     AllowedAction.GetEntityById, 
+                     AllowedAction.GetEntityById,
                      AllowedAction.PostEntity,
                      AllowedAction.PutEntity,
                      AllowedAction.DeleteEntityById
@@ -41,9 +42,32 @@ namespace TheStandardBox.Core.Attributes.Contollers
 
                 AllowedActions = list.ToArray();
             }
+
+            if (anonymousActions != null && anonymousActions?.Any() == true)
+            {
+                AnonymousActions = anonymousActions;
+            }
+            else if (anonymousActions != null && anonymousActions.Contains(AllowedAction.None))
+            {
+                AnonymousActions = Array.Empty<AllowedAction>();
+            }
+            else
+            {
+                var list = new List<AllowedAction>
+                {
+                     AllowedAction.GetAllEntities,
+                     AllowedAction.GetEntityById,
+                     AllowedAction.PostEntity,
+                     AllowedAction.PutEntity,
+                     AllowedAction.DeleteEntityById
+                };
+
+                AnonymousActions = list.ToArray();
+            }
         }
 
         public string Route { get; }
         public AllowedAction[] AllowedActions { get; }
+        public AllowedAction[] AnonymousActions { get; }
     }
 }

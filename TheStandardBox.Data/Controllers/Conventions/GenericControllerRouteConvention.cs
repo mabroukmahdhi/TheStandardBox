@@ -4,10 +4,10 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using System.Linq;
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using System.Linq;
+using System.Reflection;
 using TheStandardBox.Core.Attributes.Contollers;
 
 namespace TheStandardBox.Data.Controllers.Conventions
@@ -20,14 +20,14 @@ namespace TheStandardBox.Data.Controllers.Conventions
             {
                 var genericType = controller.ControllerType.GenericTypeArguments[0];
                 var customNameAttribute = genericType.GetCustomAttribute<GeneratedControllerAttribute>();
-
                 if (customNameAttribute?.Route != null)
                 {
                     var name = customNameAttribute.Route.Split('/').LastOrDefault();
-                    controller.ControllerName = $"{name}GenericController"; 
+                    controller.ControllerName = $"{name}GenericController";
                     controller.Selectors.Add(new SelectorModel
                     {
                         AttributeRouteModel = new AttributeRouteModel(new RouteAttribute(customNameAttribute.Route)),
+
                     });
                 }
                 else

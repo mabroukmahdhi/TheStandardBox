@@ -4,10 +4,10 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using TheStandardBox.Core.Models.Foundations.Bases;
 using TheStandardBox.Data.Services.Foundations.Standards;
 
@@ -22,7 +22,7 @@ namespace TheStandardBox.Data.Controllers
              this.standardService = standardService;
 
         [HttpPost]
-        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync([FromBody]TEntity entity) =>
+        public virtual ValueTask<ActionResult<TEntity>> PostEntityAsync([FromBody] TEntity entity) =>
             TryCatchOnPost(async () =>
             {
                 return await this.standardService.AddEntityAsync(entity);

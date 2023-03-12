@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using System.Reflection;
 using TheStandardBox.Core.Attributes.Contollers;
 
 namespace TheStandardBox.Data.Controllers.Conventions

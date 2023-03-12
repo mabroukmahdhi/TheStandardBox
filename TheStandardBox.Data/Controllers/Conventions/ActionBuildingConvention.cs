@@ -4,9 +4,9 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using TheStandardBox.Core.Attributes.Contollers;
 using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Controllers;

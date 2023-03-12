@@ -16,10 +16,10 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.3</AssemblyVersion>
-    <FileVersion>1.0.3</FileVersion>
-    <Version>1.0.3</Version>
-    <PackageReleaseNotes>- Library do not add DbContext automatically anymore. Please add your DbContext to your services in the Program.cs file</PackageReleaseNotes>
+    <AssemblyVersion>1.0.4</AssemblyVersion>
+    <FileVersion>1.0.4</FileVersion>
+    <Version>1.0.4</Version>
+    <PackageReleaseNotes>- Using AuthorizeAttibute is now possible</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

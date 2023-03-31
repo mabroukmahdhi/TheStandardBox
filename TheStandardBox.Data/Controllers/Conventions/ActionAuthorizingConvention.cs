@@ -2,9 +2,12 @@
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using TheStandardBox.Core.Attributes.Contollers;
+using Action = TheStandardBox.Core.Models.Controllers.Action;
 
 namespace TheStandardBox.Data.Controllers.Conventions
 {
@@ -23,12 +26,11 @@ namespace TheStandardBox.Data.Controllers.Conventions
                     if (authorizeAttribute == null)
                         return;
 
-                    if (!customNameAttribute.AnonymousActions?.Any(a => a.ToString() == action.ActionName) ?? false)
-                    {
-                        Console.WriteLine(action.ActionName);
-                        action.Filters.Add(new AuthorizeFilter(authorizeAttribute.Policy));
-                    }
+                    /*if (customNameAttribute.AnonymousMethods.HasFlag(Action.None))
+                        return;*/
 
+                    /*AuthorizeFilter authorizeFilter = new AuthorizeFilter(authorizeAttribute.Policy);
+                    action.Filters.Add(authorizeFilter);*/
                 }
             }
             catch (Exception e) { }

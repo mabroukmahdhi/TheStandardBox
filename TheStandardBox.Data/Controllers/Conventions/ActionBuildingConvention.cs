@@ -4,6 +4,7 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -12,6 +13,7 @@ using TheStandardBox.Core.Extensions;
 using TheStandardBox.Core.Models.Controllers;
 using TheStandardBox.Core.Models.Foundations.Joins;
 using TheStandardBox.Core.Models.Foundations.Standards;
+using Action = TheStandardBox.Core.Models.Controllers.Action;
 
 namespace TheStandardBox.Data.Controllers.Conventions
 {
@@ -26,15 +28,12 @@ namespace TheStandardBox.Data.Controllers.Conventions
                     var genericType = action.Controller.ControllerType.GenericTypeArguments[0];
                     var customNameAttribute = genericType.GetCustomAttribute<GeneratedControllerAttribute>();
 
-                    action.ApiExplorer.IsVisible =
-                        customNameAttribute.AllowedActions?.Any(a =>
-                            a.ToString() == action.ActionName) ?? false;
+                    Enum.TryParse(action.ActionName, out Action actionValue);
+                    action.ApiExplorer.IsVisible = !customNameAttribute.DisabledMethods.HasFlag(actionValue);
 
-                    var allowsGetById = customNameAttribute.AllowedActions.Contains(
-                        AllowedAction.GetEntityById);
+                    var allowsGetById = !customNameAttribute.DisabledMethods.HasFlag(Action.GetEntityById);
 
-                    var allowsDeleteById = customNameAttribute.AllowedActions.Contains(
-                       AllowedAction.DeleteEntityById);
+                    var allowsDeleteById = !customNameAttribute.DisabledMethods.HasFlag(Action.DeleteEntityById);
 
                     if ((action.ActionName == "GetEntityByIds" && allowsGetById)
                         || (action.ActionName == "DeleteEntityByIds" && allowsDeleteById))

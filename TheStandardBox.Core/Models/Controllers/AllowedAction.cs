@@ -4,15 +4,19 @@
 // See License.txt in the project root for license information.
 // ---------------------------------------------------------------
 
+using System;
+
 namespace TheStandardBox.Core.Models.Controllers
 {
-    public enum AllowedAction
+    [Flags]
+    public enum Action
     {
-        None,
-        GetAllEntities,
-        GetEntityById,
-        PostEntity,
-        PutEntity,
-        DeleteEntityById
+        None = 0,
+        GetAllEntities = 1,
+        GetEntityById = 2,
+        PostEntity = 3,
+        PutEntity = 4,
+        DeleteEntityById = 5,
+        DONTUSE = 6,
     }
 }
